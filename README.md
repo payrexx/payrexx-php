@@ -4,7 +4,7 @@ payrexx-php
 VERSIONING
 ----------
 
-This client API library uses the API version 1.0 of Payrexx.
+This client API library uses the API version 1.0 of Payrexx. Keep in mind, this is a draft, the official Payrexx API has not yet been released.
 
 
 Getting started with PAYREXX
