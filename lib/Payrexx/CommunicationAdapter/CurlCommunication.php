@@ -1,19 +1,33 @@
 <?php
+/**
+ * This is the cURL communication adapter
+ * @author    Ueli Kramer <ueli.kramer@comvation.com>
+ * @copyright 2014 Payrexx AG
+ * @since     v1.0
+ */
+namespace Payrexx\CommunicationAdapter;
 
-namespace Payrexx\Communication;
-
+// check for php version 5.2 or higher
 if (version_compare(PHP_VERSION, '5.2.0', '<')) {
     throw new \Exception('Your PHP version is not supported. Minimum version should be 5.2.0');
 } else if (!function_exists('json_decode')) {
     throw new \Exception('json_decode function missing. Please install the JSON extension');
 }
 
+// is the curl extension available?
 if (!extension_loaded('curl')) {
     throw new \Exception('Please install the PHP cURL extension');
 }
 
-class CurlCommunication extends \Payrexx\Communication\CommunicationAbstract
+/**
+ * Class CurlCommunication for the communication with cURL
+ * @package Payrexx\CommunicationAdapter
+ */
+class CurlCommunication extends \Payrexx\CommunicationAdapter\AbstractCommunication
 {
+    /**
+     * {@inheritdoc}
+     */
     public function requestApi($apiUrl, $apiSecret, $action = '', $params = array(), $method = 'POST')
     {
         $curlOpts = array(
@@ -61,16 +75,37 @@ class CurlCommunication extends \Payrexx\Communication\CommunicationAbstract
         );
     }
 
+    /**
+     * The wrapper method for curl_exec
+     *
+     * @param resource $curl the cURL resource
+     *
+     * @return mixed
+     */
     protected function curlExec($curl)
     {
         return curl_exec($curl);
     }
 
+    /**
+     * The wrapper method for curl_getinfo
+     *
+     * @param resource $curl the cURL resource
+     *
+     * @return mixed
+     */
     protected function curlInfo($curl)
     {
         return curl_getinfo($curl);
     }
 
+    /**
+     * The wrapper method for curl_errno
+     *
+     * @param resource $curl the cURL resource
+     *
+     * @return mixed
+     */
     protected function curlError($curl)
     {
         return curl_errno($curl);

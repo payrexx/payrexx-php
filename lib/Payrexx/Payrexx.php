@@ -1,30 +1,69 @@
 <?php
-
+/**
+ * The Payrexx client API basic class file
+ * @author    Ueli Kramer <ueli.kramer@comvation.com>
+ * @copyright 2014 Payrexx AG
+ * @since     v1.0
+ */
 namespace Payrexx;
 
+/**
+ * All interactions with the API can be done with an instance of this class.
+ * @package Payrexx
+ */
 class Payrexx
 {
+    /**
+     * @var Communicator The object for the communication wrapper.
+     */
     protected $communicator;
 
-    public function __construct($instance, $apiSecret)
+    /**
+     * Generates an API object to use for the whole interaction with Payrexx.
+     *
+     * @param string $instance             The name of the Payrexx instance
+     * @param string $apiSecret            The API secret which can be found in the Payrexx administration
+     * @param string $communicationHandler The preferred communication handler.
+     *                                     If nothing is defined the Payrexx API will use the cURL communicator.
+     */
+    public function __construct($instance, $apiSecret, $communicationHandler = null)
     {
-        $this->communicator = new \Payrexx\Communicator($instance, $apiSecret);
+        if ($communicationHandler) {
+            $this->communicator = new \Payrexx\Communicator($instance, $apiSecret, $communicationHandler);
+        } else {
+            $this->communicator = new \Payrexx\Communicator($instance, $apiSecret);
+        }
     }
 
+    /**
+     * This method returns the version of the API communicator which is the API version used for this
+     * application.
+     *
+     * @return string The version of the API communicator
+     */
     public function getVersion()
     {
         return $this->communicator->getVersion();
     }
 
+    /**
+     * This magic method is used to call any method available in communication object.
+     *
+     * @param string $method The name of the method called.
+     * @param array  $args   The arguments passed to the method call. There can only be one argument which is the model.
+     *
+     * @return \Payrexx\Models\Response\Base[]|\Payrexx\Models\Response\Base
+     * @throws \Payrexx\PayrexxException The model argument is missing or the method is not implemented
+     */
     public function __call($method, $args)
     {
-        if ($this->communicator->methodAvailable($method)) {
-            if (empty($args)) {
-                throw new \Payrexx\PayrexxException('Argument model is missing');
-            }
-            $model = current($args);
-            return $this->communicator->performApiRequest($method, $model);
+        if (!$this->communicator->methodAvailable($method)) {
+            throw new \Payrexx\PayrexxException('Method ' . $method . ' not implemented');
         }
-        throw new \Payrexx\PayrexxException('Method ' . $method . ' not implemented');
+        if (empty($args)) {
+            throw new \Payrexx\PayrexxException('Argument model is missing');
+        }
+        $model = current($args);
+        return $this->communicator->performApiRequest($method, $model);
     }
 }
