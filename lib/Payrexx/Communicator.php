@@ -14,7 +14,7 @@ namespace Payrexx;
 class Communicator
 {
     const VERSION = 'v1';
-    const API_URL = 'https://%s.payrexx.com/api/%s/';
+    const API_URL = 'https://api.payrexx.com/%s/?instance=%s';
     /**
      * @var array A set of methods which can be used to communicate with the API server.
      */
@@ -23,7 +23,7 @@ class Communicator
         'cancel' => 'DELETE',
 //        'update' => 'PUT',
 //        'getAll' => 'GET',
-//        'getOne' => 'GET',
+        'getOne' => 'GET',
     );
     /**
      * @var string The API url with instance name and version in it.
@@ -50,7 +50,7 @@ class Communicator
      */
     public function __construct($instance, $apiSecret, $communicationHandler = '\Payrexx\CommunicationAdapter\CurlCommunication')
     {
-        $this->apiUrl = sprintf(self::API_URL, $instance, self::VERSION);
+        $this->apiUrl = sprintf(self::API_URL, self::VERSION, $instance);
         $this->apiSecret = $apiSecret;
 
         if (!class_exists($communicationHandler)) {
