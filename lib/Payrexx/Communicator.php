@@ -82,9 +82,9 @@ class Communicator
     public function performApiRequest($method, \Payrexx\Models\Request\Base $model)
     {
         $params = $model->toArray($method);
-        $params['instance'] = $this->instance;
         $params['ApiSignature'] =
             base64_encode(hash_hmac('sha256', http_build_query($params, null, '&'), $this->apiSecret, true));
+        $params['instance'] = $this->instance;
         
         $response = $this->communicationHandler->requestApi(
             sprintf(self::API_URL, self::VERSION, $params['model'], $method),
