@@ -14,7 +14,7 @@ namespace Payrexx;
 class Communicator
 {
     const VERSION = 'v1';
-    const API_URL = 'https://api.payrexx.com/%s/?instance=%s';
+    const API_URL = 'https://api.payrexx.com/%s/%s/%s/';
     /**
      * @var array A set of methods which can be used to communicate with the API server.
      */
@@ -26,9 +26,9 @@ class Communicator
         'getOne' => 'GET',
     );
     /**
-     * @var string The API url with instance name and version in it.
+     * @var string The Payrexx instance name.
      */
-    protected $apiUrl;
+    protected $instance;
     /**
      * @var string The API secret which is used to generate a signature.
      */
@@ -50,7 +50,7 @@ class Communicator
      */
     public function __construct($instance, $apiSecret, $communicationHandler = '\Payrexx\CommunicationAdapter\CurlCommunication')
     {
-        $this->apiUrl = sprintf(self::API_URL, self::VERSION, $instance);
+        $this->instance = $instance;
         $this->apiSecret = $apiSecret;
 
         if (!class_exists($communicationHandler)) {
@@ -81,11 +81,14 @@ class Communicator
      */
     public function performApiRequest($method, \Payrexx\Models\Request\Base $model)
     {
+        $params = $model->toArray($method);
+        $params['instance'] = $this->instance;
+        $params['ApiSignature'] =
+            base64_encode(hash_hmac('sha256', http_build_query($params, null, '&'), $this->apiSecret, true));
+        
         $response = $this->communicationHandler->requestApi(
-            $this->apiUrl,
-            $this->apiSecret,
-            $method,
-            $model->toArray($method),
+            sprintf(self::API_URL, self::VERSION, $params['model'], $method),
+            $params,
             $this->getHttpMethod($method)
         );
 

@@ -28,7 +28,7 @@ class CurlCommunication extends \Payrexx\CommunicationAdapter\AbstractCommunicat
     /**
      * {@inheritdoc}
      */
-    public function requestApi($apiUrl, $apiSecret, $action = '', $params = array(), $method = 'POST')
+    public function requestApi($apiUrl, $params = array(), $method = 'POST')
     {
         $curlOpts = array(
             CURLOPT_URL => $apiUrl,
@@ -37,9 +37,6 @@ class CurlCommunication extends \Payrexx\CommunicationAdapter\AbstractCommunicat
             CURLOPT_USERAGENT => 'payrexx-php/1.0.0',
             CURLOPT_SSL_VERIFYPEER => true
         );
-        $params['ApiAction'] = $action;
-        $params['ApiSignature'] =
-            base64_encode(hash_hmac('sha256', http_build_query($params, null, '&'), $apiSecret, true));
         $paramString = http_build_query($params, null, '&');
         if ($method == 'GET') {
             if (!empty($params)) {
@@ -48,6 +45,8 @@ class CurlCommunication extends \Payrexx\CommunicationAdapter\AbstractCommunicat
             }
         } else {
             $curlOpts[CURLOPT_POSTFIELDS] = $paramString;
+            $curlOpts[CURLOPT_URL] .= strpos($curlOpts[CURLOPT_URL], '?') === false ? '?' : '&';
+            $curlOpts[CURLOPT_URL] .= $params['instance'];
         }
 
         $curl = curl_init();

@@ -17,12 +17,10 @@ abstract class AbstractCommunication
      * Perform an API request
      *
      * @param string $apiUrl
-     * @param string $apiSecret
-     * @param string $action
      * @param array  $params
      * @param string $method
      *
      * @return mixed
      */
-    abstract public function requestApi($apiUrl, $apiSecret, $action = '', $params = array(), $method = 'POST');
+    abstract public function requestApi($apiUrl, $params = array(), $method = 'POST');
 }
