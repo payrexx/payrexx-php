@@ -90,7 +90,7 @@ class Communicator
         );
 
         $convertedResponse = array();
-        if (!is_array($response['body']['data'])) {
+        if (!isset($response['body']['data']) || !is_array($response['body']['data'])) {
             throw new \Payrexx\PayrexxException('Payrexx API Error Status: ' . $response['header']['status']);
         }
 
