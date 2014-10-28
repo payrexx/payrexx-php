@@ -93,11 +93,11 @@ class Communicator
         );
 
         $convertedResponse = array();
-        if (!isset($response['body']['data']) || !is_array($response['body']['data'])) {
-            throw new \Payrexx\PayrexxException('Payrexx API Error Status: ' . $response['header']['status']);
+        if (!isset($response['data']) || !is_array($response['data'])) {
+            throw new \Payrexx\PayrexxException($response['message']);
         }
 
-        foreach ($response['body']['data'] as $object) {
+        foreach ($response['data'] as $object) {
             $responseModel = $model->getResponseModel();
             $convertedResponse[] = $responseModel->fromArray($object);
         }

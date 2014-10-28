@@ -59,19 +59,11 @@ class CurlCommunication extends \Payrexx\CommunicationAdapter\AbstractCommunicat
         }
         curl_close($curl);
 
-        if ($responseInfo['content_type'] == 'application/json') {
-            $responseBody = json_decode($responseBody, true);
-        } else if ($responseInfo['content_type'] == 'text/csv' && !isset($responseBody['error'])) {
+        if ($responseInfo['content_type'] != 'application/json') {
             return $responseBody;
         }
 
-        return array(
-            'header' => array(
-                'status' => $responseInfo['http_code'],
-                'reason' => null,
-            ),
-            'body' => $responseBody,
-        );
+        return json_decode($responseBody, true);
     }
 
     /**
