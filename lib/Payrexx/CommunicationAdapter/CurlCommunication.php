@@ -46,7 +46,7 @@ class CurlCommunication extends \Payrexx\CommunicationAdapter\AbstractCommunicat
         } else {
             $curlOpts[CURLOPT_POSTFIELDS] = $paramString;
             $curlOpts[CURLOPT_URL] .= strpos($curlOpts[CURLOPT_URL], '?') === false ? '?' : '&';
-            $curlOpts[CURLOPT_URL] .= $params['instance'];
+            $curlOpts[CURLOPT_URL] .= 'instance=' . $params['instance'];
         }
 
         $curl = curl_init();
