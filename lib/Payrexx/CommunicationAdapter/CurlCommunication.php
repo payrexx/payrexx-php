@@ -55,7 +55,7 @@ class CurlCommunication extends \Payrexx\CommunicationAdapter\AbstractCommunicat
         $responseInfo = $this->curlInfo($curl);
 
         if ($responseBody === false) {
-            $responseBody = array('error' => $this->curlError($curl));
+            $responseBody = array('status' => 'error', 'message' => $this->curlError($curl));
         }
         curl_close($curl);
 
