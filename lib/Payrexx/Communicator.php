@@ -14,7 +14,7 @@ namespace Payrexx;
 class Communicator
 {
     const VERSION = 'v1';
-    const API_URL = 'https://api.payrexx.com/%s/%s/%s/';
+    const API_URL = 'https://api.payrexx.com/%s/%s/%d/';
     /**
      * @var array A set of methods which can be used to communicate with the API server.
      */
@@ -86,8 +86,9 @@ class Communicator
             base64_encode(hash_hmac('sha256', http_build_query($params, null, '&'), $this->apiSecret, true));
         $params['instance'] = $this->instance;
         
+        $id = isset($params['id']) ? $params['id'] : 0;
         $response = $this->communicationHandler->requestApi(
-            sprintf(self::API_URL, self::VERSION, $params['model'], $method),
+            sprintf(self::API_URL, self::VERSION, $params['model'], $id),
             $params,
             $this->getHttpMethod($method)
         );
