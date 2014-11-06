@@ -32,31 +32,32 @@ Please include this library via Composer in your composer.json and execute **com
     $apiSecret: This is your API secret which you can find in your instance's administration.
 
     ```php
-        $payrexx = new \Payrexx\Payrexx($instance, $apiSecret);
+    $payrexx = new \Payrexx\Payrexx($instance, $apiSecret);
     ```
 2.  Instantiate the model class with the parameters described in the API-reference:
+
     ```php
-        $subscription = new \Payrexx\Models\Request\Subscription();
-        $subscription->setId(1);
+    $subscription = new \Payrexx\Models\Request\Subscription();
+    $subscription->setId(1);
     ```
 3.  Use your desired function:
 
     ```php
-        $response  = $payrexx->cancel($subscription);
-        $subscriptionId = $response->getId();
+    $response  = $payrexx->cancel($subscription);
+    $subscriptionId = $response->getId();
     ```
 
     It recommend to wrap it into a "try/catch" to handle exceptions like this:
     ```php
-        try{
-            $response  = $payrexx->cancel($subscription);
-            $subscriptionId = $response->getId();
-        }catch(\Payrexx\PayrexxException $e){
-            //Do something with the error informations below
-            $e->getResponseCode();
-            $e->getStatusCode();
-            $e->getErrorMessage();
-        }
+    try{
+        $response  = $payrexx->cancel($subscription);
+        $subscriptionId = $response->getId();
+    }catch(\Payrexx\PayrexxException $e){
+        //Do something with the error informations below
+        $e->getResponseCode();
+        $e->getStatusCode();
+        $e->getErrorMessage();
+    }
     ```
 
 
