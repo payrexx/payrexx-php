@@ -19,7 +19,7 @@ class Communicator
      * @var array A set of methods which can be used to communicate with the API server.
      */
     protected static $methods = array(
-//        'create' => 'POST',
+        'create' => 'POST',
         'cancel' => 'DELETE',
 //        'update' => 'PUT',
 //        'getAll' => 'GET',
