@@ -64,4 +64,4 @@ Please include this library via Composer in your composer.json and execute **com
 Documentation
 --------------
 
-For further information, please refer to the official PHP library reference on https://support.payrexx.com
+For further information, please refer to the official REST API reference: http://developers.payrexx.com/en/REST-API/Doc
