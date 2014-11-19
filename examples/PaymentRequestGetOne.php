@@ -18,10 +18,10 @@ $secret = 'YOUR_SECRET';
 
 $payrexx = new \Payrexx\Payrexx($instanceName, $secret);
 
-$subscription = new \Payrexx\Models\Request\Subscription();
-$subscription->setId(1);
+$paymentRequest = new \Payrexx\Models\Request\PaymentRequest();
+$paymentRequest->setId(1);
 try {
-    $response = $payrexx->cancel($subscription);
+    $response = $payrexx->getOne($paymentRequest);
     var_dump($response);
 } catch (\Payrexx\PayrexxException $e) {
     print $e->getMessage();

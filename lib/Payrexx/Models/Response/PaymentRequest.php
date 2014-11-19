@@ -14,6 +14,40 @@ namespace Payrexx\Models\Response;
 class PaymentRequest extends \Payrexx\Models\Response\Base
 {
     protected $hash;
+    protected $referenceId;
+    protected $link;
+
+    /**
+     * @return mixed
+     */
+    public function getLink()
+    {
+        return $this->link;
+    }
+
+    /**
+     * @param mixed $link
+     */
+    public function setLink($link)
+    {
+        $this->link = $link;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getReferenceId()
+    {
+        return $this->referenceId;
+    }
+
+    /**
+     * @param mixed $referenceId
+     */
+    public function setReferenceId($referenceId)
+    {
+        $this->referenceId = $referenceId;
+    }
 
     /**
      * @return mixed

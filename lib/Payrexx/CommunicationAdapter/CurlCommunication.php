@@ -37,7 +37,7 @@ class CurlCommunication extends \Payrexx\CommunicationAdapter\AbstractCommunicat
             CURLOPT_USERAGENT => 'payrexx-php/1.0.0',
             CURLOPT_SSL_VERIFYPEER => true
         );
-        $paramString = http_build_query($params, null, '&');
+        $paramString = http_build_query($params, null, '&', PHP_QUERY_RFC3986);
         if ($method == 'GET') {
             if (!empty($params)) {
                 $curlOpts[CURLOPT_URL] .= strpos($curlOpts[CURLOPT_URL], '?') === false ? '?' : '&';

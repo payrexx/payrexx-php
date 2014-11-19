@@ -18,10 +18,13 @@ $secret = 'YOUR_SECRET';
 
 $payrexx = new \Payrexx\Payrexx($instanceName, $secret);
 
-$subscription = new \Payrexx\Models\Request\Subscription();
-$subscription->setId(1);
+$form = new \Payrexx\Models\Request\Form();
+$form->setTitle('Form title');
+$form->setDescription('Form description');
+$form->setPspId(1);
+$form->addField('contactEmail', '', true);
 try {
-    $response = $payrexx->cancel($subscription);
+    $response = $payrexx->create($form);
     var_dump($response);
 } catch (\Payrexx\PayrexxException $e) {
     print $e->getMessage();

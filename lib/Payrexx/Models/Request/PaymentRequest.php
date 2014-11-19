@@ -26,6 +26,7 @@ class PaymentRequest extends \Payrexx\Models\Request\Base
     protected $formId;
 
     protected $email;
+    protected $contactTitle;
     protected $contactFirstName;
     protected $contactLastName;
     protected $contactCompany;
@@ -55,6 +56,7 @@ class PaymentRequest extends \Payrexx\Models\Request\Base
             'referenceId' => $this->getReferenceId(),
             'formId' => $this->getFormId(),
             'contactEmail' => $this->getEmail(),
+            'contactTitle' => $this->getContactTitle(),
             'contactFirstName' => $this->getContactFirstName(),
             'contactLastName' => $this->getContactLastName(),
             'contactCompany' => $this->getContactCompany(),
@@ -381,6 +383,21 @@ class PaymentRequest extends \Payrexx\Models\Request\Base
     {
         $this->title = $title;
     }
-    
+
+    /**
+     * @return mixed
+     */
+    public function getContactTitle()
+    {
+        return $this->contactTitle;
+    }
+
+    /**
+     * @param mixed $contactTitle
+     */
+    public function setContactTitle($contactTitle)
+    {
+        $this->contactTitle = $contactTitle;
+    }    
     
 }
