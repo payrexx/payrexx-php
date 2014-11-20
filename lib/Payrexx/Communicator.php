@@ -104,7 +104,7 @@ class Communicator
         }
         if (
             strpos($method, 'One') !== false ||
-            strpos($method, 'create' !== false)
+            strpos($method, 'create') !== false
         ) {
             $convertedResponse = current($convertedResponse);
         }
