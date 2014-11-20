@@ -11,46 +11,14 @@ namespace Payrexx\Models\Response;
  * Class PaymentRequest
  * @package Payrexx\Models\Response
  */
-class PaymentRequest extends \Payrexx\Models\Response\Base
+class PaymentRequest extends \Payrexx\Models\Request\PaymentRequest
 {
-    protected $hash;
-    protected $referenceId;
-    protected $link;
+    protected $hash = '';
+    protected $referenceId = '';
+    protected $link = '';
 
     /**
-     * @return mixed
-     */
-    public function getLink()
-    {
-        return $this->link;
-    }
-
-    /**
-     * @param mixed $link
-     */
-    public function setLink($link)
-    {
-        $this->link = $link;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getReferenceId()
-    {
-        return $this->referenceId;
-    }
-
-    /**
-     * @param mixed $referenceId
-     */
-    public function setReferenceId($referenceId)
-    {
-        $this->referenceId = $referenceId;
-    }
-
-    /**
-     * @return mixed
+     * @return string
      */
     public function getHash()
     {
@@ -58,10 +26,42 @@ class PaymentRequest extends \Payrexx\Models\Response\Base
     }
 
     /**
-     * @param mixed $hash
+     * @param string $hash
      */
     public function setHash($hash)
     {
         $this->hash = $hash;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLink()
+    {
+        return $this->link;
+    }
+
+    /**
+     * @param string $link
+     */
+    public function setLink($link)
+    {
+        $this->link = $link;
+    }
+
+    /**
+     * @return string
+     */
+    public function getReferenceId()
+    {
+        return $this->referenceId;
+    }
+
+    /**
+     * @param string $referenceId
+     */
+    public function setReferenceId($referenceId)
+    {
+        $this->referenceId = $referenceId;
     }
 }

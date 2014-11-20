@@ -23,6 +23,9 @@ $form->setTitle('Form title');
 $form->setDescription('Form description');
 $form->setPspId(1);
 $form->addField('contactEmail', '', true);
+$form->setAmount(200);
+$form->setCurrency(\Payrexx\Models\Request\Form::CURRENCY_EUR);
+
 try {
     $response = $payrexx->create($form);
     var_dump($response);

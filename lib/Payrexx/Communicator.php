@@ -21,8 +21,8 @@ class Communicator
     protected static $methods = array(
         'create' => 'POST',
         'cancel' => 'DELETE',
-//        'update' => 'PUT',
-//        'getAll' => 'GET',
+        'update' => 'PUT',
+        'getAll' => 'GET',
         'getOne' => 'GET',
     );
     /**
@@ -73,13 +73,13 @@ class Communicator
      * Perform a simple API request by method name and Request model.
      *
      * @param string                       $method The name of the API method to call
-     * @param \Payrexx\Models\Request\Base $model  The model which has the same functionality like a filter.
+     * @param \Payrexx\Models\Base $model  The model which has the same functionality like a filter.
      *
-     * @return \Payrexx\Models\Response\Base[]|\Payrexx\Models\Response\Base An array of models or just one model which
+     * @return \Payrexx\Models\Base[]|\Payrexx\Models\Base An array of models or just one model which
      *                                                                       is the result of the API call
      * @throws \Payrexx\PayrexxException An error occurred during the Payrexx Request
      */
-    public function performApiRequest($method, \Payrexx\Models\Request\Base $model)
+    public function performApiRequest($method, \Payrexx\Models\Base $model)
     {
         $params = $model->toArray($method);
         $params['ApiSignature'] =

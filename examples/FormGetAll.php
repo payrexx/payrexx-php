@@ -19,9 +19,8 @@ $secret = 'YOUR_SECRET';
 $payrexx = new \Payrexx\Payrexx($instanceName, $secret);
 
 $form = new \Payrexx\Models\Request\Form();
-$form->setId(1);
 try {
-    $response = $payrexx->getOne($form);
+    $response = $payrexx->getAll($form);
     var_dump($response);
 } catch (\Payrexx\PayrexxException $e) {
     print $e->getMessage();

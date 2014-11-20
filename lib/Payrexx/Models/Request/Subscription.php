@@ -11,19 +11,8 @@ namespace Payrexx\Models\Request;
  * Class Subscription
  * @package Payrexx\Models\Request
  */
-class Subscription extends \Payrexx\Models\Request\Base
+class Subscription extends \Payrexx\Models\Base
 {
-    /**
-     * {@inheritdoc}
-     */
-    public function toArray($method)
-    {
-        return array(
-            'model' => 'Subscription',
-            'id' => $this->getId(),
-        );
-    }
-
     /**
      * {@inheritdoc}
      */

@@ -11,92 +11,23 @@ namespace Payrexx\Models\Response;
  * Class Form
  * @package Payrexx\Models\Response
  */
-class Form extends \Payrexx\Models\Response\Base
+class Form extends \Payrexx\Models\Request\Form
 {
-    protected $name;
-    protected $title;
-    protected $billingNumber;
-    protected $billingAmount;
-    protected $billingCurrency;
+    protected $createdDate = 0;
 
     /**
-     * @return string
+     * @return int
      */
-    public function getTitle()
+    public function getCreatedDate()
     {
-        return $this->title;
+        return $this->createdDate;
     }
 
     /**
-     * @param string $title
+     * @param int $createdDate
      */
-    public function setTitle($title)
+    public function setCreatedDate($createdDate)
     {
-        $this->title = $title;
+        $this->createdDate = $createdDate;
     }
-
-    /**
-     * @return string
-     */
-    public function getBillingAmount()
-    {
-        return $this->billingAmount;
-    }
-
-    /**
-     * @param string $billingAmount
-     */
-    public function setBillingAmount($billingAmount)
-    {
-        $this->billingAmount = $billingAmount;
-    }
-
-    /**
-     * @return string
-     */
-    public function getBillingCurrency()
-    {
-        return $this->billingCurrency;
-    }
-
-    /**
-     * @param string $billingCurrency
-     */
-    public function setBillingCurrency($billingCurrency)
-    {
-        $this->billingCurrency = $billingCurrency;
-    }
-
-    /**
-     * @return string
-     */
-    public function getBillingNumber()
-    {
-        return $this->billingNumber;
-    }
-
-    /**
-     * @param string $billingNumber
-     */
-    public function setBillingNumber($billingNumber)
-    {
-        $this->billingNumber = $billingNumber;
-    }
-
-    /**
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    /**
-     * @param string $name
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-    }
-
 }
