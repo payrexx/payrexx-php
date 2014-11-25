@@ -35,7 +35,8 @@ class CurlCommunication extends \Payrexx\CommunicationAdapter\AbstractCommunicat
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_CUSTOMREQUEST => $method,
             CURLOPT_USERAGENT => 'payrexx-php/1.0.0',
-            CURLOPT_SSL_VERIFYPEER => true
+            CURLOPT_SSL_VERIFYPEER => true,
+            CURLOPT_CAINFO => dirname(__DIR__) . '/certs/ca.pem',
         );
         $paramString = http_build_query($params, null, '&', PHP_QUERY_RFC3986);
         if ($method == 'GET') {
