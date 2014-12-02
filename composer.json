@@ -6,7 +6,7 @@
         "payment",
         "gateway"
     ],
-    "license": "",
+    "license": "MIT",
     "homepage": "https://www.payrexx.com",
     "authors": [
         {
@@ -18,5 +18,8 @@
         "psr-0": {
             "Payrexx": "lib/"
         }
+    },
+    "require": {
+        "php": ">=5.4"
     }
 }
