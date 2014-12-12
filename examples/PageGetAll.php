@@ -18,12 +18,9 @@ $secret = 'YOUR_SECRET';
 
 $payrexx = new \Payrexx\Payrexx($instanceName, $secret);
 
-$paymentRequest = new \Payrexx\Models\Request\PaymentRequest();
-$paymentRequest->setTitle('My payment request #001');
-$paymentRequest->setReferenceId('Order number of my online shop application');
-$paymentRequest->setFormId(1);
+$page = new \Payrexx\Models\Request\Page();
 try {
-    $response = $payrexx->create($paymentRequest);
+    $response = $payrexx->getAll($page);
     var_dump($response);
 } catch (\Payrexx\PayrexxException $e) {
     print $e->getMessage();

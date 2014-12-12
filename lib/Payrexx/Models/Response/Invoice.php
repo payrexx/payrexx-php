@@ -1,6 +1,6 @@
 <?php
 /**
- * The payment request response model
+ * The invoice response model
  * @author    Ueli Kramer <ueli.kramer@comvation.com>
  * @copyright 2014 Payrexx AG
  * @since     v1.0
@@ -8,14 +8,14 @@
 namespace Payrexx\Models\Response;
 
 /**
- * Class PaymentRequest
+ * Class Invoice
  * @package Payrexx\Models\Response
  */
-class PaymentRequest extends \Payrexx\Models\Request\PaymentRequest
+class Invoice extends \Payrexx\Models\Request\Invoice
 {
     protected $hash = '';
-    protected $referenceId = '';
     protected $link = '';
+    protected $createdAt = 0;
 
     /**
      * @return string
@@ -50,18 +50,26 @@ class PaymentRequest extends \Payrexx\Models\Request\PaymentRequest
     }
 
     /**
-     * @return string
+     * @return int
      */
-    public function getReferenceId()
+    public function getCreatedAt()
     {
-        return $this->referenceId;
+        return $this->createdAt;
     }
 
     /**
-     * @param string $referenceId
+     * @param int $createdAt
      */
-    public function setReferenceId($referenceId)
+    public function setCreatedAt($createdAt)
     {
-        $this->referenceId = $referenceId;
+        $this->createdAt = $createdAt;
+    }
+
+    /**
+     * @param array $fields
+     */
+    public function setFields($fields)
+    {
+        $this->fields = $fields;
     }
 }

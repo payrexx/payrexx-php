@@ -4,7 +4,7 @@ payrexx-php
 VERSIONING
 ----------
 
-This client API library uses the API version 1.0 of Payrexx. Keep in mind, this is a draft, the official Payrexx API has not yet been released.
+This client API library uses the API version 1.0.0 of Payrexx. If you got troubles, make sure you are using the correct library version!
 
 
 Getting started with PAYREXX
@@ -13,19 +13,27 @@ If you don't already use Composer, then you probably should read the installatio
 
 Please include this library via Composer in your composer.json and execute **composer update** to refresh the autoload.php.
 
+For the latest library version you can use the following content of composer.json:
+
 ```json
 {
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "https://github.com/payrexx/payrexx-php"
-        }
-    ],
     "require": {
         "payrexx/payrexx": "dev-master"
     }
 }
 ```
+
+
+For the Version 1.0.0 you can use the following content of composer.json:
+
+```json
+{
+    "require": {
+        "payrexx/payrexx": "1.0.0"
+    }
+}
+```
+
 
 1.  Instantiate the payrexx class with the following parameters:
     $instance: Your Payrexx instance name. (e.g. instance name 'demo' you request your Payrexx instance https://demo.payrexx.com
@@ -64,4 +72,4 @@ Please include this library via Composer in your composer.json and execute **com
 Documentation
 --------------
 
-For further information, please refer to the official REST API reference: http://developers.payrexx.com/en/REST-API/Doc
+For further information, please refer to the official REST API reference: http://developers.payrexx.com/en/REST-API
