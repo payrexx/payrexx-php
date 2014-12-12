@@ -21,6 +21,7 @@ class Communicator
     protected static $methods = array(
         'create' => 'POST',
         'cancel' => 'DELETE',
+        'delete' => 'DELETE',
         'update' => 'PUT',
         'getAll' => 'GET',
         'getOne' => 'GET',
