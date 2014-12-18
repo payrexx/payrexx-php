@@ -9,7 +9,7 @@ namespace Payrexx\Models\Request;
 
 /**
  * Class Invoice
- * @package Payrexx\Models\Link
+ * @package Payrexx\Models\Request
  */
 class Invoice extends \Payrexx\Models\Base
 {

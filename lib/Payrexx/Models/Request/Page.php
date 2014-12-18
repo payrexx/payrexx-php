@@ -9,7 +9,7 @@ namespace Payrexx\Models\Request;
 
 /**
  * Class Page
- * @package Payrexx\Models\Page
+ * @package Payrexx\Models\Request
  */
 class Page extends \Payrexx\Models\Base
 {
