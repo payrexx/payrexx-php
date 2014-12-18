@@ -14,32 +14,12 @@ namespace Payrexx\Models\Response;
 class Subscription extends \Payrexx\Models\Request\Subscription
 {
     protected $status = '';
-    protected $pspId = 0;
     protected $pspSubscriptionId = '';
     protected $start = '';
     protected $end = '';
     protected $cancelledDate = 0;
     protected $firstCancelDate = 0;
-    protected $paymentInterval = '';
-    protected $period = '';
-    protected $cancellationInterval = '';
     protected $nextPayDate = 0;
-
-    /**
-     * @return string
-     */
-    public function getCancellationInterval()
-    {
-        return $this->cancellationInterval;
-    }
-
-    /**
-     * @param string $cancellationInterval
-     */
-    public function setCancellationInterval($cancellationInterval)
-    {
-        $this->cancellationInterval = $cancellationInterval;
-    }
 
     /**
      * @return int
@@ -104,55 +84,7 @@ class Subscription extends \Payrexx\Models\Request\Subscription
     {
         $this->nextPayDate = $nextPayDate;
     }
-
-    /**
-     * @return string
-     */
-    public function getPaymentInterval()
-    {
-        return $this->paymentInterval;
-    }
-
-    /**
-     * @param string $paymentInterval
-     */
-    public function setPaymentInterval($paymentInterval)
-    {
-        $this->paymentInterval = $paymentInterval;
-    }
-
-    /**
-     * @return string
-     */
-    public function getPeriod()
-    {
-        return $this->period;
-    }
-
-    /**
-     * @param string $period
-     */
-    public function setPeriod($period)
-    {
-        $this->period = $period;
-    }
-
-    /**
-     * @return int
-     */
-    public function getPspId()
-    {
-        return $this->pspId;
-    }
-
-    /**
-     * @param int $pspId
-     */
-    public function setPspId($pspId)
-    {
-        $this->pspId = $pspId;
-    }
-
+    
     /**
      * @return string
      */
