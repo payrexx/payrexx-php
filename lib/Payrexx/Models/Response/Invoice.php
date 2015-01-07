@@ -15,6 +15,7 @@ class Invoice extends \Payrexx\Models\Request\Invoice
 {
     protected $hash = '';
     protected $link = '';
+    protected $status;
     protected $createdAt = 0;
 
     /**
@@ -71,5 +72,21 @@ class Invoice extends \Payrexx\Models\Request\Invoice
     public function setFields($fields)
     {
         $this->fields = $fields;
+    }
+
+    /**
+     * @return string
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    /**
+     * @param string $status
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
     }
 }
