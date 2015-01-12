@@ -17,7 +17,7 @@ class Subscription extends \Payrexx\Models\Base
     const CURRENCY_EUR = 'EUR';
     const CURRENCY_USD = 'USD';
     const CURRENCY_GBP = 'GBP';
-    
+
     // all fields mandatory
     protected $userId = 0;
     protected $psp = 0;
@@ -29,6 +29,9 @@ class Subscription extends \Payrexx\Models\Base
     protected $paymentInterval = '';
     protected $period = '';
     protected $cancellationInterval = '';
+
+    // optional
+    protected $referenceId = '';
 
     /**
      * @return int
@@ -157,7 +160,23 @@ class Subscription extends \Payrexx\Models\Base
     {
         $this->cancellationInterval = $cancellationInterval;
     }
-    
+
+    /**
+     * @return string
+     */
+    public function getReferenceId()
+    {
+        return $this->referenceId;
+    }
+
+    /**
+     * @param string $referenceId
+     */
+    public function setReferenceId($referenceId)
+    {
+        $this->referenceId = $referenceId;
+    }
+
     /**
      * {@inheritdoc}
      */
