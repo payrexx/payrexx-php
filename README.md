@@ -6,6 +6,11 @@ VERSIONING
 
 This client API library uses the API version 1.0.0 of Payrexx. If you got troubles, make sure you are using the correct library version!
 
+Requirements
+------------
+We recommend to use PHP version >= 5.4
+
+The following php modules are required: cURL
 
 Getting started with PAYREXX
 ----------------------------
@@ -62,9 +67,8 @@ For the Version 1.0.0 you can use the following content of composer.json:
         $subscriptionId = $response->getId();
     }catch(\Payrexx\PayrexxException $e){
         //Do something with the error informations below
-        $e->getResponseCode();
-        $e->getStatusCode();
-        $e->getErrorMessage();
+        $e->getCode();
+        $e->getMessage();
     }
     ```
 

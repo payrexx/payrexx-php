@@ -38,7 +38,16 @@ class CurlCommunication extends \Payrexx\CommunicationAdapter\AbstractCommunicat
             CURLOPT_SSL_VERIFYPEER => true,
             CURLOPT_CAINFO => dirname(__DIR__) . '/certs/ca.pem',
         );
-        $paramString = http_build_query($params, null, '&', PHP_QUERY_RFC3986);
+        if (defined(PHP_QUERY_RFC3986)) {
+            $paramString = http_build_query($params, null, '&', PHP_QUERY_RFC3986);
+        } else {
+            // legacy, because the $enc_type has been implemented with PHP 5.4
+            $paramString = str_replace(
+                array('+', '%7E'),
+                array('%20', '~'),
+                http_build_query($params, null, '&')
+            );
+        }
         if ($method == 'GET') {
             if (!empty($params)) {
                 $curlOpts[CURLOPT_URL] .= strpos($curlOpts[CURLOPT_URL], '?') === false ? '?' : '&';
