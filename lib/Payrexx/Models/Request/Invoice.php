@@ -29,6 +29,9 @@ class Invoice extends \Payrexx\Models\Base
     protected $purpose = '';
     protected $amount = 0;
     protected $currency = '';
+    
+    protected $successRedirectUrl;
+    protected $failedRedirectUrl;
 
     protected $subscriptionState = false;
     protected $subscriptionInterval = '';
@@ -188,6 +191,42 @@ class Invoice extends \Payrexx\Models\Base
     public function setCurrency($currency)
     {
         $this->currency = $currency;
+    }
+    
+    /**
+     * @return string
+     */
+    public function getSuccessRedirectUrl()
+    {
+        return $this->successRedirectUrl;
+    }
+
+    /**
+     * set the URL to redirect to after a successful payment
+     * 
+     * @param string $successRedirectUrl
+     */
+    public function setSuccessRedirectUrl($successRedirectUrl)
+    {
+        $this->successRedirectUrl = $successRedirectUrl;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFailedRedirectUrl()
+    {
+        return $this->failedRedirectUrl;
+    }
+
+    /**
+     * set the url to redirect to after a failed payment
+     * 
+     * @param string $failedRedirectUrl
+     */
+    public function setFailedRedirectUrl($failedRedirectUrl)
+    {
+        $this->failedRedirectUrl = $failedRedirectUrl;
     }
 
     /**
