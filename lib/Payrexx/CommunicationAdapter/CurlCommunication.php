@@ -69,11 +69,14 @@ class CurlCommunication extends \Payrexx\CommunicationAdapter\AbstractCommunicat
         }
         curl_close($curl);
 
-        if ($responseInfo['content_type'] != 'application/json') {
-            return $responseBody;
+        if ($responseInfo['content_type'] === 'application/json') {
+            $responseBody = json_decode($responseBody, true);
         }
 
-        return json_decode($responseBody, true);
+        return array(
+            'info' => $responseInfo,
+            'body' => $responseBody
+        );
     }
 
     /**

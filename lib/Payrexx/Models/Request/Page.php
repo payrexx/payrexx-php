@@ -288,7 +288,7 @@ class Page extends \Payrexx\Models\Base
      * @param string $type the type of field
      *                     can be: title, forename, surname, company, street, postcode,
      *                     place, phone, country, email, date_of_birth, terms, custom_field_1,
-     *                     custom_field_2, custom_field_3
+     *                     custom_field_2, custom_field_3, custom_field_4, custom_field_5
      * @param boolean $mandatory TRUE if the field has to be filled out for payment
      * @param string $defaultValue the default value. This value will be editable for the client.
      * @param string $name the name of the field, (this is only available for the fields custom_field_\d

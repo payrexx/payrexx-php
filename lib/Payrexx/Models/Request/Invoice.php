@@ -29,7 +29,7 @@ class Invoice extends \Payrexx\Models\Base
     protected $purpose = '';
     protected $amount = 0;
     protected $currency = '';
-    
+
     protected $successRedirectUrl;
     protected $failedRedirectUrl;
 
@@ -192,7 +192,7 @@ class Invoice extends \Payrexx\Models\Base
     {
         $this->currency = $currency;
     }
-    
+
     /**
      * @return string
      */
@@ -202,8 +202,8 @@ class Invoice extends \Payrexx\Models\Base
     }
 
     /**
-     * set the URL to redirect to after a successful payment
-     * 
+     * Set the URL to redirect to after a successful payment
+     *
      * @param string $successRedirectUrl
      */
     public function setSuccessRedirectUrl($successRedirectUrl)
@@ -220,8 +220,8 @@ class Invoice extends \Payrexx\Models\Base
     }
 
     /**
-     * set the url to redirect to after a failed payment
-     * 
+     * Set the url to redirect to after a failed payment
+     *
      * @param string $failedRedirectUrl
      */
     public function setFailedRedirectUrl($failedRedirectUrl)
@@ -347,7 +347,7 @@ class Invoice extends \Payrexx\Models\Base
      * @param string $type the type of field
      *                     can be: title, forename, surname, company, street, postcode,
      *                     place, phone, country, email, date_of_birth, terms, custom_field_1,
-     *                     custom_field_2, custom_field_3
+     *                     custom_field_2, custom_field_3, custom_field_4, custom_field_5
      * @param boolean $mandatory TRUE if the field has to be filled out for payment
      * @param string $defaultValue the default value. This value will be editable for the client.
      *                             for the title of a customer you can set mister / miss

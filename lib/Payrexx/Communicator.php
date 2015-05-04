@@ -95,14 +95,14 @@ class Communicator
         );
 
         $convertedResponse = array();
-        if (!isset($response['data']) || !is_array($response['data'])) {
-            if (!isset($response['message'])) {
-                throw new \Payrexx\PayrexxException('Payrexx PHP: Configuration is wrong! Check instance name and API secret');
+        if (!isset($response['body']['data']) || !is_array($response['body']['data'])) {
+            if (!isset($response['body']['message'])) {
+                throw new \Payrexx\PayrexxException('Payrexx PHP: Configuration is wrong! Check instance name and API secret', $response['info']['http_code']);
             }
-            throw new \Payrexx\PayrexxException($response['message']);
+            throw new \Payrexx\PayrexxException($response['body']['message'], $response['info']['http_code']);
         }
 
-        foreach ($response['data'] as $object) {
+        foreach ($response['body']['data'] as $object) {
             $responseModel = $model->getResponseModel();
             $convertedResponse[] = $responseModel->fromArray($object);
         }
