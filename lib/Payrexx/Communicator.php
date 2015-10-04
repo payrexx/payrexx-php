@@ -1,9 +1,9 @@
 <?php
 /**
  * This class has the definition of the API used for the communication.
- * @author    Ueli Kramer <ueli.kramer@comvation.com>
- * @copyright 2014 Payrexx AG
- * @since     v1.0
+ * @author    Ueli Kramer <ueli.kramer@payrexx.com>
+ * @copyright 2015 Payrexx AG
+ * @since     v2.0
  */
 namespace Payrexx;
 
@@ -13,8 +13,8 @@ namespace Payrexx;
  */
 class Communicator
 {
-    const VERSION = 'v1';
-    const API_URL = 'https://api.payrexx.com/%s/%s/%d/';
+    const VERSION = 'v2';
+    const API_URL = 'http://api.payrexx/%s/%s';
     /**
      * @var array A set of methods which can be used to communicate with the API server.
      */
@@ -83,14 +83,14 @@ class Communicator
     public function performApiRequest($method, \Payrexx\Models\Base $model)
     {
         $params = $model->toArray($method);
-        $params['ApiSignature'] =
-            base64_encode(hash_hmac('sha256', http_build_query($params, null, '&'), $this->apiSecret, true));
-        $params['instance'] = $this->instance;
-        
+        var_dump($params);
+
         $id = isset($params['id']) ? $params['id'] : 0;
         $response = $this->communicationHandler->requestApi(
-            sprintf(self::API_URL, self::VERSION, $params['model'], $id),
+            sprintf(self::API_URL, self::VERSION, $model->getName()) . ($id ? '/' . $id : ''),
             $params,
+            base64_encode(hash_hmac('sha256', http_build_query($params, null, '&'), $this->apiSecret, true)),
+            $this->instance,
             $this->getHttpMethod($method)
         );
 

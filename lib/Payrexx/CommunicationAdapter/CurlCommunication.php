@@ -1,9 +1,9 @@
 <?php
 /**
  * This is the cURL communication adapter
- * @author    Ueli Kramer <ueli.kramer@comvation.com>
- * @copyright 2014 Payrexx AG
- * @since     v1.0
+ * @author    Ueli Kramer <ueli.kramer@payrexx.com>
+ * @copyright 2015 Payrexx AG
+ * @since     v2.0
  */
 namespace Payrexx\CommunicationAdapter;
 
@@ -28,15 +28,19 @@ class CurlCommunication extends \Payrexx\CommunicationAdapter\AbstractCommunicat
     /**
      * {@inheritdoc}
      */
-    public function requestApi($apiUrl, $params = array(), $method = 'POST')
+    public function requestApi($apiUrl, $params = array(), $secret = '', $instance = '', $method = 'POST')
     {
         $curlOpts = array(
             CURLOPT_URL => $apiUrl,
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_CUSTOMREQUEST => $method,
-            CURLOPT_USERAGENT => 'payrexx-php/1.0.0',
+            CURLOPT_USERAGENT => 'payrexx-php/2.0.0',
             CURLOPT_SSL_VERIFYPEER => true,
             CURLOPT_CAINFO => dirname(__DIR__) . '/certs/ca.pem',
+            CURLOPT_HTTPHEADER => array(
+                'PAYREXX-INSTANCE: ' . $instance,
+                'PAYREXX-SECRET: ' . $secret,
+            )
         );
         if (defined(PHP_QUERY_RFC3986)) {
             $paramString = http_build_query($params, null, '&', PHP_QUERY_RFC3986);
@@ -55,14 +59,14 @@ class CurlCommunication extends \Payrexx\CommunicationAdapter\AbstractCommunicat
             }
         } else {
             $curlOpts[CURLOPT_POSTFIELDS] = $paramString;
-            $curlOpts[CURLOPT_URL] .= strpos($curlOpts[CURLOPT_URL], '?') === false ? '?' : '&';
-            $curlOpts[CURLOPT_URL] .= 'instance=' . $params['instance'];
         }
 
         $curl = curl_init();
         curl_setopt_array($curl, $curlOpts);
         $responseBody = $this->curlExec($curl);
         $responseInfo = $this->curlInfo($curl);
+        var_export($responseBody);
+        die();
         
         if ($responseBody === false) {
             $responseBody = array('status' => 'error', 'message' => $this->curlError($curl));

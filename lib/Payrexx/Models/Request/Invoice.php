@@ -1,9 +1,9 @@
 <?php
 /**
  * The invoice request model
- * @author    Ueli Kramer <ueli.kramer@comvation.com>
- * @copyright 2014 Payrexx AG
- * @since     v1.0
+ * @author    Ueli Kramer <ueli.kramer@payrexx.com>
+ * @copyright 2015 Payrexx AG
+ * @since     v2.0
  */
 namespace Payrexx\Models\Request;
 
@@ -11,166 +11,99 @@ namespace Payrexx\Models\Request;
  * Class Invoice
  * @package Payrexx\Models\Request
  */
-class Invoice extends \Payrexx\Models\Base
+class Invoice extends \Payrexx\Models\Request\Base
 {
-    const CURRENCY_CHF = 'CHF';
-    const CURRENCY_EUR = 'EUR';
-    const CURRENCY_USD = 'USD';
-    const CURRENCY_GBP = 'GBP';
-
-    // mandatory
-    protected $referenceId = '';
-    protected $title = '';
-    protected $description = '';
-    protected $psp = 0;
-
-    // optional
-    protected $name = '';
-    protected $purpose = '';
+    // page settings
+    protected $titles = array();
+    protected $descriptions = array();
+    protected $purposes = array();
     protected $amount = 0;
     protected $currency = '';
+    protected $psp = 0;
+    protected $displayTerms = false;
+    // for subscription (only possible if psp = stripe || psp = paymill)
+    protected $useSubscription = false;
+    protected $subscriptionInterval = null;
+    protected $subscriptionPeriod = null;
+    protected $subscriptionPeriodMinAmount = null;
+    protected $subscriptionCancellationInterval = null;
+    // redirection after payment
+    protected $successRedirectUrl = '';
+    protected $failedRedirectUrl = '';
+    // setting for the mail (successful payment)
+    protected $emailSenderAddress = '';
+    protected $emailSenderName = '';
+    protected $additionalEmailRecipients = array();
+    protected $additionalEmailContents = array();
 
-    protected $successRedirectUrl;
-    protected $failedRedirectUrl;
-
-    protected $subscriptionState = false;
-    protected $subscriptionInterval = '';
-    protected $subscriptionPeriod = '';
-    protected $subscriptionPeriodMinAmount = '';
-    protected $subscriptionCancellationInterval = '';
-    protected $fields = array();
+    // form elements
+    protected $formElements = array();
 
     /**
-     * @return string
+     * @return array
      */
-    public function getReferenceId()
+    public function getTitles()
     {
-        return $this->referenceId;
+        return $this->titles;
     }
 
     /**
-     * Set the reference id which you will get in Webhook,
-     * this reference id won't be shown to customer
-     *
-     * @param string $referenceId
-     */
-    public function setReferenceId($referenceId)
-    {
-        $this->referenceId = $referenceId;
-    }
-
-    /**
-     * @return string
-     */
-    public function getTitle()
-    {
-        return $this->title;
-    }
-
-    /**
-     * Set the payment page headline title
-     *
      * @param string $title
+     * @param string $lang the ISO of the lang , possible values: DE, EN, FR, IT
      */
-    public function setTitle($title)
+    public function addTitle($title, $lang = \Payrexx\Models\Request\Base::LANG_EN)
     {
-        $this->title = $title;
+        $this->titles[$lang] = $title;
     }
 
     /**
-     * @return string
+     * @return array
      */
-    public function getDescription()
+    public function getDescriptions()
     {
-        return $this->description;
+        return $this->descriptions;
     }
 
     /**
-     * Set the description text which will be displayed
-     * above the payment form
-     *
      * @param string $description
+     * @param string $lang the ISO of the lang , possible values: DE, EN, FR, IT
      */
-    public function setDescription($description)
+    public function addDescription($description, $lang = \Payrexx\Models\Request\Base::LANG_EN)
     {
-        $this->description = $description;
+        $this->descriptions[$lang] = $description;
     }
 
     /**
-     * @return int
+     * @return array
      */
-    public function getPsp()
+    public function getPurposes()
     {
-        return $this->psp;
+        return $this->purposes;
     }
 
     /**
-     * Set the payment service provider to use, a
-     * list of available payment service providers (short psp)
-     * can be found here: http://developers.payrexx.com/en/REST-API/Miscellaneous
-     *
-     * @param int $psp
-     */
-    public function setPsp($psp)
-    {
-        $this->psp = $psp;
-    }
-
-    /**
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    /**
-     * Set the internal name of the form which will be generated.
-     * This name will only be shown to administrator of the Payrexx site.
-     *
-     * @param string $name
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-    }
-
-    /**
-     * @return string
-     */
-    public function getPurpose()
-    {
-        return $this->purpose;
-    }
-
-    /**
-     * Set the payment purpose which will be inserted automatically.
-     * This field won't be editable anymore for the client if you predefine it.
-     *
      * @param string $purpose
+     * @param string $lang the ISO of the lang , possible values: DE, EN, FR, IT
      */
-    public function setPurpose($purpose)
+    public function addPurpose($purpose, $lang = \Payrexx\Models\Request\Base::LANG_EN)
     {
-        $this->purpose = $purpose;
+        $this->purposes[$lang] = $purpose;
     }
 
     /**
-     * @return int
+     * @return float
      */
     public function getAmount()
     {
-        return $this->amount;
+        return number_format($this->amount / 100, 2);
     }
 
     /**
-     * Set the payment amount. Make sure the amount is multiplied
-     * by 100!
-     *
-     * @param int $amount
+     * @param float $amount
      */
     public function setAmount($amount)
     {
-        $this->amount = $amount;
+        $this->amount = number_format($amount, 2) * 100;
     }
 
     /**
@@ -182,10 +115,6 @@ class Invoice extends \Payrexx\Models\Base
     }
 
     /**
-     * Set the corresponding payment currency for the amount.
-     * You can use the ISO Code.
-     * A list of available currencies you can find on http://developers.payrexx.com/en/REST-API/Miscellaneous
-     *
      * @param string $currency
      */
     public function setCurrency($currency)
@@ -194,63 +123,71 @@ class Invoice extends \Payrexx\Models\Base
     }
 
     /**
-     * @return string
+     * @return int
      */
-    public function getSuccessRedirectUrl()
+    public function getPsp()
     {
-        return $this->successRedirectUrl;
+        return $this->psp;
     }
 
     /**
-     * Set the URL to redirect to after a successful payment
-     *
-     * @param string $successRedirectUrl
+     * @param int $psp
      */
-    public function setSuccessRedirectUrl($successRedirectUrl)
+    public function setPsp($psp)
     {
-        $this->successRedirectUrl = $successRedirectUrl;
-    }
-
-    /**
-     * @return string
-     */
-    public function getFailedRedirectUrl()
-    {
-        return $this->failedRedirectUrl;
-    }
-
-    /**
-     * Set the url to redirect to after a failed payment
-     *
-     * @param string $failedRedirectUrl
-     */
-    public function setFailedRedirectUrl($failedRedirectUrl)
-    {
-        $this->failedRedirectUrl = $failedRedirectUrl;
+        $this->psp = $psp;
     }
 
     /**
      * @return boolean
      */
-    public function isSubscriptionState()
+    public function getDisplayTerms()
     {
-        return $this->subscriptionState;
+        return $this->displayTerms;
     }
 
     /**
-     * Set whether the payment should be a recurring payment (subscription)
-     * If you set to TRUE, you should provide a
-     * subscription interval, period and cancellation interval
-     *
-     * @param boolean $subscriptionState
+     * @param boolean $displayTerms
      */
-    public function setSubscriptionState($subscriptionState)
+    public function setDisplayTerms($displayTerms)
     {
-        $this->subscriptionState = $subscriptionState;
+        $this->displayTerms = $displayTerms;
     }
 
     /**
-     * @return string
+     * @return boolean
+     */
+    public function getUseSubscription()
+    {
+        return $this->useSubscription;
+    }
+
+    /**
+     * @param boolean $useSubscription
+     */
+    public function setUseSubscription($useSubscription)
+    {
+        $this->useSubscription = $useSubscription;
+    }
+
+    /**
+     * @return null
+     */
+    public function getSubscriptionPeriodMinAmount()
+    {
+        return $this->subscriptionPeriodMinAmount;
+    }
+
+    /**
+     * @param null $subscriptionPeriodMinAmount
+     */
+    public function setSubscriptionPeriodMinAmount($subscriptionPeriodMinAmount)
+    {
+        $this->subscriptionPeriodMinAmount = $subscriptionPeriodMinAmount;
+    }
+
+    /**
+     * @return null
      */
     public function getSubscriptionInterval()
     {
@@ -313,20 +250,7 @@ class Invoice extends \Payrexx\Models\Base
     }
 
     /**
-     * Set the cancellation interval, it means you can define how many days or months
-     * the client has to cancel the subscription before the end of subscription period.
-     *
-     * This should be a string formatted like ISO 8601 (PnYnMnDTnHnMnS)
-     *
-     * Use case:
-     * If you set this value to P1M the subscription has to be cancelled one month
-     * before end of subscription period.
-     *
-     * It is possible to define XY months or days. Years are not supported here.
-     *
-     * For further information see http://php.net/manual/en/class.dateinterval.php
-     *
-     * @param string $subscriptionCancellationInterval
+     * @param null $subscriptionCancellationInterval
      */
     public function setSubscriptionCancellationInterval($subscriptionCancellationInterval)
     {
@@ -334,33 +258,127 @@ class Invoice extends \Payrexx\Models\Base
     }
 
     /**
-     * @return array
+     * @return string
      */
-    public function getFields()
+    public function getSuccessRedirectUrl()
     {
-        return $this->fields;
+        return $this->successRedirectUrl;
     }
 
     /**
-     * Define a new field of the payment page
-     * 
-     * @param string $type the type of field
-     *                     can be: title, forename, surname, company, street, postcode,
-     *                     place, phone, country, email, date_of_birth, terms, custom_field_1,
-     *                     custom_field_2, custom_field_3, custom_field_4, custom_field_5
-     * @param boolean $mandatory TRUE if the field has to be filled out for payment
-     * @param string $defaultValue the default value. This value will be editable for the client.
-     *                             for the title of a customer you can set mister / miss
-     *                             for the country field you can pass the 2-letter-ISO code
-     * @param string $name the name of the field, (this is only available for the fields custom_field_\d
+     * @param string $successRedirectUrl
      */
-    public function addField($type, $mandatory, $defaultValue = '', $name = '')
+    public function setSuccessRedirectUrl($successRedirectUrl)
     {
-        $this->fields[$type] = array(
-            'name' => $name,
-            'mandatory' => $mandatory,
-            'defaultValue' => $defaultValue,
-        );
+        $this->successRedirectUrl = $successRedirectUrl;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFailedRedirectUrl()
+    {
+        return $this->failedRedirectUrl;
+    }
+
+    /**
+     * @param string $failedRedirectUrl
+     */
+    public function setFailedRedirectUrl($failedRedirectUrl)
+    {
+        $this->failedRedirectUrl = $failedRedirectUrl;
+    }
+
+    /**
+     * @return string
+     */
+    public function getEmailSenderAddress()
+    {
+        return $this->emailSenderAddress;
+    }
+
+    /**
+     * @param string $emailSenderAddress
+     */
+    public function setEmailSenderAddress($emailSenderAddress)
+    {
+        $this->emailSenderAddress = $emailSenderAddress;
+    }
+
+    /**
+     * @return string
+     */
+    public function getEmailSenderName()
+    {
+        return $this->emailSenderName;
+    }
+
+    /**
+     * @param string $emailSenderName
+     */
+    public function setEmailSenderName($emailSenderName)
+    {
+        $this->emailSenderName = $emailSenderName;
+    }
+
+    /**
+     * @return array
+     */
+    public function getAdditionalEmailRecipients()
+    {
+        return $this->additionalEmailRecipients;
+    }
+
+    /**
+     * @param array $additionalEmailRecipients
+     */
+    public function setAdditionalEmailRecipients($additionalEmailRecipients)
+    {
+        $this->additionalEmailRecipients = $additionalEmailRecipients;
+    }
+
+    /**
+     * @return array
+     */
+    public function getAdditionalEmailContents()
+    {
+        return $this->additionalEmailContents;
+    }
+
+    /**
+     * @param string $additionalEmailContent
+     * @param string $lang the ISO of the lang , possible values: DE, EN, FR, IT
+     */
+    public function setAdditionalEmailContent($additionalEmailContent, $lang = \Payrexx\Models\Request\Base::LANG_EN)
+    {
+        $this->additionalEmailContents[$lang] = $additionalEmailContent;
+    }
+
+    /**
+     * @return \Payrexx\Models\Request\FormElement[]
+     */
+    public function getFormElements()
+    {
+        return $this->formElements;
+    }
+
+    /**
+     * @param \Payrexx\Models\Request\FormElement $formElement
+     */
+    public function addFormElement(\Payrexx\Models\Request\FormElement $formElement)
+    {
+        $this->formElements[] = $formElement;
+    }
+
+    /**
+     * @param \Payrexx\Models\Request\FormElement $formElement
+     */
+    public function removeFormElement(\Payrexx\Models\Request\FormElement $formElement)
+    {
+        if (in_array($formElement, $this->formElements)) {
+            $index = array_search($formElement, $this->formElements);
+            unset($this->formElements[$index]);
+        }
     }
 
     /**

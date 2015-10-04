@@ -1,9 +1,9 @@
 <?php
 /**
  * The invoice response model
- * @author    Ueli Kramer <ueli.kramer@comvation.com>
- * @copyright 2014 Payrexx AG
- * @since     v1.0
+ * @author    Ueli Kramer <ueli.kramer@payrexx.com>
+ * @copyright 2015 Payrexx AG
+ * @since     v2.0
  */
 namespace Payrexx\Models\Response;
 
@@ -11,7 +11,7 @@ namespace Payrexx\Models\Response;
  * Class Invoice
  * @package Payrexx\Models\Response
  */
-class Invoice extends \Payrexx\Models\Request\Invoice
+class Invoice extends \Payrexx\Models\Response\Base
 {
     protected $hash = '';
     protected $link = '';
@@ -27,27 +27,11 @@ class Invoice extends \Payrexx\Models\Request\Invoice
     }
 
     /**
-     * @param string $hash
-     */
-    public function setHash($hash)
-    {
-        $this->hash = $hash;
-    }
-
-    /**
      * @return string
      */
     public function getLink()
     {
         return $this->link;
-    }
-
-    /**
-     * @param string $link
-     */
-    public function setLink($link)
-    {
-        $this->link = $link;
     }
 
     /**
@@ -59,34 +43,10 @@ class Invoice extends \Payrexx\Models\Request\Invoice
     }
 
     /**
-     * @param int $createdAt
-     */
-    public function setCreatedAt($createdAt)
-    {
-        $this->createdAt = $createdAt;
-    }
-
-    /**
-     * @param array $fields
-     */
-    public function setFields($fields)
-    {
-        $this->fields = $fields;
-    }
-
-    /**
      * @return string
      */
     public function getStatus()
     {
         return $this->status;
-    }
-
-    /**
-     * @param string $status
-     */
-    public function setStatus($status)
-    {
-        $this->status = $status;
     }
 }

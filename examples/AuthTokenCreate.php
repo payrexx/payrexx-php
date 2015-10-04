@@ -21,8 +21,8 @@ $payrexx = new \Payrexx\Payrexx($instanceName, $secret);
 // init empty request object
 $authToken = new \Payrexx\Models\Request\AuthToken();
 
-// info for auth token (user id)
-$authToken->setUserId(1);
+// info for auth token (contact id)
+$authToken->setContactId(1);
 
 // fire request with created and filled link request-object.
 try {

@@ -1,9 +1,9 @@
 <?php
 /**
  * The Payrexx Exception for any exception occurred during the API process
- * @author    Ueli Kramer <ueli.kramer@comvation.com>
- * @copyright 2014 Payrexx AG
- * @since     v1.0
+ * @author    Ueli Kramer <ueli.kramer@payrexx.com>
+ * @copyright 2015 Payrexx AG
+ * @since     v2.0
  */
 namespace Payrexx;
 

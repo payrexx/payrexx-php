@@ -1,9 +1,9 @@
 <?php
 /**
  * The Payrexx client API basic class file
- * @author    Ueli Kramer <ueli.kramer@comvation.com>
- * @copyright 2014 Payrexx AG
- * @since     v1.0
+ * @author    Ueli Kramer <ueli.kramer@payrexx.com>
+ * @copyright 2015 Payrexx AG
+ * @since     v2.0
  */
 namespace Payrexx;
 
@@ -52,7 +52,7 @@ class Payrexx
      * @param string $method The name of the method called.
      * @param array  $args   The arguments passed to the method call. There can only be one argument which is the model.
      *
-     * @return \Payrexx\Models\Response\Base[]|\Payrexx\Models\Response\Base
+     * @return \Payrexx\Models\Base[]
      * @throws \Payrexx\PayrexxException The model argument is missing or the method is not implemented
      */
     public function __call($method, $args)

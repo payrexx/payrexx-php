@@ -1,9 +1,9 @@
 <?php
 /**
  * The AuthToken request model
- * @author    Ueli Kramer <ueli.kramer@comvation.com>
- * @copyright 2014 Payrexx AG
- * @since     v1.0
+ * @author    Ueli Kramer <ueli.kramer@payrexx.com>
+ * @copyright 2015 Payrexx AG
+ * @since     v2.0
  */
 namespace Payrexx\Models\Request;
 
@@ -11,28 +11,28 @@ namespace Payrexx\Models\Request;
  * Class AuthToken
  * @package Payrexx\Models\Request
  */
-class AuthToken extends \Payrexx\Models\Base
+class AuthToken extends \Payrexx\Models\Request\Base
 {
-    protected $userId = 0;
+    protected $contactId = 0;
 
     /**
-     * The user id of the user you want an auth token for
+     * The user id of the contact you want an auth token for
      * 
      * @return int
      */
-    public function getUserId()
+    public function getContactId()
     {
-        return $this->userId;
+        return $this->contactId;
     }
 
     /**
-     * Set the user id you would like to get an auth token for
+     * Set the contact id you would like to get an auth token for
      * 
-     * @param int $userId
+     * @param int $contactId
      */
-    public function setUserId($userId)
+    public function setContactId($contactId)
     {
-        $this->userId = $userId;
+        $this->contactId = $contactId;
     }
 
     /**

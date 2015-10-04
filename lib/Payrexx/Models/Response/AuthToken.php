@@ -1,9 +1,9 @@
 <?php
 /**
  * The AuthToken response model
- * @author    Ueli Kramer <ueli.kramer@comvation.com>
- * @copyright 2014 Payrexx AG
- * @since     v1.0
+ * @author    Ueli Kramer <ueli.kramer@payrexx.com>
+ * @copyright 2015 Payrexx AG
+ * @since     v2.0
  */
 namespace Payrexx\Models\Response;
 
@@ -11,11 +11,20 @@ namespace Payrexx\Models\Response;
  * Class AuthToken
  * @package Payrexx\Models\Response
  */
-class AuthToken extends \Payrexx\Models\Request\Invoice
+class AuthToken extends \Payrexx\Models\Response\Base
 {
+    protected $contactId = 0;
     protected $authToken = '';
     protected $authTokenExpirationDate = null;
     protected $link = '';
+
+    /**
+     * @return int
+     */
+    public function getContactId()
+    {
+        return $this->contactId;
+    }
 
     /**
      * @return string
@@ -23,14 +32,6 @@ class AuthToken extends \Payrexx\Models\Request\Invoice
     public function getAuthToken()
     {
         return $this->authToken;
-    }
-
-    /**
-     * @param string $authToken
-     */
-    public function setAuthToken($authToken)
-    {
-        $this->authToken = $authToken;
     }
 
     /**
@@ -42,42 +43,10 @@ class AuthToken extends \Payrexx\Models\Request\Invoice
     }
 
     /**
-     * @param null $authTokenExpirationDate
-     */
-    public function setAuthTokenExpirationDate($authTokenExpirationDate)
-    {
-        $this->authTokenExpirationDate = $authTokenExpirationDate;
-    }
-
-    /**
      * @return string
      */
     public function getLink()
     {
         return $this->link;
-    }
-
-    /**
-     * @param string $link
-     */
-    public function setLink($link)
-    {
-        $this->link = $link;
-    }
-
-    /**
-     * @return string
-     */
-    public function getSubscriptionPeriodMinAmount()
-    {
-        return $this->subscriptionPeriodMinAmount;
-    }
-
-    /**
-     * @param string $subscriptionPeriodMinAmount
-     */
-    public function setSubscriptionPeriodMinAmount($subscriptionPeriodMinAmount)
-    {
-        $this->subscriptionPeriodMinAmount = $subscriptionPeriodMinAmount;
     }
 }
