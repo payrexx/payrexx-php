@@ -29,7 +29,7 @@ $invoice->setTitle('Online shop payment');
 $invoice->setDescription('Thanks for using Payrexx to pay your order');
 
 // administrative information, which provider to use (psp)
-// psp #1 = Payrexx' test mode, see http://developers.payrexx.com/en/REST-API/Miscellaneous
+// psp #1 = Payrexx' test mode, see http://developers.payrexx.com/docs/miscellaneous
 $invoice->setPsp(1);
 
 // internal data only displayed to administrator
@@ -41,7 +41,7 @@ $amount = 5.90;
 // don't forget to multiply by 100
 $invoice->setAmount($amount * 100);
 // ISO code of currency, list of alternatives can be found here
-// http://developers.payrexx.com/en/REST-API/Miscellaneous
+// http://developers.payrexx.com/docs/miscellaneous
 $invoice->setCurrency('CHF');
 
 // subscription information if you want the customer to authorize a recurring payment

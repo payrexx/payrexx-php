@@ -84,7 +84,7 @@ class Page extends \Payrexx\Models\Base
     /**
      * Set the payment service provider to use, a
      * list of available payment service providers (short psp)
-     * can be found here: http://developers.payrexx.com/en/REST-API/Miscellaneous
+     * can be found here: http://developers.payrexx.com/docs/miscellaneous
      *
      * @param int $psp
      */
@@ -161,7 +161,7 @@ class Page extends \Payrexx\Models\Base
     /**
      * Set the corresponding payment currency for the amount.
      * You can use the ISO Code.
-     * A list of available currencies you can find on http://developers.payrexx.com/en/REST-API/Miscellaneous
+     * A list of available currencies you can find on http://developers.payrexx.com/docs/miscellaneous
      *
      * @param string $currency
      */
