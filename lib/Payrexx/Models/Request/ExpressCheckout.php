@@ -53,7 +53,7 @@ class ExpressCheckout extends \Payrexx\Models\Base
     protected $fields;
 
     /**
-     * optional
+     * mandatory
      *
      * @access  protected
      * @var     string
@@ -61,7 +61,7 @@ class ExpressCheckout extends \Payrexx\Models\Base
     protected $successRedirectUrl;
 
     /**
-     * optional
+     * mandatory
      *
      * @access  protected
      * @var     string

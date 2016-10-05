@@ -26,9 +26,13 @@ $expressCheckout->setAmount(89.25 * 100);
 // currency ISO code
 $expressCheckout->setCurrency('CHF');
 
+//success and failed url in case that merchant redirects to payment site instead of using the modal view
+$expressCheckout->setSuccessRedirectUrl('https://www.merchant-website.com/success');
+$expressCheckout->setFailedRedirectUrl('https://www.merchant-website.com/failed');
+
 // optional: payment service provider(s) to use (see http://developers.payrexx.com/docs/miscellaneous)
-// psp #1 = Payrexx test mode
-$expressCheckout->setPsp(array(1));
+// empty array = all available psps
+$expressCheckout->setPsp(array());
 
 // optional: reference id of merchant (e. g. order number)
 $expressCheckout->setReferenceId(975382);
@@ -51,10 +55,6 @@ $expressCheckout->addField($type = 'custom_field_1', $value = '123456789', $name
     3 => 'Benutzerdefiniertes Feld (FR)',
     4 => 'Benutzerdefiniertes Feld (IT)',
 ));
-
-//optional: success and failed url in case that merchant redirects to payment site instead of using the modal view
-$expressCheckout->setSuccessRedirectUrl('https://www.merchant-website.com/success');
-$expressCheckout->setFailedRedirectUrl('https://www.merchant-website.com/failed');
 
 try {
     $response = $payrexx->create($expressCheckout);
