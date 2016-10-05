@@ -37,7 +37,7 @@ $expressCheckout->setPsp(array());
 // optional: reference id of merchant (e. g. order number)
 $expressCheckout->setReferenceId(975382);
 
-// optional: add contact information which should be stored along with payment (information will not be shown to customer)
+// optional: add contact information which should be stored along with payment
 $expressCheckout->addField($type = 'title', $value = 'mister');
 $expressCheckout->addField($type = 'forename', $value = 'Maximilian');
 $expressCheckout->addField($type = 'surname', $value = 'Pichler');
