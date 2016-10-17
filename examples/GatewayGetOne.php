@@ -18,11 +18,11 @@ $secret = 'YOUR_SECRET';
 
 $payrexx = new \Payrexx\Payrexx($instanceName, $secret);
 
-$expressCheckout = new \Payrexx\Models\Request\ExpressCheckout();
-$expressCheckout->setId(1);
+$gateway = new \Payrexx\Models\Request\Gateway();
+$gateway->setId(1);
 
 try {
-    $response = $payrexx->delete($expressCheckout);
+    $response = $payrexx->getOne($gateway);
     var_dump($response);
 } catch (\Payrexx\PayrexxException $e) {
     print $e->getMessage();

@@ -3,13 +3,13 @@
 namespace Payrexx\Models\Response;
 
 /**
- * Express Checkout response class
+ * Gateway response class
  *
  * @copyright   Payrexx AG
  * @author      Payrexx Development Team <info@payrexx.com>
  * @package     \Payrexx\Models\Response
  */
-class ExpressCheckout extends \Payrexx\Models\Request\ExpressCheckout
+class Gateway extends \Payrexx\Models\Request\Gateway
 {
 
     /**
