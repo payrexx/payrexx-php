@@ -53,6 +53,14 @@ class Gateway extends \Payrexx\Models\Base
     protected $fields;
 
     /**
+     * optional
+     *
+     * @access  protected
+     * @var     string
+     */
+    protected $concardisOrderId;
+
+    /**
      * mandatory
      *
      * @access  protected
@@ -182,6 +190,26 @@ class Gateway extends \Payrexx\Models\Base
             'value' => $value,
             'name' => $name,
         );
+    }
+
+    /**
+     * @access  public
+     * @return  string
+     */
+    public function getConcardisOrderId()
+    {
+        return $this->concardisOrderId;
+    }
+
+    /**
+     * Set a custom order ID for the Concardis PSPs
+     *
+     * @access  public
+     * @param   string  $concardisOrderId
+     */
+    public function setConcardisOrderId($concardisOrderId)
+    {
+        $this->concardisOrderId = $concardisOrderId;
     }
 
     /**

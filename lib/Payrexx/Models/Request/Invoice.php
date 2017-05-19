@@ -39,6 +39,7 @@ class Invoice extends \Payrexx\Models\Base
     protected $subscriptionPeriodMinAmount = '';
     protected $subscriptionCancellationInterval = '';
     protected $fields = array();
+    protected $concardisOrderId = '';
 
     /**
      * @return string
@@ -361,6 +362,23 @@ class Invoice extends \Payrexx\Models\Base
             'mandatory' => $mandatory,
             'defaultValue' => $defaultValue,
         );
+    }
+
+    /**
+     * @return string
+     */
+    public function getConcardisOrderId()
+    {
+        return $this->concardisOrderId;
+    }
+
+    /**
+     * Define an ORDER ID which should be used for the Concardis PSPs
+     * @param string $concardisOrderId
+     */
+    public function setConcardisOrderId($concardisOrderId)
+    {
+        $this->concardisOrderId = $concardisOrderId;
     }
 
     /**
