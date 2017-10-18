@@ -29,6 +29,7 @@ class Invoice extends \Payrexx\Models\Base
     protected $purpose = '';
     protected $amount = 0;
     protected $currency = '';
+    protected $preAuthorization = false;
 
     protected $successRedirectUrl;
     protected $failedRedirectUrl;
@@ -195,6 +196,27 @@ class Invoice extends \Payrexx\Models\Base
     }
 
     /**
+     * @access  public
+     * @return  bool
+     */
+    public function getPreAuthorization()
+    {
+        return $this->preAuthorization;
+    }
+
+    /**
+     *  Whether charge payment manually at a later date.
+     *  Note: Subscription and pre-authorization can not be combined.
+     *
+     * @access  public
+     * @param   bool    $preAuthorization
+     */
+    public function setPreAuthorization($preAuthorization)
+    {
+        $this->preAuthorization = $preAuthorization;
+    }
+
+    /**
      * @return string
      */
     public function getSuccessRedirectUrl()
@@ -242,6 +264,7 @@ class Invoice extends \Payrexx\Models\Base
      * Set whether the payment should be a recurring payment (subscription)
      * If you set to TRUE, you should provide a
      * subscription interval, period and cancellation interval
+     * Note: Subscription and pre-authorization can not be combined.
      *
      * @param boolean $subscriptionState
      */

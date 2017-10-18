@@ -20,6 +20,7 @@ class Communicator
      */
     protected static $methods = array(
         'create' => 'POST',
+        'charge' => 'POST',
         'cancel' => 'DELETE',
         'delete' => 'DELETE',
         'update' => 'PUT',
@@ -86,7 +87,7 @@ class Communicator
         $params['ApiSignature'] =
             base64_encode(hash_hmac('sha256', http_build_query($params, null, '&'), $this->apiSecret, true));
         $params['instance'] = $this->instance;
-        
+
         $id = isset($params['id']) ? $params['id'] : 0;
         $response = $this->communicationHandler->requestApi(
             sprintf(self::API_URL, self::VERSION, $params['model'], $id),

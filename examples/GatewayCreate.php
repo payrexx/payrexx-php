@@ -34,6 +34,9 @@ $gateway->setFailedRedirectUrl('https://www.merchant-website.com/failed');
 // empty array = all available psps
 $gateway->setPsp(array());
 
+// optional: whether charge payment manually at a later date
+$gateway->setPreAuthorization(false);
+
 // optional: reference id of merchant (e. g. order number)
 $gateway->setReferenceId(975382);
 

@@ -40,6 +40,14 @@ class Gateway extends \Payrexx\Models\Base
      * optional
      *
      * @access  protected
+     * @var     bool
+     */
+    protected $preAuthorization = false;
+
+    /**
+     * optional
+     *
+     * @access  protected
      * @var     string
      */
     protected $referenceId;
@@ -139,6 +147,26 @@ class Gateway extends \Payrexx\Models\Base
     public function setPsp($psp)
     {
         $this->psp = $psp;
+    }
+
+    /**
+     * @access  public
+     * @return  bool
+     */
+    public function getPreAuthorization()
+    {
+        return $this->preAuthorization;
+    }
+
+    /**
+     *  Whether charge payment manually at a later date.
+     *
+     * @access  public
+     * @param   bool    $preAuthorization
+     */
+    public function setPreAuthorization($preAuthorization)
+    {
+        $this->preAuthorization = $preAuthorization;
     }
 
     /**
