@@ -44,8 +44,12 @@ $invoice->setAmount($amount * 100);
 // http://developers.payrexx.com/docs/miscellaneous
 $invoice->setCurrency('CHF');
 
+// whether charge payment manually at a later date
+$invoice->setPreAuthorization(false);
+
 // subscription information if you want the customer to authorize a recurring payment
-// NOTE: This functionality is currently only available by using PAYMILL as a payment service provider
+// NOTE: This functionality is currently only available by using PAYMILL as a payment service provider.
+// This also does not work in combination with pre-authorization payments.
 //$invoice->setSubscriptionState(true);
 //$invoice->setSubscriptionInterval('P1M');
 //$invoice->setSubscriptionPeriod('P1Y');
