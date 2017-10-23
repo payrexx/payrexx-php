@@ -40,6 +40,14 @@ class Gateway extends \Payrexx\Models\Base
      * optional
      *
      * @access  protected
+     * @var     array
+     */
+    protected $pm;
+
+    /**
+     * optional
+     *
+     * @access  protected
      * @var     string
      */
     protected $referenceId;
@@ -139,6 +147,26 @@ class Gateway extends \Payrexx\Models\Base
     public function setPsp($psp)
     {
         $this->psp = $psp;
+    }
+
+    /**
+     * @access  public
+     * @return  array
+     */
+    public function getPm()
+    {
+        return $this->pm;
+    }
+
+    /**
+     * Set payment mean to use.
+     *
+     * @access  public
+     * @param   array   $pm
+     */
+    public function setPm($pm)
+    {
+        $this->pm = $pm;
     }
 
     /**

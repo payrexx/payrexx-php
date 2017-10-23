@@ -32,7 +32,9 @@ $gateway->setFailedRedirectUrl('https://www.merchant-website.com/failed');
 
 // optional: payment service provider(s) to use (see http://developers.payrexx.com/docs/miscellaneous)
 // empty array = all available psps
-$gateway->setPsp(array());
+$gateway->setPsp([]);
+//$gateway->setPsp(array(4));
+//$gateway->setPm(['mastercard']);
 
 // optional: reference id of merchant (e. g. order number)
 $gateway->setReferenceId(975382);
