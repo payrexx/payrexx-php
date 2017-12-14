@@ -33,7 +33,7 @@ class Transaction extends \Payrexx\Models\Request\Transaction
     }
 
     /**
-     * @access  pubic
+     * @access  public
      * @return  string
      */
     public function getUuid()
@@ -51,7 +51,7 @@ class Transaction extends \Payrexx\Models\Request\Transaction
     }
 
     /**
-     * @access  pubic
+     * @access  public
      * @return  string
      */
     public function getTime()
@@ -69,7 +69,7 @@ class Transaction extends \Payrexx\Models\Request\Transaction
     }
 
     /**
-     * @access  pubic
+     * @access  public
      * @return  string
      */
     public function getStatus()
@@ -87,7 +87,7 @@ class Transaction extends \Payrexx\Models\Request\Transaction
     }
 
     /**
-     * @access  pubic
+     * @access  public
      * @return  string
      */
     public function getLang()
@@ -105,7 +105,7 @@ class Transaction extends \Payrexx\Models\Request\Transaction
     }
 
     /**
-     * @access  pubic
+     * @access  public
      * @return  string
      */
     public function getPsp()

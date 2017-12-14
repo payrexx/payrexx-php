@@ -76,4 +76,4 @@ For the Version 1.0.0 you can use the following content of composer.json:
 Documentation
 --------------
 
-For further information, please refer to the official REST API reference: http://developers.payrexx.com/en/REST-API
+For further information, please refer to the official REST API reference: https://developers.payrexx.com/v1.0/reference
