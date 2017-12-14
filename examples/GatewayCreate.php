@@ -44,15 +44,15 @@ $gateway->setReferenceId(975382);
 
 // optional: add contact information which should be stored along with payment
 $gateway->addField($type = 'title', $value = 'mister');
-$gateway->addField($type = 'forename', $value = 'Maximilian');
-$gateway->addField($type = 'surname', $value = 'Pichler');
-$gateway->addField($type = 'company', $value = 'Pichler Solutions');
-$gateway->addField($type = 'street', $value = 'Seeweg 123');
+$gateway->addField($type = 'forename', $value = 'Max');
+$gateway->addField($type = 'surname', $value = 'Mustermann');
+$gateway->addField($type = 'company', $value = 'Max Musterfirma');
+$gateway->addField($type = 'street', $value = 'Musterweg 1');
 $gateway->addField($type = 'postcode', $value = '1234');
-$gateway->addField($type = 'place', $value = 'Englach');
+$gateway->addField($type = 'place', $value = 'Musterort');
 $gateway->addField($type = 'country', $value = 'AT');
 $gateway->addField($type = 'phone', $value = '+43123456789');
-$gateway->addField($type = 'email', $value = 'info@pichler-solutions.com');
+$gateway->addField($type = 'email', $value = 'max.muster@payrexx.com');
 $gateway->addField($type = 'date_of_birth', $value = '03.06.1985');
 $gateway->addField($type = 'custom_field_1', $value = '123456789', $name = array(
     1 => 'Benutzerdefiniertes Feld (DE)',
