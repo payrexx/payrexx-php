@@ -30,6 +30,7 @@ class Invoice extends \Payrexx\Models\Base
     protected $amount = 0;
     protected $currency = '';
     protected $preAuthorization = false;
+    protected $reservation = false;
 
     protected $successRedirectUrl;
     protected $failedRedirectUrl;
@@ -205,8 +206,8 @@ class Invoice extends \Payrexx\Models\Base
     }
 
     /**
-     *  Whether charge payment manually at a later date.
-     *  Note: Subscription and pre-authorization can not be combined.
+     *  Whether charge payment manually at a later date (type authorization).
+     *  Note: Subscription and authorization can not be combined.
      *
      * @access  public
      * @param   bool    $preAuthorization
@@ -214,6 +215,27 @@ class Invoice extends \Payrexx\Models\Base
     public function setPreAuthorization($preAuthorization)
     {
         $this->preAuthorization = $preAuthorization;
+    }
+
+    /**
+     * @access  public
+     * @return  bool
+     */
+    public function getReservation()
+    {
+        return $this->reservation;
+    }
+
+    /**
+     *  Whether charge payment manually at a later date (type reservation).
+     *  Note: Subscription and reservation can not be combined.
+     *
+     * @access  public
+     * @param   bool    $reservation
+     */
+    public function setReservation($reservation)
+    {
+        $this->reservation = $reservation;
     }
 
     /**

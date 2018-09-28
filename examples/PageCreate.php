@@ -23,6 +23,12 @@ $page->setTitle('Form title');
 $page->setDescription('Form description');
 $page->setPsp(1);
 
+// optional: whether charge payment manually at a later date (type authorization)
+$page->setPreAuthorization(false);
+
+// optional: whether charge payment manually at a later date (type reservation)
+$page->setReservation(false);
+
 try {
     $response = $payrexx->create($page);
     var_dump($response);

@@ -34,6 +34,10 @@ class Page extends \Payrexx\Models\Base
     protected $subscriptionPeriod = '';
     protected $subscriptionPeriodMinAmount = '';
     protected $subscriptionCancellationInterval = '';
+
+    protected $preAuthorization = false;
+    protected $reservation = false;
+
     protected $fields = array();
 
     /**
@@ -272,6 +276,46 @@ class Page extends \Payrexx\Models\Base
     public function setSubscriptionCancellationInterval($subscriptionCancellationInterval)
     {
         $this->subscriptionCancellationInterval = $subscriptionCancellationInterval;
+    }
+
+    /**
+     * @access  public
+     * @return  bool
+     */
+    public function getPreAuthorization()
+    {
+        return $this->preAuthorization;
+    }
+
+    /**
+     *  Whether charge payment manually at a later date (type authorization).
+     *
+     * @access  public
+     * @param   bool    $preAuthorization
+     */
+    public function setPreAuthorization($preAuthorization)
+    {
+        $this->preAuthorization = $preAuthorization;
+    }
+
+    /**
+     * @access  public
+     * @return  bool
+     */
+    public function getReservation()
+    {
+        return $this->reservation;
+    }
+
+    /**
+     *  Whether charge payment manually at a later date (type reservation).
+     *
+     * @access  public
+     * @param   bool    $reservation
+     */
+    public function setReservation($reservation)
+    {
+        $this->reservation = $reservation;
     }
 
     /**

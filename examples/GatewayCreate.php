@@ -36,8 +36,11 @@ $gateway->setPsp([]);
 //$gateway->setPsp(array(4));
 //$gateway->setPm(['mastercard']);
 
-// optional: whether charge payment manually at a later date
+// optional: whether charge payment manually at a later date (type authorization)
 $gateway->setPreAuthorization(false);
+
+// optional: whether charge payment manually at a later date (type reservation)
+$gateway->setReservation(false);
 
 // optional: reference id of merchant (e. g. order number)
 $gateway->setReferenceId(975382);

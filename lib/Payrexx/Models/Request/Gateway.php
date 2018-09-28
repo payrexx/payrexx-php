@@ -56,6 +56,14 @@ class Gateway extends \Payrexx\Models\Base
      * optional
      *
      * @access  protected
+     * @var     bool
+     */
+    protected $reservation = false;
+
+    /**
+     * optional
+     *
+     * @access  protected
      * @var     string
      */
     protected $referenceId;
@@ -187,7 +195,7 @@ class Gateway extends \Payrexx\Models\Base
     }
 
     /**
-     *  Whether charge payment manually at a later date.
+     *  Whether charge payment manually at a later date (type authorization).
      *
      * @access  public
      * @param   bool    $preAuthorization
@@ -195,6 +203,26 @@ class Gateway extends \Payrexx\Models\Base
     public function setPreAuthorization($preAuthorization)
     {
         $this->preAuthorization = $preAuthorization;
+    }
+
+    /**
+     * @access  public
+     * @return  bool
+     */
+    public function getReservation()
+    {
+        return $this->reservation;
+    }
+
+    /**
+     *  Whether charge payment manually at a later date (type reservation).
+     *
+     * @access  public
+     * @param   bool    $reservation
+     */
+    public function setReservation($reservation)
+    {
+        $this->reservation = $reservation;
     }
 
     /**
