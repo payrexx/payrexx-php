@@ -21,7 +21,7 @@ class Transaction extends \Payrexx\Models\Request\Transaction
     private $status;
     private $lang;
     private $psp;
-
+    private $payment;
 
     /**
      * @access  public
@@ -111,5 +111,23 @@ class Transaction extends \Payrexx\Models\Request\Transaction
     public function getPsp()
     {
         return $this->psp;
+    }
+
+    /**
+     * @access  public
+     * @param   array  $payment
+     */
+    public function setPayment($payment)
+    {
+        $this->payment = $payment;
+    }
+
+    /**
+     * @access  public
+     * @return  array
+     */
+    public function getPayment()
+    {
+        return $this->payment;
     }
 }
