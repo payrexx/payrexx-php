@@ -34,6 +34,14 @@ class Gateway extends \Payrexx\Models\Base
      * @access  protected
      * @var     array
      */
+    protected $purpose;
+
+    /**
+     * optional
+     *
+     * @access  protected
+     * @var     array
+     */
     protected $psp;
 
     /**
@@ -140,6 +148,27 @@ class Gateway extends \Payrexx\Models\Base
     public function setCurrency($currency)
     {
         $this->currency = $currency;
+    }
+
+    /**
+     * @access  public
+     * @return  array
+     */
+    public function getPurpose()
+    {
+        return $this->purpose;
+    }
+
+    /**
+     * Set the purpose of this gateway. Will be displayed as transaction purpose in merchant backend.
+     * Use language ID as array key. Use key 0 as default purpose. Will be used for each activated frontend language.
+     *
+     * @access  public
+     * @param   array   $purpose
+     */
+    public function setPurpose($purpose)
+    {
+        $this->purpose = $purpose;
     }
 
     /**
