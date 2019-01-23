@@ -108,6 +108,14 @@ class Gateway extends \Payrexx\Models\Base
      */
     protected $failedRedirectUrl;
 
+    /**
+     * optional
+     *
+     * @access  protected
+     * @var     boolean
+     */
+    protected $skipResultPage;
+
 
     /**
      * @access  public
@@ -362,6 +370,22 @@ class Gateway extends \Payrexx\Models\Base
     public function setFailedRedirectUrl($failedRedirectUrl)
     {
         $this->failedRedirectUrl = $failedRedirectUrl;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isSkipResultPage()
+    {
+        return $this->skipResultPage;
+    }
+
+    /**
+     * @param bool $skipResultPage
+     */
+    public function setSkipResultPage($skipResultPage)
+    {
+        $this->skipResultPage = $skipResultPage;
     }
 
     /**
