@@ -21,6 +21,14 @@ class Gateway extends \Payrexx\Models\Base
     protected $amount;
 
     /**
+     * optional
+     *
+     * @access  protected
+     * @var     float|null
+     */
+    protected $vatRate;
+
+    /**
      * mandatory
      *
      * @access  protected
@@ -136,6 +144,22 @@ class Gateway extends \Payrexx\Models\Base
     public function setAmount($amount)
     {
         $this->amount = $amount;
+    }
+
+    /**
+     * @return float|null
+     */
+    public function getVatRate()
+    {
+        return $this->vatRate;
+    }
+
+    /**
+     * @param float|null $vatRate
+     */
+    public function setVatRate($vatRate)
+    {
+        $this->vatRate = $vatRate;
     }
 
     /**

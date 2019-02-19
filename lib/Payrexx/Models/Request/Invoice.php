@@ -28,6 +28,7 @@ class Invoice extends \Payrexx\Models\Base
     protected $name = '';
     protected $purpose = '';
     protected $amount = 0;
+    protected $vatRate = null;
     protected $currency = '';
     protected $preAuthorization = false;
     protected $reservation = false;
@@ -175,6 +176,23 @@ class Invoice extends \Payrexx\Models\Base
     {
         $this->amount = $amount;
     }
+
+    /**
+     * @return float|null
+     */
+    public function getVatRate()
+    {
+        return $this->vatRate;
+    }
+
+    /**
+     * @param float|null $vatRate
+     */
+    public function setVatRate($vatRate)
+    {
+        $this->vatRate = $vatRate;
+    }
+
 
     /**
      * @return string
