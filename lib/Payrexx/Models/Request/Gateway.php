@@ -29,6 +29,14 @@ class Gateway extends \Payrexx\Models\Base
     protected $vatRate;
 
     /**
+     * optional
+     *
+     * @access  protected
+     * @var     string
+     */
+    protected $sku;
+
+    /**
      * mandatory
      *
      * @access  protected
@@ -160,6 +168,22 @@ class Gateway extends \Payrexx\Models\Base
     public function setVatRate($vatRate)
     {
         $this->vatRate = $vatRate;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSku()
+    {
+        return $this->sku;
+    }
+
+    /**
+     * @param string $sku
+     */
+    public function setSku($sku)
+    {
+        $this->sku = $sku;
     }
 
     /**

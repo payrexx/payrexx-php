@@ -29,6 +29,7 @@ class Invoice extends \Payrexx\Models\Base
     protected $purpose = '';
     protected $amount = 0;
     protected $vatRate = null;
+    protected $sku = '';
     protected $currency = '';
     protected $preAuthorization = false;
     protected $reservation = false;
@@ -193,6 +194,21 @@ class Invoice extends \Payrexx\Models\Base
         $this->vatRate = $vatRate;
     }
 
+    /**
+     * @return string
+     */
+    public function getSku()
+    {
+        return $this->sku;
+    }
+
+    /**
+     * @param string $sku
+     */
+    public function setSku($sku)
+    {
+        $this->sku = $sku;
+    }
 
     /**
      * @return string

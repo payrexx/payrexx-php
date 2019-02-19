@@ -26,6 +26,9 @@ $gateway->setAmount(89.25 * 100);
 // VAT rate percentage (nullable)
 $gateway->setVatRate(7.70);
 
+//Product SKU
+$gateway->setSku('P01122000');
+
 // currency ISO code
 $gateway->setCurrency('CHF');
 
