@@ -45,6 +45,10 @@ $invoice->setAmount($amount * 100);
 $vatRate = 7.70;
 $invoice->setVatRate($vatRate);
 
+// Product SKU
+$sku = 'P01122000';
+$invoice->setSku($sku);
+
 // ISO code of currency, list of alternatives can be found here
 // http://developers.payrexx.com/docs/miscellaneous
 $invoice->setCurrency('CHF');
