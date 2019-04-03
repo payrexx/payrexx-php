@@ -5,6 +5,7 @@
  * @copyright 2014 Payrexx AG
  * @since     v1.0
  */
+
 namespace Payrexx\Models\Response;
 
 /**
@@ -13,10 +14,20 @@ namespace Payrexx\Models\Response;
  */
 class Invoice extends \Payrexx\Models\Request\Invoice
 {
+    /** @var string $hash */
     protected $hash = '';
+
+    /** @var string $link */
     protected $link = '';
-    protected $status;
+
+    /** @var string $status */
+    protected $status = '';
+
+    /** @var int $createdAt */
     protected $createdAt = 0;
+
+    /** @var array $invoices */
+    protected $invoices = [];
 
     /**
      * @return string
@@ -88,5 +99,21 @@ class Invoice extends \Payrexx\Models\Request\Invoice
     public function setStatus($status)
     {
         $this->status = $status;
+    }
+
+    /**
+     * @return array
+     */
+    public function getInvoices()
+    {
+        return $this->invoices;
+    }
+
+    /**
+     * @param array $invoices
+     */
+    public function setInvoices($invoices)
+    {
+        $this->invoices = $invoices;
     }
 }
