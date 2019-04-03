@@ -40,6 +40,15 @@ $invoice->setPurpose('Shop Order #001');
 $amount = 5.90;
 // don't forget to multiply by 100
 $invoice->setAmount($amount * 100);
+
+// VAT rate percentage (nullable)
+$vatRate = 7.70;
+$invoice->setVatRate($vatRate);
+
+// Product SKU
+$sku = 'P01122000';
+$invoice->setSku($sku);
+
 // ISO code of currency, list of alternatives can be found here
 // http://developers.payrexx.com/docs/miscellaneous
 $invoice->setCurrency('CHF');

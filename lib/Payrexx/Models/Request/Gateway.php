@@ -21,6 +21,22 @@ class Gateway extends \Payrexx\Models\Base
     protected $amount;
 
     /**
+     * optional
+     *
+     * @access  protected
+     * @var     float|null
+     */
+    protected $vatRate;
+
+    /**
+     * optional
+     *
+     * @access  protected
+     * @var     string
+     */
+    protected $sku;
+
+    /**
      * mandatory
      *
      * @access  protected
@@ -108,6 +124,14 @@ class Gateway extends \Payrexx\Models\Base
      */
     protected $failedRedirectUrl;
 
+    /**
+     * optional
+     *
+     * @access  protected
+     * @var     boolean
+     */
+    protected $skipResultPage;
+
 
     /**
      * @access  public
@@ -128,6 +152,38 @@ class Gateway extends \Payrexx\Models\Base
     public function setAmount($amount)
     {
         $this->amount = $amount;
+    }
+
+    /**
+     * @return float|null
+     */
+    public function getVatRate()
+    {
+        return $this->vatRate;
+    }
+
+    /**
+     * @param float|null $vatRate
+     */
+    public function setVatRate($vatRate)
+    {
+        $this->vatRate = $vatRate;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSku()
+    {
+        return $this->sku;
+    }
+
+    /**
+     * @param string $sku
+     */
+    public function setSku($sku)
+    {
+        $this->sku = $sku;
     }
 
     /**
@@ -362,6 +418,22 @@ class Gateway extends \Payrexx\Models\Base
     public function setFailedRedirectUrl($failedRedirectUrl)
     {
         $this->failedRedirectUrl = $failedRedirectUrl;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isSkipResultPage()
+    {
+        return $this->skipResultPage;
+    }
+
+    /**
+     * @param bool $skipResultPage
+     */
+    public function setSkipResultPage($skipResultPage)
+    {
+        $this->skipResultPage = $skipResultPage;
     }
 
     /**
