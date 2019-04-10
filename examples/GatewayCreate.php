@@ -63,6 +63,8 @@ $gateway->addField($type = 'country', $value = 'AT');
 $gateway->addField($type = 'phone', $value = '+43123456789');
 $gateway->addField($type = 'email', $value = 'max.muster@payrexx.com');
 $gateway->addField($type = 'date_of_birth', $value = '03.06.1985');
+$gateway->addField($type = 'terms', '');
+$gateway->addField($type = 'privacy_policy', '');
 $gateway->addField($type = 'custom_field_1', $value = '123456789', $name = array(
     1 => 'Benutzerdefiniertes Feld (DE)',
     2 => 'Benutzerdefiniertes Feld (EN)',

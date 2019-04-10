@@ -76,6 +76,7 @@ $invoice->addField($type = 'surname', $mandatory = true, $defaultValue = 'Kramer
 $invoice->addField($type = 'country', $mandatory = true, $defaultValue = 'AT');
 $invoice->addField($type = 'title', $mandatory = true, $defaultValue = 'miss');
 $invoice->addField($type = 'terms', $mandatory = true);
+$invoice->addField($type = 'privacy_policy', $mandatory = true);
 $invoice->addField($type = 'custom_field_1', $mandatory = true, $defaultValue = 'Value 001', $name = 'Das ist ein Feld');
 
 // fire request with created and filled link request-object.
