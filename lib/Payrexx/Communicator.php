@@ -14,7 +14,6 @@ namespace Payrexx;
 class Communicator
 {
     const VERSION = 'v1';
-    const API_URL = 'https://api.payrexx.com/%s/%s/%d/';
     /**
      * @var array A set of methods which can be used to communicate with the API server.
      */
@@ -35,6 +34,8 @@ class Communicator
      * @var string The API secret which is used to generate a signature.
      */
     protected $apiSecret;
+
+    protected $apiUrl;
     /**
      * @var string The communication handler which handles the HTTP requests. Default cURL Communication handler
      */
@@ -50,10 +51,11 @@ class Communicator
      *
      * @throws \Payrexx\PayrexxException
      */
-    public function __construct($instance, $apiSecret, $communicationHandler = '\Payrexx\CommunicationAdapter\CurlCommunication')
+    public function __construct($instance, $apiSecret, $communicationHandler = '\Payrexx\CommunicationAdapter\CurlCommunication', $apiUrl = 'https://api.payrexx.com/%s/%s/%d/')
     {
-        $this->instance = $instance;
-        $this->apiSecret = $apiSecret;
+        $this->instance     = $instance;
+        $this->apiSecret    = $apiSecret;
+        $this->apiUrl       = $apiUrl;
 
         if (!class_exists($communicationHandler)) {
             throw new \Payrexx\PayrexxException('Communication handler class ' . $communicationHandler . ' not found');
@@ -90,7 +92,7 @@ class Communicator
 
         $id = isset($params['id']) ? $params['id'] : 0;
         $response = $this->communicationHandler->requestApi(
-            sprintf(self::API_URL, self::VERSION, $params['model'], $id),
+            sprintf($this->apiUrl, self::VERSION, $params['model'], $id),
             $params,
             $this->getHttpMethod($method)
         );
