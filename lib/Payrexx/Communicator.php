@@ -14,7 +14,10 @@ namespace Payrexx;
 class Communicator
 {
     const VERSION = 'v1';
-    const API_URL = 'https://api.payrexx.com/%s/%s/%d/';
+    const API_URL_FORMAT = 'https://api.%s/%s/%s/%d/';
+    const API_URL_BASE_DOMAIN = 'payrexx.com';
+    const DEFAULT_COMMUNICATION_HANDLER = '\Payrexx\CommunicationAdapter\CurlCommunication';
+
     /**
      * @var array A set of methods which can be used to communicate with the API server.
      */
@@ -36,6 +39,10 @@ class Communicator
      */
     protected $apiSecret;
     /**
+     * @var string The base domain of the API URL.
+     */
+    protected $apiBaseDomain;
+    /**
      * @var string The communication handler which handles the HTTP requests. Default cURL Communication handler
      */
     protected $communicationHandler;
@@ -44,19 +51,20 @@ class Communicator
      * Generates a communicator object with a communication handler like cURL.
      *
      * @param string $instance             The instance name, needed for the generation of the API url.
-     * @param string $apiSecret            The API secret which is the key to hash all the parameters passed to the API
-     *                                     server.
+     * @param string $apiSecret            The API secret which is the key to hash all the parameters passed to the API server.
      * @param string $communicationHandler The preferred communication handler. Default is cURL.
+     * @param string $apiBaseDomain        The base domain of the API URL.
      *
-     * @throws \Payrexx\PayrexxException
+     * @throws PayrexxException
      */
-    public function __construct($instance, $apiSecret, $communicationHandler = '\Payrexx\CommunicationAdapter\CurlCommunication')
+    public function __construct($instance, $apiSecret, $communicationHandler, $apiBaseDomain)
     {
         $this->instance = $instance;
         $this->apiSecret = $apiSecret;
+        $this->apiBaseDomain = $apiBaseDomain;
 
         if (!class_exists($communicationHandler)) {
-            throw new \Payrexx\PayrexxException('Communication handler class ' . $communicationHandler . ' not found');
+            throw new PayrexxException('Communication handler class ' . $communicationHandler . ' not found');
         }
         $this->communicationHandler = new $communicationHandler();
     }
@@ -89,8 +97,10 @@ class Communicator
         $params['instance'] = $this->instance;
 
         $id = isset($params['id']) ? $params['id'] : 0;
+        $apiUrl = sprintf(self::API_URL_FORMAT, $this->apiBaseDomain, self::VERSION, $params['model'], $id);
+
         $response = $this->communicationHandler->requestApi(
-            sprintf(self::API_URL, self::VERSION, $params['model'], $id),
+            $apiUrl,
             $params,
             $this->getHttpMethod($method)
         );

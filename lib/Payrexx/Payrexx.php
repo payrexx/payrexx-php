@@ -21,18 +21,21 @@ class Payrexx
     /**
      * Generates an API object to use for the whole interaction with Payrexx.
      *
-     * @param string $instance             The name of the Payrexx instance
-     * @param string $apiSecret            The API secret which can be found in the Payrexx administration
-     * @param string $communicationHandler The preferred communication handler.
-     *                                     If nothing is defined the Payrexx API will use the cURL communicator.
+     * @param string $instance             The name of the Payrexx instance.
+     * @param string $apiSecret            The API secret which can be found in the Payrexx administration.
+     * @param string $communicationHandler The preferred communication handler. Default is cURL.
+     * @param string $apiBaseDomain        The base domain of the API URL.
+     *
+     * @throws PayrexxException
      */
-    public function __construct($instance, $apiSecret, $communicationHandler = null)
+    public function __construct($instance, $apiSecret, $communicationHandler = '', $apiBaseDomain = Communicator::API_URL_BASE_DOMAIN)
     {
-        if ($communicationHandler) {
-            $this->communicator = new \Payrexx\Communicator($instance, $apiSecret, $communicationHandler);
-        } else {
-            $this->communicator = new \Payrexx\Communicator($instance, $apiSecret);
-        }
+        $this->communicator = new Communicator(
+            $instance,
+            $apiSecret,
+            $communicationHandler ?: Communicator::DEFAULT_COMMUNICATION_HANDLER,
+            $apiBaseDomain
+        );
     }
 
     /**
