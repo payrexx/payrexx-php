@@ -123,6 +123,13 @@ class Gateway extends \Payrexx\Models\Base
      * @var     string
      */
     protected $failedRedirectUrl;
+    /**
+     * mandatory
+     *
+     * @access  protected
+     * @var     string
+     */
+    protected $cancelRedirectUrl;
 
     /**
      * optional
@@ -418,6 +425,25 @@ class Gateway extends \Payrexx\Models\Base
     public function setFailedRedirectUrl($failedRedirectUrl)
     {
         $this->failedRedirectUrl = $failedRedirectUrl;
+    }
+
+    /**
+     * @access  public
+     * @return  string
+     */
+    public function getCancelRedirectUrl()
+    {
+        return $this->cancelRedirectUrl;
+    }
+
+    /**
+     * Set the url to redirect to after cancelled payment.
+     *
+     * @param   string  $cancelRedirectUrl
+     */
+    public function setCancelRedirectUrl($cancelRedirectUrl)
+    {
+        $this->cancelRedirectUrl = $cancelRedirectUrl;
     }
 
     /**
