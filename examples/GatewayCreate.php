@@ -45,6 +45,8 @@ $gateway->setPsp([]);
 
 // optional: whether charge payment manually at a later date (type authorization)
 $gateway->setPreAuthorization(false);
+// optional: if you want to do a pre authorization which should be charged on first time
+//$gateway->setChargeOnAuthorization(true);
 
 // optional: whether charge payment manually at a later date (type reservation)
 $gateway->setReservation(false);

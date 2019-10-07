@@ -123,6 +123,7 @@ class Gateway extends \Payrexx\Models\Base
      * @var     string
      */
     protected $failedRedirectUrl;
+
     /**
      * mandatory
      *
@@ -138,6 +139,14 @@ class Gateway extends \Payrexx\Models\Base
      * @var     boolean
      */
     protected $skipResultPage;
+
+    /**
+     * optional
+     *
+     * @access  protected
+     * @var     boolean
+     */
+    protected $chargeOnAuthorization;
 
 
     /**
@@ -460,6 +469,22 @@ class Gateway extends \Payrexx\Models\Base
     public function setSkipResultPage($skipResultPage)
     {
         $this->skipResultPage = $skipResultPage;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isChargeOnAuthorization()
+    {
+        return $this->chargeOnAuthorization;
+    }
+
+    /**
+     * @param bool $chargeOnAuthorization
+     */
+    public function setChargeOnAuthorization($chargeOnAuthorization)
+    {
+        $this->chargeOnAuthorization = $chargeOnAuthorization;
     }
 
     /**
