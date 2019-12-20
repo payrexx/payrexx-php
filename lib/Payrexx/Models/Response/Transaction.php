@@ -17,11 +17,17 @@ class Transaction extends \Payrexx\Models\Request\Transaction
 {
 
     private $uuid;
+    private $referenceId;
     private $time;
     private $status;
     private $lang;
     private $psp;
+    private $pspId;
+    private $mode;
     private $payment;
+    private $invoice;
+    private $contact;
+    private $pageUuid;
 
     /**
      * @access  public
@@ -39,6 +45,22 @@ class Transaction extends \Payrexx\Models\Request\Transaction
     public function getUuid()
     {
         return $this->uuid;
+    }
+
+    /**
+     * @return string
+     */
+    public function getReferenceId()
+    {
+        return $this->referenceId;
+    }
+
+    /**
+     * @param string $referenceId
+     */
+    public function setReferenceId($referenceId): void
+    {
+        $this->referenceId = $referenceId;
     }
 
     /**
@@ -114,6 +136,38 @@ class Transaction extends \Payrexx\Models\Request\Transaction
     }
 
     /**
+     * @return int
+     */
+    public function getPspId()
+    {
+        return $this->pspId;
+    }
+
+    /**
+     * @param int $pspId
+     */
+    public function setPspId($pspId): void
+    {
+        $this->pspId = $pspId;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getMode()
+    {
+        return $this->mode;
+    }
+
+    /**
+     * @param int $mode
+     */
+    public function setMode($mode)
+    {
+        $this->mode = $mode;
+    }
+
+    /**
      * @access  public
      * @param   array  $payment
      */
@@ -129,5 +183,53 @@ class Transaction extends \Payrexx\Models\Request\Transaction
     public function getPayment()
     {
         return $this->payment;
+    }
+
+    /**
+     * @return array
+     */
+    public function getInvoice()
+    {
+        return $this->invoice;
+    }
+
+    /**
+     * @param array $invoice
+     */
+    public function setInvoice($invoice): void
+    {
+        $this->invoice = $invoice;
+    }
+
+    /**
+     * @return array
+     */
+    public function getContact()
+    {
+        return $this->contact;
+    }
+
+    /**
+     * @param array $contact
+     */
+    public function setContact($contact): void
+    {
+        $this->contact = $contact;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPageUuid()
+    {
+        return $this->pageUuid;
+    }
+
+    /**
+     * @param string $pageUuid
+     */
+    public function setPageUuid($pageUuid): void
+    {
+        $this->pageUuid = $pageUuid;
     }
 }
