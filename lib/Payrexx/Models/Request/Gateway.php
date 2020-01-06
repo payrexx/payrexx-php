@@ -148,6 +148,14 @@ class Gateway extends \Payrexx\Models\Base
      */
     protected $chargeOnAuthorization;
 
+    /**
+     * optional
+     *
+     * @access  protected
+     * @var     string
+     */
+    protected $customerStatementDescriptor;
+
 
     /**
      * @access  public
@@ -485,6 +493,22 @@ class Gateway extends \Payrexx\Models\Base
     public function setChargeOnAuthorization($chargeOnAuthorization)
     {
         $this->chargeOnAuthorization = $chargeOnAuthorization;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCustomerStatementDescriptor()
+    {
+        return $this->customerStatementDescriptor;
+    }
+
+    /**
+     * @param string $customerStatementDescriptor
+     */
+    public function setCustomerStatementDescriptor(string $customerStatementDescriptor): void
+    {
+        $this->customerStatementDescriptor = $customerStatementDescriptor;
     }
 
     /**
