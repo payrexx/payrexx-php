@@ -149,7 +149,7 @@ class Gateway extends \Payrexx\Models\Base
     protected $chargeOnAuthorization;
 
     /**
-     * optional
+     * optional: Only for Clearhaus transactions.
      *
      * @access  protected
      * @var     string
@@ -163,6 +163,46 @@ class Gateway extends \Payrexx\Models\Base
      * @var     int
      */
     protected $validity;
+
+    /**
+     * optional
+     *
+     * @access  protected
+     * @var     bool
+     */
+    protected $subscriptionState = false;
+
+    /**
+     * optional
+     *
+     * @access  protected
+     * @var     string
+     */
+    protected $subscriptionInterval = '';
+
+    /**
+     * optional
+     *
+     * @access  protected
+     * @var     string
+     */
+    protected $subscriptionPeriod = '';
+
+    /**
+     * optional
+     *
+     * @access  protected
+     * @var     string
+     */
+    protected $subscriptionPeriodMinAmount = '';
+
+    /**
+     * optional
+     *
+     * @access  protected
+     * @var     string
+     */
+    protected $subscriptionCancellationInterval = '';
 
     /**
      * @access  public
@@ -542,6 +582,111 @@ class Gateway extends \Payrexx\Models\Base
     public function getResponseModel()
     {
         return new \Payrexx\Models\Response\Gateway();
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isSubscriptionState()
+    {
+        return $this->subscriptionState;
+    }
+
+    /**
+     * Set whether the payment should be a recurring payment (subscription)
+     * If you set to TRUE, you should provide a
+     * subscription interval, period and cancellation interval
+     * Note: Subscription and pre-authorization can not be combined.
+     *
+     * @param boolean $subscriptionState
+     */
+    public function setSubscriptionState($subscriptionState)
+    {
+        $this->subscriptionState = $subscriptionState;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSubscriptionInterval()
+    {
+        return $this->subscriptionInterval;
+    }
+
+    /**
+     * Set the payment interval, this should be a string formatted like ISO 8601
+     * (PnYnMnDTnHnMnS)
+     *
+     * Use case:
+     * If you set this value to P6M the customer will pay every 6 months on this
+     * subscription.
+     *
+     * It is possible to define XY years / months or days.
+     *
+     * For further information see http://php.net/manual/en/class.dateinterval.php
+     *
+     * @param string $subscriptionInterval
+     */
+    public function setSubscriptionInterval($subscriptionInterval)
+    {
+        $this->subscriptionInterval = $subscriptionInterval;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSubscriptionPeriod()
+    {
+        return $this->subscriptionPeriod;
+    }
+
+    /**
+     * Set the subscription period after how many years / months or days the subscription
+     * will get renewed.
+     *
+     * This should be a string formatted like ISO 8601 (PnYnMnDTnHnMnS)
+     *
+     * Use case:
+     * If you set this value to P1Y the subscription will be renewed every year.
+     *
+     * It is possible to define XY years / months or days.
+     *
+     * For further information see http://php.net/manual/en/class.dateinterval.php
+     *
+     * @param string $subscriptionPeriod
+     */
+    public function setSubscriptionPeriod($subscriptionPeriod)
+    {
+        $this->subscriptionPeriod = $subscriptionPeriod;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSubscriptionCancellationInterval()
+    {
+        return $this->subscriptionCancellationInterval;
+    }
+
+    /**
+     * Set the cancellation interval, it means you can define how many days or months
+     * the client has to cancel the subscription before the end of subscription period.
+     *
+     * This should be a string formatted like ISO 8601 (PnYnMnDTnHnMnS)
+     *
+     * Use case:
+     * If you set this value to P1M the subscription has to be cancelled one month
+     * before end of subscription period.
+     *
+     * It is possible to define XY months or days. Years are not supported here.
+     *
+     * For further information see http://php.net/manual/en/class.dateinterval.php
+     *
+     * @param string $subscriptionCancellationInterval
+     */
+    public function setSubscriptionCancellationInterval($subscriptionCancellationInterval)
+    {
+        $this->subscriptionCancellationInterval = $subscriptionCancellationInterval;
     }
 
 }

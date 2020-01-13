@@ -51,6 +51,13 @@ $gateway->setPreAuthorization(false);
 // optional: whether charge payment manually at a later date (type reservation)
 $gateway->setReservation(false);
 
+// subscription information if you want the customer to authorize a recurring payment.
+// this does not work in combination with pre-authorization payments.
+//$gateway->setSubscriptionState(true);
+//$gateway->setSubscriptionInterval('P1M');
+//$gateway->setSubscriptionPeriod('P1Y');
+//$gateway->setSubscriptionCancellationInterval('P3M');
+
 // optional: reference id of merchant (e. g. order number)
 $gateway->setReferenceId(975382);
 
