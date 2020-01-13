@@ -156,6 +156,13 @@ class Gateway extends \Payrexx\Models\Base
      */
     protected $customerStatementDescriptor;
 
+    /**
+     * optional: Gateway validity in minutes.
+     *
+     * @access  protected
+     * @var     int
+     */
+    protected $validity;
 
     /**
      * @access  public
@@ -509,6 +516,24 @@ class Gateway extends \Payrexx\Models\Base
     public function setCustomerStatementDescriptor(string $customerStatementDescriptor): void
     {
         $this->customerStatementDescriptor = $customerStatementDescriptor;
+    }
+
+    /**
+     * Validity in minutes.
+     * @return int
+     */
+    public function getValidity()
+    {
+        return $this->validity;
+    }
+
+    /**
+     * Validity in minutes.
+     * @param int $validity
+     */
+    public function setValidity($validity)
+    {
+        $this->validity = $validity;
     }
 
     /**
