@@ -14,7 +14,7 @@ namespace Payrexx;
 class Communicator
 {
     const VERSION = 'v1';
-    const API_URL_FORMAT = 'https://api.%s/%s/%s/%d/';
+    const API_URL_FORMAT = 'https://api.%s/%s/%s/%d/%s';
     const API_URL_BASE_DOMAIN = 'payrexx.com';
     const DEFAULT_COMMUNICATION_HANDLER = '\Payrexx\CommunicationAdapter\CurlCommunication';
 
@@ -24,6 +24,7 @@ class Communicator
     protected static $methods = array(
         'create' => 'POST',
         'charge' => 'POST',
+        'refund' => 'POST',
         'cancel' => 'DELETE',
         'delete' => 'DELETE',
         'update' => 'PUT',
@@ -97,7 +98,8 @@ class Communicator
         $params['instance'] = $this->instance;
 
         $id = isset($params['id']) ? $params['id'] : 0;
-        $apiUrl = sprintf(self::API_URL_FORMAT, $this->apiBaseDomain, self::VERSION, $params['model'], $id);
+        $act = $method === 'refund' ? $method : '';
+        $apiUrl = sprintf(self::API_URL_FORMAT, $this->apiBaseDomain, self::VERSION, $params['model'], $id, $act);
 
         $response = $this->communicationHandler->requestApi(
             $apiUrl,
