@@ -22,14 +22,15 @@ class Communicator
      * @var array A set of methods which can be used to communicate with the API server.
      */
     protected static $methods = array(
-        'create' => 'POST',
-        'charge' => 'POST',
-        'refund' => 'POST',
-        'cancel' => 'DELETE',
-        'delete' => 'DELETE',
-        'update' => 'PUT',
-        'getAll' => 'GET',
-        'getOne' => 'GET',
+        'create'  => 'POST',
+        'charge'  => 'POST',
+        'refund'  => 'POST',
+        'capture' => 'POST',
+        'cancel'  => 'DELETE',
+        'delete'  => 'DELETE',
+        'update'  => 'PUT',
+        'getAll'  => 'GET',
+        'getOne'  => 'GET',
     );
     /**
      * @var string The Payrexx instance name.
@@ -98,7 +99,7 @@ class Communicator
         $params['instance'] = $this->instance;
 
         $id = isset($params['id']) ? $params['id'] : 0;
-        $act = $method === 'refund' ? $method : '';
+        $act = in_array($method, ['refund', 'capture']) ? $method : '';
         $apiUrl = sprintf(self::API_URL_FORMAT, $this->apiBaseDomain, self::VERSION, $params['model'], $id, $act);
 
         $response = $this->communicationHandler->requestApi(
