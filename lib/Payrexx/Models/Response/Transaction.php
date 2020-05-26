@@ -17,7 +17,6 @@ class Transaction extends \Payrexx\Models\Request\Transaction
 {
 
     private $uuid;
-    private $referenceId;
     private $time;
     private $status;
     private $lang;
@@ -45,22 +44,6 @@ class Transaction extends \Payrexx\Models\Request\Transaction
     public function getUuid()
     {
         return $this->uuid;
-    }
-
-    /**
-     * @return string
-     */
-    public function getReferenceId()
-    {
-        return $this->referenceId;
-    }
-
-    /**
-     * @param string $referenceId
-     */
-    public function setReferenceId($referenceId): void
-    {
-        $this->referenceId = $referenceId;
     }
 
     /**
