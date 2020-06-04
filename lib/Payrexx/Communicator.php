@@ -120,10 +120,7 @@ class Communicator
             $responseModel = $model->getResponseModel();
             $convertedResponse[] = $responseModel->fromArray($object);
         }
-        if (
-            strpos($method, 'One') !== false ||
-            strpos($method, 'create') !== false
-        ) {
+        if ($method !== 'getAll') {
             $convertedResponse = current($convertedResponse);
         }
         return $convertedResponse;
