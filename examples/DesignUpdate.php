@@ -23,6 +23,7 @@ $secret = 'YOUR_SECRET';
 $payrexx = new Payrexx($instanceName, $secret);
 
 $design = new Design();
+$design->setId(1);
 $design->setDefault(false);
 $design->setName('Example Design (via API)');
 $design->setHeaderImageShape('square'); // square, rectangular or round
@@ -49,7 +50,7 @@ $design->setEmailHeaderBackgroundColor('FAFAFA'); // Hex code
 $design->setHeaderImage(new CURLFile(__DIR__ . '/payrexx-logo.png'));
 
 try {
-    $response = $payrexx->create($design);
+    $response = $payrexx->update($design);
     var_dump($response);
 } catch (PayrexxException $e) {
     print $e->getMessage();

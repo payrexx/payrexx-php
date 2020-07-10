@@ -2,6 +2,7 @@
 
 namespace Payrexx\Models\Request;
 
+use CURLFile;
 use Payrexx\Models\Base;
 
 /**
@@ -13,85 +14,83 @@ use Payrexx\Models\Base;
  */
 class Design extends Base
 {
-    /** @var bool $default */
-    private $default = false;
+    /** @var int $default */
+    protected $default = 0;
 
     /** @var string $name */
-    private $name;
+    protected $name;
 
     /** @var string $fontFamily */
-    private $fontFamily;
+    protected $fontFamily;
 
     /** @var string $fontSize */
-    private $fontSize;
+    protected $fontSize;
 
     /** @var string $textColor */
-    private $textColor;
+    protected $textColor;
 
     /** @var string $textColorVPOS */
-    private $textColorVPOS;
+    protected $textColorVPOS;
 
     /** @var string $linkColor */
-    private $linkColor;
+    protected $linkColor;
 
     /** @var string $linkHoverColor */
-    private $linkHoverColor;
+    protected $linkHoverColor;
 
     /** @var string $buttonColor */
-    private $buttonColor;
+    protected $buttonColor;
 
     /** @var string $buttonHoverColor */
-    private $buttonHoverColor;
+    protected $buttonHoverColor;
 
     /** @var string $background */
-    private $background;
+    protected $background;
 
     /** @var string $backgroundColor */
-    private $backgroundColor;
+    protected $backgroundColor;
 
     /** @var string $headerBackground */
-    private $headerBackground;
+    protected $headerBackground;
 
     /** @var string $headerBackgroundColor */
-    private $headerBackgroundColor;
+    protected $headerBackgroundColor;
 
     /** @var string $emailHeaderBackgroundColor */
-    private $emailHeaderBackgroundColor;
+    protected $emailHeaderBackgroundColor;
 
     /** @var string $headerImageShape */
-    private $headerImageShape;
+    protected $headerImageShape;
 
-    /** @var bool $useIndividualEmailLogo */
-    private $useIndividualEmailLogo = false;
+    /** @var int $useIndividualEmailLogo */
+    protected $useIndividualEmailLogo = 0;
 
     /** @var string $logoBackgroundColor */
-    private $logoBackgroundColor;
+    protected $logoBackgroundColor;
 
     /** @var string $logoBorderColor */
-    private $logoBorderColor;
+    protected $logoBorderColor;
 
     /** @var string $VPOSGradientColor1 */
-    private $VPOSGradientColor1;
+    protected $VPOSGradientColor1;
 
     /** @var string $VPOSGradientColor2 */
-    private $VPOSGradientColor2;
+    protected $VPOSGradientColor2;
 
-    /**
-     * @var bool $enableRoundedCorners
-     */
-    private $enableRoundedCorners;
+    /** @var int $enableRoundedCorners */
+    protected $enableRoundedCorners;
 
-    /** @var string $headerImage */
-    private $headerImage;
+    /** @var CURLFile $headerImage */
+    protected $headerImage;
 
-    /** @var string $backgroundImage */
-    private $backgroundImage;
+    /** @var CURLFile $backgroundImage */
+    protected $backgroundImage;
 
-    /** @var string $headerBackgroundImage */
-    private $headerBackgroundImage;
+    /** @var CURLFile $headerBackgroundImage */
+    protected $headerBackgroundImage;
 
-    /** @var string $emailHeaderImage */
-    private $emailHeaderImage;
+    /** @var CURLFile $emailHeaderImage */
+    protected $emailHeaderImage;
 
     /**
      * {@inheritdoc}
@@ -106,7 +105,7 @@ class Design extends Base
      */
     public function isDefault(): bool
     {
-        return $this->default;
+        return (bool)$this->default;
     }
 
     /**
@@ -114,7 +113,7 @@ class Design extends Base
      */
     public function setDefault(bool $default): void
     {
-        $this->default = $default;
+        $this->default = (int)$default;
     }
 
     /**
@@ -362,7 +361,7 @@ class Design extends Base
      */
     public function isUseIndividualEmailLogo(): bool
     {
-        return $this->useIndividualEmailLogo;
+        return (bool)$this->useIndividualEmailLogo;
     }
 
     /**
@@ -370,7 +369,7 @@ class Design extends Base
      */
     public function setUseIndividualEmailLogo(bool $useIndividualEmailLogo): void
     {
-        $this->useIndividualEmailLogo = $useIndividualEmailLogo;
+        $this->useIndividualEmailLogo = (int)$useIndividualEmailLogo;
     }
 
     /**
@@ -442,7 +441,7 @@ class Design extends Base
      */
     public function isEnableRoundedCorners(): bool
     {
-        return $this->enableRoundedCorners;
+        return (bool)$this->enableRoundedCorners;
     }
 
     /**
@@ -450,6 +449,70 @@ class Design extends Base
      */
     public function setEnableRoundedCorners(bool $enableRoundedCorners): void
     {
-        $this->enableRoundedCorners = $enableRoundedCorners;
+        $this->enableRoundedCorners = (int)$enableRoundedCorners;
+    }
+
+    /**
+     * @return string
+     */
+    public function getHeaderImage()
+    {
+        return $this->headerImage;
+    }
+
+    /**
+     * @param CURLFile $headerImage
+     */
+    public function setHeaderImage($headerImage)
+    {
+        $this->headerImage = $headerImage;
+    }
+
+    /**
+     * @return string
+     */
+    public function getBackgroundImage()
+    {
+        return $this->backgroundImage;
+    }
+
+    /**
+     * @param CURLFile $backgroundImage
+     */
+    public function setBackgroundImage($backgroundImage)
+    {
+        $this->backgroundImage = $backgroundImage;
+    }
+
+    /**
+     * @return string
+     */
+    public function getHeaderBackgroundImage()
+    {
+        return $this->headerBackgroundImage;
+    }
+
+    /**
+     * @param CURLFile $headerBackgroundImage
+     */
+    public function setHeaderBackgroundImage($headerBackgroundImage)
+    {
+        $this->headerBackgroundImage = $headerBackgroundImage;
+    }
+
+    /**
+     * @return string
+     */
+    public function getEmailHeaderImage()
+    {
+        return $this->emailHeaderImage;
+    }
+
+    /**
+     * @param CURLFile $emailHeaderImage
+     */
+    public function setEmailHeaderImage($emailHeaderImage)
+    {
+        $this->emailHeaderImage = $emailHeaderImage;
     }
 }

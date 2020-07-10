@@ -94,18 +94,23 @@ class Communicator
     public function performApiRequest($method, \Payrexx\Models\Base $model)
     {
         $params = $model->toArray($method);
+        $paramsWithoutFiles = $params;
+        unset($paramsWithoutFiles['headerImage'], $paramsWithoutFiles['backgroundImage'], $paramsWithoutFiles['headerBackgroundImage'], $paramsWithoutFiles['emailHeaderImage']);
         $params['ApiSignature'] =
-            base64_encode(hash_hmac('sha256', http_build_query($params, null, '&'), $this->apiSecret, true));
+            base64_encode(hash_hmac('sha256', http_build_query($paramsWithoutFiles, null, '&'), $this->apiSecret, true));
         $params['instance'] = $this->instance;
 
         $id = isset($params['id']) ? $params['id'] : 0;
         $act = in_array($method, ['refund', 'capture']) ? $method : '';
         $apiUrl = sprintf(self::API_URL_FORMAT, $this->apiBaseDomain, self::VERSION, $params['model'], $id, $act);
 
+        $method = $this->getHttpMethod($method) === 'PUT' && $params['model'] === 'Design'
+            ? 'POST'
+            : $this->getHttpMethod($method);
         $response = $this->communicationHandler->requestApi(
             $apiUrl,
             $params,
-            $this->getHttpMethod($method)
+            $method
         );
 
         $convertedResponse = array();

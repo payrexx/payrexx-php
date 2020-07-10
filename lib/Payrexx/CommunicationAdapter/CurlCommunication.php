@@ -1,29 +1,34 @@
 <?php
+
 /**
  * This is the cURL communication adapter
  * @author    Ueli Kramer <ueli.kramer@comvation.com>
  * @copyright 2014 Payrexx AG
  * @since     v1.0
  */
+
 namespace Payrexx\CommunicationAdapter;
+
+use CURLFile;
+use Exception;
 
 // check for php version 5.2 or higher
 if (version_compare(PHP_VERSION, '5.2.0', '<')) {
-    throw new \Exception('Your PHP version is not supported. Minimum version should be 5.2.0');
+    throw new Exception('Your PHP version is not supported. Minimum version should be 5.2.0');
 } else if (!function_exists('json_decode')) {
-    throw new \Exception('json_decode function missing. Please install the JSON extension');
+    throw new Exception('json_decode function missing. Please install the JSON extension');
 }
 
 // is the curl extension available?
 if (!extension_loaded('curl')) {
-    throw new \Exception('Please install the PHP cURL extension');
+    throw new Exception('Please install the PHP cURL extension');
 }
 
 /**
  * Class CurlCommunication for the communication with cURL
  * @package Payrexx\CommunicationAdapter
  */
-class CurlCommunication extends \Payrexx\CommunicationAdapter\AbstractCommunication
+class CurlCommunication extends AbstractCommunication
 {
     /**
      * {@inheritdoc}
@@ -59,11 +64,30 @@ class CurlCommunication extends \Payrexx\CommunicationAdapter\AbstractCommunicat
             $curlOpts[CURLOPT_URL] .= 'instance=' . $params['instance'];
         }
 
+        $hasFile = false;
+        $hasCurlFile = class_exists('CURLFile', false);
+        foreach ($params as $param) {
+            if (is_resource($param)) {
+                $hasFile = true;
+                break;
+            } elseif ($hasCurlFile && $param instanceof CURLFile) {
+                $hasFile = true;
+                break;
+            }
+        }
+        if ($hasFile) {
+            $curlOpts[CURLOPT_HTTPHEADER] = ['Content-type: multipart/form-data'];
+            if (empty($params['id'])) {
+                unset($params['id']);
+            }
+            $curlOpts[CURLOPT_POSTFIELDS] = $params;
+        }
+
         $curl = curl_init();
         curl_setopt_array($curl, $curlOpts);
         $responseBody = $this->curlExec($curl);
         $responseInfo = $this->curlInfo($curl);
-        
+
         if ($responseBody === false) {
             $responseBody = array('status' => 'error', 'message' => $this->curlError($curl));
         }
