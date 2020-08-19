@@ -104,13 +104,13 @@ class Communicator
         $act = in_array($method, ['refund', 'capture']) ? $method : '';
         $apiUrl = sprintf(self::API_URL_FORMAT, $this->apiBaseDomain, self::VERSION, $params['model'], $id, $act);
 
-        $method = $this->getHttpMethod($method) === 'PUT' && $params['model'] === 'Design'
+        $httpMethod = $this->getHttpMethod($method) === 'PUT' && $params['model'] === 'Design'
             ? 'POST'
             : $this->getHttpMethod($method);
         $response = $this->communicationHandler->requestApi(
             $apiUrl,
             $params,
-            $method
+            $httpMethod
         );
 
         $convertedResponse = array();
