@@ -41,6 +41,9 @@ $amount = 5.90;
 // don't forget to multiply by 100
 $invoice->setAmount($amount * 100);
 
+// custom button text
+//$invoice->setButtonText('Pay me');
+
 // VAT rate percentage (nullable)
 $vatRate = 7.70;
 $invoice->setVatRate($vatRate);
