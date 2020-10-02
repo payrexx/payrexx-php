@@ -80,6 +80,9 @@ class Design extends Base
     /** @var int $enableRoundedCorners */
     protected $enableRoundedCorners;
 
+    /** @var string $VPOSBackground */
+    protected $VPOSBackground;
+
     /** @var CURLFile $headerImage */
     protected $headerImage;
 
@@ -91,6 +94,9 @@ class Design extends Base
 
     /** @var CURLFile $emailHeaderImage */
     protected $emailHeaderImage;
+
+    /** @var CURLFile $VPOSBackgroundImage */
+    protected $VPOSBackgroundImage;
 
     /**
      * {@inheritdoc}
@@ -514,5 +520,37 @@ class Design extends Base
     public function setEmailHeaderImage($emailHeaderImage)
     {
         $this->emailHeaderImage = $emailHeaderImage;
+    }
+
+    /**
+     * @return string
+     */
+    public function getVPOSBackground()
+    {
+        return $this->VPOSBackground;
+    }
+
+    /**
+     * @param string $VPOSBackground
+     */
+    public function setVPOSBackground($VPOSBackground)
+    {
+        $this->VPOSBackground = $VPOSBackground;
+    }
+
+    /**
+     * @return CURLFile
+     */
+    public function getVPOSBackgroundImage()
+    {
+        return $this->VPOSBackgroundImage;
+    }
+
+    /**
+     * @param CURLFile $VPOSBackgroundImage
+     */
+    public function setVPOSBackgroundImage($VPOSBackgroundImage)
+    {
+        $this->VPOSBackgroundImage = $VPOSBackgroundImage;
     }
 }

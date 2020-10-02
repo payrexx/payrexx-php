@@ -53,6 +53,9 @@ $invoice->setSku($sku);
 // http://developers.payrexx.com/docs/miscellaneous
 $invoice->setCurrency('CHF');
 
+// Expiration date in format: Y-m-d
+$invoice->setExpirationDate('2020-10-03');
+
 // whether charge payment manually at a later date (type authorization)
 $invoice->setPreAuthorization(false);
 

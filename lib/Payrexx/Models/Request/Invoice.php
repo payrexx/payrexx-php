@@ -45,6 +45,9 @@ class Invoice extends \Payrexx\Models\Base
     protected $fields = array();
     protected $concardisOrderId = '';
 
+    /** @var string $expirationDate */
+    protected $expirationDate;
+
     /**
      * @return string
      */
@@ -458,6 +461,24 @@ class Invoice extends \Payrexx\Models\Base
     public function setConcardisOrderId($concardisOrderId)
     {
         $this->concardisOrderId = $concardisOrderId;
+    }
+
+    /**
+     * Format: Y-m-d
+     * @return string
+     */
+    public function getExpirationDate()
+    {
+        return $this->expirationDate;
+    }
+
+    /**
+     * Format: Y-m-d
+     * @param string $expirationDate
+     */
+    public function setExpirationDate($expirationDate)
+    {
+        $this->expirationDate = $expirationDate;
     }
 
     /**
