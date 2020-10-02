@@ -27,6 +27,7 @@ class Invoice extends \Payrexx\Models\Base
     // optional
     protected $name = '';
     protected $purpose = '';
+    protected $buttonText = '';
     protected $amount = 0;
     protected $vatRate = null;
     protected $sku = '';
@@ -160,6 +161,22 @@ class Invoice extends \Payrexx\Models\Base
     public function setPurpose($purpose)
     {
         $this->purpose = $purpose;
+    }
+
+    /**
+     * @return string
+     */
+    public function getButtonText()
+    {
+        return $this->buttonText;
+    }
+
+    /**
+     * @param string $buttonText
+     */
+    public function setButtonText($buttonText)
+    {
+        $this->buttonText = $buttonText;
     }
 
     /**
