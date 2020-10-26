@@ -14,6 +14,9 @@ use Payrexx\Models\Base;
  */
 class Design extends Base
 {
+    /** @var string $uuid */
+    protected $uuid;
+
     /** @var int $default */
     protected $default = 0;
 
@@ -104,6 +107,22 @@ class Design extends Base
     public function getResponseModel()
     {
         return new \Payrexx\Models\Response\Design();
+    }
+
+    /**
+     * @param string $uuid
+     */
+    public function setUuid(string $uuid): void
+    {
+        $this->uuid = $uuid;
+    }
+
+    /**
+     * @return string
+     */
+    public function getUuid(): string
+    {
+        return $this->uuid;
     }
 
     /**
