@@ -23,7 +23,7 @@ $secret = 'YOUR_SECRET';
 $payrexx = new Payrexx($instanceName, $secret);
 
 $design = new Design();
-$design->setId(1);
+$design->setUuid('YOUR_UUID');
 $design->setDefault(false);
 $design->setName('Example Design (via API)');
 $design->setHeaderImageShape('square'); // square, rectangular or round
