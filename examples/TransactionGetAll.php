@@ -10,19 +10,19 @@ spl_autoload_register(function($class) {
 
 // $instanceName is a part of the url where you access your payrexx installation.
 // https://{$instanceName}.payrexx.com
-$instanceName = 'YOUR_INSTANCE_NAME';
+$instanceName = 'demo';
 
 // $secret is the payrexx secret for the communication between the applications
 // if you think someone got your secret, just regenerate it in the payrexx administration
-$secret = 'YOUR_SECRET';
+$secret = 'ejJwJhT4WcBrpBQcaqHJhn0OQkKxK3';
 
-$payrexx = new \Payrexx\Payrexx($instanceName, $secret);
+$payrexx = new \Payrexx\Payrexx($instanceName, $secret, null, 'payrexx.com.loc');
 
 $transaction = new \Payrexx\Models\Request\Transaction();
-//$transaction->setFilterDatetimeUtcGreaterThan(new \DateTime('2019-12-01 00:00:00'));
-//$transaction->setFilterDatetimeUtcLessThan(new \DateTime('2019-12-31 00:00:00'));
-//$transaction->setOffset(40);
-//$transaction->setLimit(20);
+$transaction->setFilterDatetimeUtcGreaterThan(new \DateTime('2019-12-01 00:00:00'));
+$transaction->setFilterDatetimeUtcLessThan(new \DateTime('2020-10-01 00:00:00'));
+$transaction->setOffset(40);
+$transaction->setLimit(20);
 
 try {
     $response = $payrexx->getAll($transaction);

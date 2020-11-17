@@ -97,6 +97,8 @@ class Design extends Base
 
     /** @var CURLFile $emailHeaderImage */
     protected $emailHeaderImage;
+    protected $offset;
+    protected $limit;
 
     /** @var CURLFile $VPOSBackgroundImage */
     protected $VPOSBackgroundImage;
@@ -571,5 +573,37 @@ class Design extends Base
     public function setVPOSBackgroundImage($VPOSBackgroundImage)
     {
         $this->VPOSBackgroundImage = $VPOSBackgroundImage;
+    }
+
+    /**
+     * @return int
+     */
+    public function getOffset()
+    {
+        return $this->offset;
+    }
+
+    /**
+     * @param int $offset
+     */
+    public function setOffset(int $offset): void
+    {
+        $this->offset = $offset;
+    }
+
+    /**
+     * @return int
+     */
+    public function getLimit()
+    {
+        return $this->limit;
+    }
+
+    /**
+     * @param int $limit
+     */
+    public function setLimit(int $limit): void
+    {
+        $this->limit = $limit;
     }
 }

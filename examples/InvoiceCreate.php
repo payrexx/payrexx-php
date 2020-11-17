@@ -30,7 +30,8 @@ $invoice->setDescription('Thanks for using Payrexx to pay your order');
 
 // administrative information, which provider to use (psp)
 // psp #1 = Payrexx' test mode, see http://developers.payrexx.com/docs/miscellaneous
-$invoice->setPsp(1);
+//$invoice->setPsp([]);
+//$invoice->setPm(['mastercard']);
 
 // internal data only displayed to administrator
 $invoice->setName('Online-Shop payment #001');

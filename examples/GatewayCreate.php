@@ -60,6 +60,8 @@ $gateway->setReservation(false);
 
 // optional: reference id of merchant (e. g. order number)
 $gateway->setReferenceId(975382);
+//$gateway->setValidity(5);
+//$gateway->setLookAndFeelProfile('144be481');
 
 // optional: add contact information which should be stored along with payment
 $gateway->addField($type = 'title', $value = 'mister');
