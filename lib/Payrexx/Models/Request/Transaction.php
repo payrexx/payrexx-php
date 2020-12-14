@@ -17,6 +17,8 @@ class Transaction extends \Payrexx\Models\Base
 {
     /** @var int $amount */
     protected $amount;
+    /** @var string $purpose */
+    protected $purpose;
     /** @var string $referenceId */
     protected $referenceId;
     protected $filterDatetimeUtcGreaterThan;
@@ -38,6 +40,22 @@ class Transaction extends \Payrexx\Models\Base
     public function setAmount($amount)
     {
         $this->amount = $amount;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPurpose()
+    {
+        return $this->purpose;
+    }
+
+    /**
+     * @param string $purpose
+     */
+    public function setPurpose($purpose)
+    {
+        $this->purpose = $purpose;
     }
 
     /**
