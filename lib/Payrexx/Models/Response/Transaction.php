@@ -28,6 +28,22 @@ class Transaction extends \Payrexx\Models\Request\Transaction
     private $contact;
     private $pageUuid;
 
+    const CONFIRMED = 'confirmed';
+    const INITIATED = 'initiated';
+    const WAITING = 'waiting';
+    const AUTHORIZED = 'authorized';
+    const RESERVED = 'reserved';
+    const CANCELLED = 'cancelled';
+    const REFUNDED = 'refunded';
+    const DISPUTED = 'disputed';
+    const DECLINED = 'declined';
+    const ERROR = 'error';
+    const EXPIRED = 'expired';
+    const PARTIALLY_REFUNDED = 'partially-refunded';
+    const REFUND_PENDING = 'refund_pending';
+    const INSECURE = 'insecure';
+    const UNCAPTURED = 'uncaptured';
+
     /**
      * @access  public
      * @param   string  $uuid
