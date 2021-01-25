@@ -145,7 +145,7 @@ class Transaction extends \Payrexx\Models\Request\Transaction
     /**
      * @param int $pspId
      */
-    public function setPspId($pspId): void
+    public function setPspId($pspId)
     {
         $this->pspId = $pspId;
     }
