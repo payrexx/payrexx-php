@@ -10,13 +10,13 @@ spl_autoload_register(function($class) {
 
 // $instanceName is a part of the url where you access your payrexx installation.
 // https://{$instanceName}.payrexx.com
-$instanceName = 'demo';
+$instanceName = 'YOUR_INSTANCE_NAME';
 
 // $secret is the payrexx secret for the communication between the applications
 // if you think someone got your secret, just regenerate it in the payrexx administration
-$secret = 'ejJwJhT4WcBrpBQcaqHJhn0OQkKxK3';
+$secret = 'YOUR_SECRET';
 
-$payrexx = new \Payrexx\Payrexx($instanceName, $secret, null, 'payrexx.com.loc');
+$payrexx = new \Payrexx\Payrexx($instanceName, $secret);
 
 $transaction = new \Payrexx\Models\Request\Transaction();
 $transaction->setFilterDatetimeUtcGreaterThan(new \DateTime('2019-12-01 00:00:00'));
