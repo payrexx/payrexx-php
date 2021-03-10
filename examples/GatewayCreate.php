@@ -23,6 +23,9 @@ $gateway = new \Payrexx\Models\Request\Gateway();
 // amount multiplied by 100
 $gateway->setAmount(89.25 * 100);
 
+// optional: shipping amount multiplied by 100
+// $gateway->setShippingAmount(1 * 100);
+
 // VAT rate percentage (nullable)
 $gateway->setVatRate(7.70);
 
