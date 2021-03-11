@@ -232,9 +232,9 @@ class Gateway extends \Payrexx\Models\Base
      * optional
      *
      * @access  protected
-     * @var     array       $cart
+     * @var     array       $basket
      */
-    protected $cart;
+    protected $basket;
 
     /**
      * @access  public
@@ -776,23 +776,23 @@ class Gateway extends \Payrexx\Models\Base
     /**
      * @return array
      */
-    public function getCart(): array
+    public function getBasket(): array
     {
-        return $this->cart;
+        return $this->basket;
     }
 
     /**
      * It is a multidimensional array to parse each product as an array
      *
-     * @param array $cart           Available product values:
+     * @param array $basket         Available product values:
      *                              name => Can be an array with the key as language ID
      *                              description => Can be an array with the key as language ID
      *                              quantity => quantity of the product
      *                              amount => Product amount
      */
-    public function setCart(array $cart): void
+    public function setBasket(array $basket): void
     {
-        $this->cart = $cart;
+        $this->basket = $basket;
     }
 
 }

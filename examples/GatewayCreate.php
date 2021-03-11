@@ -64,7 +64,7 @@ $gateway->setReferenceId(975382);
 //$gateway->setLookAndFeelProfile('144be481');
 
 // optional: parse multiple products
-//$gateway->setCart([
+//$gateway->setBasket([
 //    [
 //        'name' => [
 //            1 => 'Dies ist der Produktbeispielname 1 (DE)',
