@@ -24,14 +24,6 @@ class Gateway extends \Payrexx\Models\Base
      * optional
      *
      * @access  protected
-     * @var     integer
-     */
-    protected $shippingAmount;
-
-    /**
-     * optional
-     *
-     * @access  protected
      * @var     float|null
      */
     protected $vatRate;
@@ -263,27 +255,6 @@ class Gateway extends \Payrexx\Models\Base
     public function setAmount($amount)
     {
         $this->amount = $amount;
-    }
-
-    /**
-     * @access  public
-     * @return  int
-     */
-    public function getShippingAmount(): int
-    {
-        return $this->shippingAmount;
-    }
-
-    /**
-     * Set the shipping amount.
-     * Make sure the shipping amount is multiplied by 100!
-     *
-     * @access  public
-     * @param   integer $shippingAmount
-     */
-    public function setShippingAmount(int $shippingAmount): void
-    {
-        $this->shippingAmount = $shippingAmount;
     }
 
     /**
