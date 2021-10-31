@@ -27,6 +27,7 @@ class Transaction extends \Payrexx\Models\Request\Transaction
     private $invoice;
     private $contact;
     private $pageUuid;
+    private $payrexx_fee;
 
     const CONFIRMED = 'confirmed';
     const INITIATED = 'initiated';
@@ -230,5 +231,21 @@ class Transaction extends \Payrexx\Models\Request\Transaction
     public function setPageUuid($pageUuid): void
     {
         $this->pageUuid = $pageUuid;
+    }
+
+    /**
+     * @return int
+     */
+    public function getPayrexx_fee()
+    {
+        return $this->payrexx_fee;
+    }
+
+    /**
+     * @param int $payrexxFee
+     */
+    public function setPayrexx_fee($payrexxFee): void
+    {
+        $this->payrexx_fee = $payrexxFee;
     }
 }
