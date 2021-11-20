@@ -236,6 +236,15 @@ class Gateway extends \Payrexx\Models\Base
      */
     protected $basket;
 
+
+    /**
+     * optional
+     *
+     * @access  protected
+     * @var     string      $qrCodeSessionId
+     */
+    protected $qrCodeSessionId;
+
     /**
      * @access  public
      * @return  int
@@ -795,4 +804,13 @@ class Gateway extends \Payrexx\Models\Base
         $this->basket = $basket;
     }
 
+    public function getQrCodeSessionId(): string
+    {
+        return $this->qrCodeSessionId;
+    }
+
+    public function setQrCodeSessionId(string $qrCodeSessionId): void
+    {
+        $this->qrCodeSessionId = $qrCodeSessionId;
+    }
 }
