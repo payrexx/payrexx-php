@@ -2,7 +2,7 @@
 
 namespace Payrexx\Models\Response;
 
-class QRCode extends \Payrexx\Models\Request\QRCode
+class QrCode extends \Payrexx\Models\Request\QrCode
 {
     /** @var string */
     protected $qrCode;

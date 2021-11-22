@@ -9,7 +9,7 @@ namespace Payrexx\Models\Request;
  * @author      Payrexx Development Team <info@payrexx.com>
  * @package     \Payrexx\Models\Request
  */
-class QRCode extends \Payrexx\Models\Base
+class QrCode extends \Payrexx\Models\Base
 {
     /**
      * mandatory
@@ -29,7 +29,6 @@ class QRCode extends \Payrexx\Models\Base
     }
 
     /**
-     *
      * @access public
      * @param  string  $webshopUrl
      */
@@ -43,7 +42,7 @@ class QRCode extends \Payrexx\Models\Base
      */
     public function getResponseModel()
     {
-        return new \Payrexx\Models\Response\QRCode();
+        return new \Payrexx\Models\Response\QrCode();
     }
 
 }
