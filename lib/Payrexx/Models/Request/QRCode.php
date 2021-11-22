@@ -23,16 +23,17 @@ class QRCode extends \Payrexx\Models\Base
      * @access  public
      * @return  string
      */
-    public function getWebshopUrl()
+    public function getWebshopUrl(): string
     {
         return $this->webshopUrl;
     }
 
     /**
      *
+     * @access public
      * @param  string  $webshopUrl
      */
-    public function setWebshopUrl($webshopUrl)
+    public function setWebshopUrl($webshopUrl): void
     {
         $this->webshopUrl = $webshopUrl;
     }

@@ -804,11 +804,20 @@ class Gateway extends \Payrexx\Models\Base
         $this->basket = $basket;
     }
 
+    /**
+     *
+     * @return string
+     */
     public function getQrCodeSessionId(): string
     {
         return $this->qrCodeSessionId;
     }
 
+    /**
+     *
+     * @param string $qrCodeSessionId
+     * @return void
+     */
     public function setQrCodeSessionId(string $qrCodeSessionId): void
     {
         $this->qrCodeSessionId = $qrCodeSessionId;
