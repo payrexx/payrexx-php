@@ -17,6 +17,7 @@ class QrCode extends \Payrexx\Models\Request\QrCode
 
     /**
      * @param string $qrCode
+     * @return void
      */
     public function setQrCode(string $qrCode): void
     {

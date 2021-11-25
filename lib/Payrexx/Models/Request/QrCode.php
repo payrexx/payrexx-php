@@ -3,7 +3,7 @@
 namespace Payrexx\Models\Request;
 
 /**
- * QRCode request class
+ * QrCode request class
  *
  * @copyright   Payrexx AG
  * @author      Payrexx Development Team <info@payrexx.com>
@@ -29,8 +29,9 @@ class QrCode extends \Payrexx\Models\Base
     }
 
     /**
-     * @access public
-     * @param  string  $webshopUrl
+     * @access  public
+     * @param   string   $webshopUrl
+     * @return  void
      */
     public function setWebshopUrl($webshopUrl): void
     {
@@ -44,5 +45,4 @@ class QrCode extends \Payrexx\Models\Base
     {
         return new \Payrexx\Models\Response\QrCode();
     }
-
 }

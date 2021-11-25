@@ -805,7 +805,6 @@ class Gateway extends \Payrexx\Models\Base
     }
 
     /**
-     *
      * @return string
      */
     public function getQrCodeSessionId(): string
@@ -814,7 +813,6 @@ class Gateway extends \Payrexx\Models\Base
     }
 
     /**
-     *
      * @param string $qrCodeSessionId
      * @return void
      */
