@@ -20,6 +20,14 @@ class QrCode extends \Payrexx\Models\Base
     protected $webshopUrl;
 
     /**
+     * mandatory
+     *
+     * @access  protected
+     * @var     string
+     */
+    protected $destroySession;
+
+    /**
      * @access  public
      * @return  string
      */
@@ -36,6 +44,25 @@ class QrCode extends \Payrexx\Models\Base
     public function setWebshopUrl($webshopUrl): void
     {
         $this->webshopUrl = $webshopUrl;
+    }
+
+    /**
+     * @access  public
+     * @return  string
+     */
+    public function getDestroySession(): string
+    {
+        return $this->destroySession;
+    }
+
+    /**
+     * @access  public
+     * @param   string   $destroySession
+     * @return  void
+     */
+    public function setDestroySession($destroySession): void
+    {
+        $this->destroySession = $destroySession;
     }
 
     /**

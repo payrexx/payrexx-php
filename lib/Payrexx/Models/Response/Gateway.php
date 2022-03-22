@@ -26,6 +26,11 @@ class Gateway extends \Payrexx\Models\Request\Gateway
     /** @var array $invoices */
     protected $invoices;
 
+    /** @var integer */
+    protected $transactionId;
+
+    /** @var string */
+    protected $appLink;
 
     /**
      * @return string
@@ -113,5 +118,37 @@ class Gateway extends \Payrexx\Models\Request\Gateway
     public function setInvoices($invoices)
     {
         $this->invoices = $invoices;
+    }
+
+    /**
+     * @return integer|null
+     */
+    public function getTransactionId(): ?int
+    {
+        return $this->transactionId;
+    }
+
+    /**
+     * @param integer $transactionId
+     */
+    public function setTransactionId(int $transactionId): void
+    {
+        $this->transactionId = $transactionId;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getAppLink(): ?string
+    {
+        return $this->appLink;
+    }
+
+    /**
+     * @param string $appLink
+     */
+    public function setAppLink(string $appLink): void
+    {
+        $this->appLink = $appLink;
     }
 }

@@ -236,7 +236,6 @@ class Gateway extends \Payrexx\Models\Base
      */
     protected $basket;
 
-
     /**
      * optional
      *
@@ -244,6 +243,30 @@ class Gateway extends \Payrexx\Models\Base
      * @var     string      $qrCodeSessionId
      */
     protected $qrCodeSessionId;
+
+    /**
+     * optional
+     *
+     * @access  protected
+     * @var     string     $returnApp
+     */
+    protected $returnApp;
+
+    /**
+     * optional
+     *
+     * @access  protected
+     * @var     boolean     $spotlightStatus
+     */
+    protected $spotlightStatus;
+
+    /**
+     * optional
+     *
+     * @access  protected
+     * @var     string      $spotlightOrderDetailsUrl
+     */
+    protected $spotlightOrderDetailsUrl;
 
     /**
      * @access  public
@@ -819,5 +842,56 @@ class Gateway extends \Payrexx\Models\Base
     public function setQrCodeSessionId(string $qrCodeSessionId): void
     {
         $this->qrCodeSessionId = $qrCodeSessionId;
+    }
+
+    /**
+     * @return string
+     */
+    public function getReturnApp(): ?string
+    {
+        return $this->returnApp;
+    }
+
+    /**
+     * @param string $returnApp
+     * @return void
+     */
+    public function setReturnApp(string $returnApp): void
+    {
+        $this->returnApp = $returnApp;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function getSpotlightStatus(): ?bool
+    {
+        return $this->spotlightStatus;
+    }
+
+    /**
+     * @param boolean $spotlightStatus
+     * @return void
+     */
+    public function setSpotlightStatus(bool $spotlightStatus): void
+    {
+        $this->spotlightStatus = $spotlightStatus;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSpotlightOrderDetailsUrl(): ?string
+    {
+        return $this->spotlightOrderDetailsUrl;
+    }
+
+    /**
+     * @param string $spotlightOrderDetailsUrl
+     * @return void
+     */
+    public function setSpotlightOrderDetailsUrl(string $spotlightOrderDetailsUrl): void
+    {
+        $this->spotlightOrderDetailsUrl = $spotlightOrderDetailsUrl;
     }
 }
