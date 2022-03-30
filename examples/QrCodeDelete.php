@@ -19,12 +19,10 @@ $secret = 'YOUR_SECRET';
 $payrexx = new \Payrexx\Payrexx($instanceName, $secret);
 
 $qrCode = new \Payrexx\Models\Request\QrCode();
-
-// An URL where the your customer has to be redirected when they scanned your QR Code.
-$qrCode->setWebshopUrl('YOUR_WEBSHOP_URL');
+$qrCode->setId('QR_CODE_ID');
 
 try {
-    $response = $payrexx->create($qrCode);
+    $response = $payrexx->delete($qrCode);
     var_dump($response);
 } catch (\Payrexx\PayrexxException $e) {
     print $e->getMessage();

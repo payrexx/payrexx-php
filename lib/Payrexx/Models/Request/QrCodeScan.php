@@ -3,13 +3,13 @@
 namespace Payrexx\Models\Request;
 
 /**
- * QrCode request class
+ * QrCodeScan request class
  *
  * @copyright   Payrexx AG
  * @author      Payrexx Development Team <info@payrexx.com>
  * @package     \Payrexx\Models\Request
  */
-class QrCode extends \Payrexx\Models\Base
+class QrCodeScan extends \Payrexx\Models\Base
 {
     /**
      * mandatory
@@ -17,25 +17,25 @@ class QrCode extends \Payrexx\Models\Base
      * @access  protected
      * @var     string
      */
-    protected $webshopUrl;
+    protected $sessionId;
 
     /**
      * @access  public
      * @return  string
      */
-    public function getWebshopUrl(): string
+    public function getSessionId(): string
     {
-        return $this->webshopUrl;
+        return $this->sessionId;
     }
 
     /**
      * @access  public
-     * @param   string   $webshopUrl
+     * @param   string   $sessionId
      * @return  void
      */
-    public function setWebshopUrl(string $webshopUrl): void
+    public function setSessionId(string $sessionId): void
     {
-        $this->webshopUrl = $webshopUrl;
+        $this->sessionId = $sessionId;
     }
 
     /**
@@ -43,6 +43,6 @@ class QrCode extends \Payrexx\Models\Base
      */
     public function getResponseModel()
     {
-        return new \Payrexx\Models\Response\QrCode();
+        return new \Payrexx\Models\Response\QrCodeScan();
     }
 }
