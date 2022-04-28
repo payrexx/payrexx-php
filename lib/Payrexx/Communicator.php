@@ -7,6 +7,8 @@
  */
 namespace Payrexx;
 
+use Payrexx\Models\Request\PaymentMethod;
+
 /**
  * This object handles the communication with the API server
  * @package Payrexx
@@ -14,7 +16,7 @@ namespace Payrexx;
 class Communicator
 {
     const VERSION = 'v1';
-    const API_URL_FORMAT = 'https://api.%s/%s/%s/%d/%s';
+    const API_URL_FORMAT = 'https://api.%s/%s/%s/%s/%s';
     const API_URL_BASE_DOMAIN = 'payrexx.com';
     const DEFAULT_COMMUNICATION_HANDLER = '\Payrexx\CommunicationAdapter\CurlCommunication';
 
@@ -121,7 +123,12 @@ class Communicator
             throw new \Payrexx\PayrexxException($response['body']['message'], $response['info']['http_code']);
         }
 
-        foreach ($response['body']['data'] as $object) {
+        $data = $response['body']['data'];
+        if ($model instanceof PaymentMethod && $method === 'getOne') {
+            $data = [$data];
+        }
+
+        foreach ($data as $object) {
             $responseModel = $model->getResponseModel();
             $convertedResponse[] = $responseModel->fromArray($object);
         }
