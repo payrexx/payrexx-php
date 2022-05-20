@@ -21,6 +21,7 @@ $payrexx = new \Payrexx\Payrexx($instanceName, $secret);
 $transaction = new \Payrexx\Models\Request\Transaction();
 $transaction->setFilterDatetimeUtcGreaterThan(new \DateTime('2019-12-01 00:00:00'));
 $transaction->setFilterDatetimeUtcLessThan(new \DateTime('2020-10-01 00:00:00'));
+$transaction->getFilterMyTransactionsOnly(true);
 $transaction->setOffset(40);
 $transaction->setLimit(20);
 
