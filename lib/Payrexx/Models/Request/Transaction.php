@@ -23,6 +23,7 @@ class Transaction extends \Payrexx\Models\Base
     protected $referenceId;
     protected $filterDatetimeUtcGreaterThan;
     protected $filterDatetimeUtcLessThan;
+    protected $filterMyTransactionsOnly = false;
     protected $offset;
     protected $limit;
 
@@ -104,6 +105,22 @@ class Transaction extends \Payrexx\Models\Base
     public function setFilterDatetimeUtcLessThan(\DateTime $filterDatetimeUtcLessThan): void
     {
         $this->filterDatetimeUtcLessThan = $filterDatetimeUtcLessThan->setTimezone(new \DateTimeZone('UTC'))->format('Y-m-d H:i:s');
+    }
+
+    /**
+     * @return bool
+     */
+    public function getFilterMyTransactionsOnly(): bool
+    {
+        return $this->filterMyTransactionsOnly;
+    }
+
+    /**
+     * @param bool $filterMyTransactionsOnly
+     */
+    public function setFilterMyTransactionsOnly(bool $filterMyTransactionsOnly): void
+    {
+        $this->filterMyTransactionsOnly = $filterMyTransactionsOnly;
     }
 
     /**
