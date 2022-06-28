@@ -617,7 +617,7 @@ class Gateway extends \Payrexx\Models\Base
     /**
      * @param string $customerStatementDescriptor
      */
-    public function setCustomerStatementDescriptor(string $customerStatementDescriptor): void
+    public function setCustomerStatementDescriptor($customerStatementDescriptor)
     {
         $this->customerStatementDescriptor = $customerStatementDescriptor;
     }
@@ -808,7 +808,7 @@ class Gateway extends \Payrexx\Models\Base
     /**
      * @return array
      */
-    public function getBasket(): array
+    public function getBasket()
     {
         return $this->basket;
     }
@@ -822,7 +822,7 @@ class Gateway extends \Payrexx\Models\Base
      *                              quantity => quantity of the product
      *                              amount => Product amount
      */
-    public function setBasket(array $basket): void
+    public function setBasket($basket)
     {
         $this->basket = $basket;
     }
@@ -830,7 +830,7 @@ class Gateway extends \Payrexx\Models\Base
     /**
      * @return string
      */
-    public function getQrCodeSessionId(): string
+    public function getQrCodeSessionId()
     {
         return $this->qrCodeSessionId;
     }
@@ -839,7 +839,7 @@ class Gateway extends \Payrexx\Models\Base
      * @param string $qrCodeSessionId
      * @return void
      */
-    public function setQrCodeSessionId(string $qrCodeSessionId): void
+    public function setQrCodeSessionId($qrCodeSessionId)
     {
         $this->qrCodeSessionId = $qrCodeSessionId;
     }
@@ -847,7 +847,7 @@ class Gateway extends \Payrexx\Models\Base
     /**
      * @return string
      */
-    public function getReturnApp(): ?string
+    public function getReturnApp()
     {
         return $this->returnApp;
     }
@@ -856,7 +856,7 @@ class Gateway extends \Payrexx\Models\Base
      * @param string $returnApp
      * @return void
      */
-    public function setReturnApp(string $returnApp): void
+    public function setReturnApp($returnApp)
     {
         $this->returnApp = $returnApp;
     }
@@ -864,7 +864,7 @@ class Gateway extends \Payrexx\Models\Base
     /**
      * @return boolean
      */
-    public function getSpotlightStatus(): ?bool
+    public function getSpotlightStatus()
     {
         return $this->spotlightStatus;
     }
@@ -873,7 +873,7 @@ class Gateway extends \Payrexx\Models\Base
      * @param boolean $spotlightStatus
      * @return void
      */
-    public function setSpotlightStatus(bool $spotlightStatus): void
+    public function setSpotlightStatus($spotlightStatus)
     {
         $this->spotlightStatus = $spotlightStatus;
     }
@@ -881,7 +881,7 @@ class Gateway extends \Payrexx\Models\Base
     /**
      * @return string
      */
-    public function getSpotlightOrderDetailsUrl(): ?string
+    public function getSpotlightOrderDetailsUrl()
     {
         return $this->spotlightOrderDetailsUrl;
     }
@@ -890,7 +890,7 @@ class Gateway extends \Payrexx\Models\Base
      * @param string $spotlightOrderDetailsUrl
      * @return void
      */
-    public function setSpotlightOrderDetailsUrl(string $spotlightOrderDetailsUrl): void
+    public function setSpotlightOrderDetailsUrl($spotlightOrderDetailsUrl)
     {
         $this->spotlightOrderDetailsUrl = $spotlightOrderDetailsUrl;
     }
