@@ -54,15 +54,19 @@ class Communicator
      * @var string The version to use
      */
     protected $version;
+    /**
+     * @var array The HTTP Headers
+     */
+    public $httpHeaders;
 
     /**
      * Generates a communicator object with a communication handler like cURL.
      *
-     * @param string $instance             The instance name, needed for the generation of the API url.
-     * @param string $apiSecret            The API secret which is the key to hash all the parameters passed to the API server.
+     * @param string $instance The instance name, needed for the generation of the API url.
+     * @param string $apiSecret The API secret which is the key to hash all the parameters passed to the API server.
      * @param string $communicationHandler The preferred communication handler. Default is cURL.
-     * @param string $apiBaseDomain        The base domain of the API URL.
-     * @param float $version               The version of the API to query.
+     * @param string $apiBaseDomain The base domain of the API URL.
+     * @param float $version The version of the API to query.
      *
      * @throws PayrexxException
      */
@@ -123,7 +127,8 @@ class Communicator
         $response = $this->communicationHandler->requestApi(
             $apiUrl,
             $params,
-            $httpMethod
+            $httpMethod,
+            $this->httpHeaders
         );
 
         $convertedResponse = array();
