@@ -28,6 +28,7 @@ class Communicator
         'charge'  => 'POST',
         'refund'  => 'POST',
         'capture' => 'POST',
+        'receipt' => 'POST',
         'cancel'  => 'DELETE',
         'delete'  => 'DELETE',
         'update'  => 'PUT',
@@ -118,7 +119,7 @@ class Communicator
         $params['instance'] = $this->instance;
 
         $id = isset($params['id']) ? $params['id'] : 0;
-        $act = in_array($method, ['refund', 'capture']) ? $method : '';
+        $act = in_array($method, ['refund', 'capture', 'receipt']) ? $method : '';
         $apiUrl = sprintf(self::API_URL_FORMAT, $this->apiBaseDomain, 'v' . $this->version, $params['model'], $id, $act);
 
         $httpMethod = $this->getHttpMethod($method) === 'PUT' && $params['model'] === 'Design'

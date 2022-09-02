@@ -21,6 +21,8 @@ class Transaction extends \Payrexx\Models\Base
     protected $purpose;
     /** @var string $referenceId */
     protected $referenceId;
+    /** @var string $recipient */
+    protected $recipient;
     protected $filterDatetimeUtcGreaterThan;
     protected $filterDatetimeUtcLessThan;
     protected $filterMyTransactionsOnly = false;
@@ -73,6 +75,22 @@ class Transaction extends \Payrexx\Models\Base
     public function setReferenceId($referenceId)
     {
         $this->referenceId = $referenceId;
+    }
+
+    /**
+     * @return string
+     */
+    public function getRecipient()
+    {
+        return $this->recipient;
+    }
+
+    /**
+     * @param string $recipient
+     */
+    public function setRecipient($recipient)
+    {
+        $this->recipient = $recipient;
     }
 
     /**
