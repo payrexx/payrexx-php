@@ -137,7 +137,11 @@ class Communicator
             if (!isset($response['body']['message'])) {
                 throw new \Payrexx\PayrexxException('Payrexx PHP: Configuration is wrong! Check instance name and API secret', $response['info']['http_code']);
             }
-            throw new \Payrexx\PayrexxException($response['body']['message'], $response['info']['http_code']);
+            $exception = new \Payrexx\PayrexxException($response['body']['message'], $response['info']['http_code']);
+            if (!empty($response['body']['reason'])) {
+                $exception->setReason($response['body']['reason']);
+            }
+            throw $exception;
         }
 
         $data = $response['body']['data'];
