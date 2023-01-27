@@ -44,13 +44,13 @@ class CurlCommunication extends AbstractCommunication
             CURLOPT_CAINFO => dirname(__DIR__) . '/certs/ca.pem',
         );
         if (defined(PHP_QUERY_RFC3986)) {
-            $paramString = http_build_query($params, null, '&', PHP_QUERY_RFC3986);
+            $paramString = http_build_query($params, '', '&', PHP_QUERY_RFC3986);
         } else {
             // legacy, because the $enc_type has been implemented with PHP 5.4
             $paramString = str_replace(
                 array('+', '%7E'),
                 array('%20', '~'),
-                http_build_query($params, null, '&')
+                http_build_query($params, '', '&')
             );
         }
         if ($method == 'GET') {
