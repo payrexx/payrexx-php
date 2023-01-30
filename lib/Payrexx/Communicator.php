@@ -119,6 +119,10 @@ class Communicator
         $params['instance'] = $this->instance;
 
         $id = isset($params['id']) ? $params['id'] : 0;
+        if ($id === 0 && isset($params['uuid'])) {
+            $id = $params['uuid'];
+        }
+
         $act = in_array($method, ['refund', 'capture', 'receipt']) ? $method : '';
         $apiUrl = sprintf(self::API_URL_FORMAT, $this->apiBaseDomain, 'v' . $this->version, $params['model'], $id, $act);
 

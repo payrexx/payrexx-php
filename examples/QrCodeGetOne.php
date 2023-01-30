@@ -24,7 +24,7 @@ $qrCode->setUuid('QR_CODE_UUID');
 
 try {
     /** @var \Payrexx\Models\Response\QrCode $response */
-    $response = $payrexx->delete($qrCode);
+    $response = $payrexx->getOne($qrCode);
     var_dump($response);
 } catch (\Payrexx\PayrexxException $e) {
     print $e->getMessage();
