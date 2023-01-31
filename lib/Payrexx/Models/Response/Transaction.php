@@ -16,7 +16,7 @@ namespace Payrexx\Models\Response;
 class Transaction extends \Payrexx\Models\Request\Transaction
 {
 
-    private $uuid;
+    protected $uuid;
     private $time;
     private $status;
     private $lang;
