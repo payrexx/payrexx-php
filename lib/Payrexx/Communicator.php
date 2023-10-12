@@ -24,16 +24,17 @@ class Communicator
      * @var array A set of methods which can be used to communicate with the API server.
      */
     protected static $methods = array(
-        'create'  => 'POST',
-        'charge'  => 'POST',
-        'refund'  => 'POST',
-        'capture' => 'POST',
-        'receipt' => 'POST',
-        'cancel'  => 'DELETE',
-        'delete'  => 'DELETE',
-        'update'  => 'PUT',
-        'getAll'  => 'GET',
-        'getOne'  => 'GET',
+        'create'       => 'POST',
+        'charge'       => 'POST',
+        'refund'       => 'POST',
+        'capture'      => 'POST',
+        'receipt'      => 'POST',
+        'preAuthorize' => 'POST',
+        'cancel'       => 'DELETE',
+        'delete'       => 'DELETE',
+        'update'       => 'PUT',
+        'getAll'       => 'GET',
+        'getOne'       => 'GET',
     );
     /**
      * @var string The Payrexx instance name.
@@ -123,7 +124,7 @@ class Communicator
             $id = $params['uuid'];
         }
 
-        $act = in_array($method, ['refund', 'capture', 'receipt']) ? $method : '';
+        $act = in_array($method, ['refund', 'capture', 'receipt', 'preAuthorize']) ? $method : '';
         $apiUrl = sprintf(self::API_URL_FORMAT, $this->apiBaseDomain, 'v' . $this->version, $params['model'], $id, $act);
 
         $httpMethod = $this->getHttpMethod($method) === 'PUT' && $params['model'] === 'Design'
