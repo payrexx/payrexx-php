@@ -32,6 +32,7 @@ class Transaction extends \Payrexx\Models\Base
     protected $filterDatetimeUtcGreaterThan;
     protected $filterDatetimeUtcLessThan;
     protected $filterMyTransactionsOnly = false;
+    protected $orderByTime = 'ASC';
     protected $offset;
     protected $limit;
 
@@ -199,6 +200,22 @@ class Transaction extends \Payrexx\Models\Base
     public function setFilterMyTransactionsOnly(bool $filterMyTransactionsOnly): void
     {
         $this->filterMyTransactionsOnly = $filterMyTransactionsOnly;
+    }
+
+    /**
+     * @return string
+     */
+    public function getOrderByTime(): string
+    {
+        return $this->orderByTime;
+    }
+
+    /**
+     * @param string $orderByTime
+     */
+    public function setOrderByTime(string $orderByTime): void
+    {
+        $this->orderByTime = (strtoupper($orderByTime) == 'DESC') ? strtoupper($orderByTime) : 'ASC';
     }
 
     /**
