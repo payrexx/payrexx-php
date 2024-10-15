@@ -35,6 +35,7 @@ class Communicator
         'update'       => 'PUT',
         'getAll'       => 'GET',
         'getOne'       => 'GET',
+        'details'       => 'GET',
     );
     /**
      * @var string The Payrexx instance name.
@@ -124,7 +125,7 @@ class Communicator
             $id = $params['uuid'];
         }
 
-        $act = in_array($method, ['refund', 'capture', 'receipt', 'preAuthorize']) ? $method : '';
+        $act = in_array($method, ['refund', 'capture', 'receipt', 'preAuthorize', 'details']) ? $method : '';
         $apiUrl = sprintf(self::API_URL_FORMAT, $this->apiBaseDomain, 'v' . $this->version, $params['model'], $id, $act);
 
         $httpMethod = $this->getHttpMethod($method) === 'PUT' && $params['model'] === 'Design'
