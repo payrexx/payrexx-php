@@ -35,7 +35,7 @@ class Communicator
         'update'       => 'PUT',
         'getAll'       => 'GET',
         'getOne'       => 'GET',
-        'details'       => 'GET',
+        'details'      => 'GET',
     );
     /**
      * @var string The Payrexx instance name.
