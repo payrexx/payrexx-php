@@ -117,8 +117,6 @@ class Communicator
         $params = $model->toArray($method);
         $paramsWithoutFiles = $params;
         unset($paramsWithoutFiles['headerImage'], $paramsWithoutFiles['backgroundImage'], $paramsWithoutFiles['headerBackgroundImage'], $paramsWithoutFiles['emailHeaderImage'], $paramsWithoutFiles['VPOSBackgroundImage']);
-        $params['ApiSignature'] =
-            base64_encode(hash_hmac('sha256', http_build_query($paramsWithoutFiles, '', '&'), $this->apiSecret, true));
         $params['instance'] = $this->instance;
 
         $id = isset($params['id']) ? $params['id'] : 0;
@@ -132,6 +130,8 @@ class Communicator
         $httpMethod = $this->getHttpMethod($method) === 'PUT' && $params['model'] === 'Design'
             ? 'POST'
             : $this->getHttpMethod($method);
+
+        $this->httpHeaders['x-api-key'] = $this->apiSecret;
         $response = $this->communicationHandler->requestApi(
             $apiUrl,
             $params,
