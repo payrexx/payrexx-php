@@ -19,7 +19,7 @@ class Communicator
     const API_URL_FORMAT = 'https://api.%s/%s/%s/%s/%s';
     const API_URL_BASE_DOMAIN = 'payrexx.com';
     const DEFAULT_COMMUNICATION_HANDLER = '\Payrexx\CommunicationAdapter\CurlCommunication';
-
+    const GUZZLE_COMMUNICATION_HANDLER = '\Payrexx\CommunicationAdapter\GuzzleCommunication';
     /**
      * @var array A set of methods which can be used to communicate with the API server.
      */
