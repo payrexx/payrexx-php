@@ -115,6 +115,7 @@ class Communicator
     public function performApiRequest($method, \Payrexx\Models\Base $model)
     {
         $params = $model->toArray($method);
+        $this->setHttpHeaders();
         $params['instance'] = $this->instance;
 
         $id = isset($params['id']) ? $params['id'] : 0;
@@ -128,8 +129,6 @@ class Communicator
         $httpMethod = $this->getHttpMethod($method) === 'PUT' && $params['model'] === 'Design'
             ? 'POST'
             : $this->getHttpMethod($method);
-
-        $this->httpHeaders['x-api-key'] = $this->apiSecret;
         $response = $this->communicationHandler->requestApi(
             $apiUrl,
             $params,
@@ -190,5 +189,16 @@ class Communicator
     public function methodAvailable($method)
     {
         return array_key_exists($method, self::$methods);
+    }
+
+    /**
+     * Sets the HTTP headers
+     */
+    protected function setHttpHeaders(): void
+    {
+        $this->httpHeaders = [
+            'User-Agent' => 'payrexx-php/1.8.0',
+            'x-api-key' => $this->apiSecret,
+        ];
     }
 }
