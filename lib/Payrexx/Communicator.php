@@ -115,8 +115,6 @@ class Communicator
     public function performApiRequest($method, \Payrexx\Models\Base $model)
     {
         $params = $model->toArray($method);
-        $paramsWithoutFiles = $params;
-        unset($paramsWithoutFiles['headerImage'], $paramsWithoutFiles['backgroundImage'], $paramsWithoutFiles['headerBackgroundImage'], $paramsWithoutFiles['emailHeaderImage'], $paramsWithoutFiles['VPOSBackgroundImage']);
         $params['instance'] = $this->instance;
 
         $id = isset($params['id']) ? $params['id'] : 0;
