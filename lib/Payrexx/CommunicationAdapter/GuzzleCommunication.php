@@ -55,10 +55,10 @@ class GuzzleCommunication extends AbstractCommunication
         }
         if ($hasFile && empty($params['id'])) {
             unset($params['id']);
+            $requestParams['multipart'] = $multipart;
+        } else {
+            $requestParams['json'] = $params;
         }
-
-        $requestParams['json'] = $params;
-        $requestParams['multipart'] = $multipart;
 
         $client = new \GuzzleHttp\Client([
             'headers' => $httpHeader,
