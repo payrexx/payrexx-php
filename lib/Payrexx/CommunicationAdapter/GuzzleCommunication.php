@@ -51,6 +51,18 @@ class GuzzleCommunication extends AbstractCommunication
                     'filename' => basename($param->getFilename()),
                 ];
                 $hasFile = true;
+            } elseif (is_array($param)) {
+                foreach ($param as $subKey => $subValue) {
+                    $multipart[] = [
+                        'name'     => "{$key}[{$subKey}]",
+                        'contents' => (string) $subValue,
+                    ];
+                }
+            } else {
+                $multipart[] = [
+                    'name'     => $key,
+                    'contents' => (string) $param,
+                ];
             }
         }
         if ($hasFile && empty($params['id'])) {
