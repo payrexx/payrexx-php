@@ -139,9 +139,9 @@ class Communicator
         $convertedResponse = array();
         if (!isset($response['body']['data']) || !is_array($response['body']['data'])) {
             if (!isset($response['body']['message'])) {
-                throw new \Payrexx\PayrexxException('Payrexx PHP: Configuration is wrong! Check instance name and API secret', $response['info']['http_code']);
+                throw new \Payrexx\PayrexxException('Payrexx PHP: Configuration is wrong! Check instance name and API secret', $response['info']['httpCode']);
             }
-            $exception = new \Payrexx\PayrexxException($response['body']['message'], $response['info']['http_code']);
+            $exception = new \Payrexx\PayrexxException($response['body']['message'], $response['info']['httpCode']);
             if (!empty($response['body']['reason'])) {
                 $exception->setReason($response['body']['reason']);
             }

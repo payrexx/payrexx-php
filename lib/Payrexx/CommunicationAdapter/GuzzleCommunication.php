@@ -12,15 +12,21 @@ namespace Payrexx\CommunicationAdapter;
 
 use CURLFile;
 use Exception;
+use GuzzleHttp\Client;
+use GuzzleHttp\Exception\GuzzleException;
+use GuzzleHttp\Exception\RequestException;
 
-// check for php version 8.0 or higher
-if (version_compare(PHP_VERSION, '8.0', '<')) {
-    throw new Exception('Your PHP version is not supported. Minimum version should be 8.0');
-}
+try {
+    if (version_compare(PHP_VERSION, '8.0', '<')) {
+        throw new Exception('Your PHP version is not supported. Minimum version should be 8.0');
+    }
 
-// is the GuzzleHttp extension available?
-if (!class_exists(\GuzzleHttp\Client::class)) {
-    throw new Exception('Please install the PHP GuzzleHttp library');
+    if (!class_exists(Client::class)) {
+        throw new Exception('GuzzleHttp library not found. Run "composer require guzzlehttp/guzzle" to install');
+    }
+} catch (Exception $e) {
+    echo 'Error: ' . $e->getMessage();
+    exit();
 }
 
 /**
@@ -34,37 +40,42 @@ class GuzzleCommunication extends AbstractCommunication
      */
     public function requestApi($apiUrl, $params = [], $method = 'POST', $httpHeader = [])
     {
-        $hasFile = false;
         $hasCurlFile = class_exists('CURLFile', false);
         $multipart = [];
+        $hasFile = false;
         foreach ($params as $key => $param) {
-            if (is_resource($param)) {
-                $multipart[] = [
-                    'name'     => $key,
-                    'contents' => stream_get_contents($param),
-                ];
-                $hasFile = true;
-            } elseif ($hasCurlFile && $param instanceof CURLFile) {
-                $multipart[] = [
-                    'name'     => $key,
-                    'contents' => fopen($param->getFilename(), 'r'),
-                    'filename' => basename($param->getFilename()),
-                ];
-                $hasFile = true;
-            } elseif (is_array($param)) {
+            $filePath = false;
+            if (is_string($param) && is_file($param)) {
+                $filePath = $param;
+            } else if ($hasCurlFile && $param instanceof CURLFile) {
+                $filePath = $param->getFilename();
+            }
+
+            if ($filePath) {
+                $resource = fopen($filePath, 'r');
+                if (is_resource($resource)) {
+                    $multipart[] = [
+                        'name' => $key,
+                        'contents' => $resource,
+                        'filename' => basename($filePath),
+                    ];
+                    $hasFile = true;
+                }
+            } else if (is_array($param)) {
                 foreach ($param as $subKey => $subValue) {
                     $multipart[] = [
-                        'name'     => "{$key}[{$subKey}]",
-                        'contents' => (string) $subValue,
+                        'name' => "{$key}[$subKey]",
+                        'contents' => (string)$subValue,
                     ];
                 }
             } else {
                 $multipart[] = [
-                    'name'     => $key,
-                    'contents' => (string) $param,
+                    'name' => $key,
+                    'contents' => (string)$param,
                 ];
             }
         }
+
         if ($hasFile && empty($params['id'])) {
             unset($params['id']);
             $requestParams['multipart'] = $multipart;
@@ -72,13 +83,11 @@ class GuzzleCommunication extends AbstractCommunication
             $requestParams['json'] = $params;
         }
 
-        $client = new \GuzzleHttp\Client([
-            'headers' => $httpHeader,
-            // 'verify' => dirname(__DIR__) . '/certs/ca.pem',
-            'verify' => false,
-        ]);
-
         try {
+            $client = new Client([
+                'headers' => $httpHeader,
+                'verify' => dirname(__DIR__) . '/certs/ca.pem',
+            ]);
             $response = $client->request(
                 $method,
                 $apiUrl . '?instance=' . $params['instance'],
@@ -87,18 +96,30 @@ class GuzzleCommunication extends AbstractCommunication
 
             $responseBody = $response->getBody()->getContents();
             $responseInfo = [
-                'http_code' => $response->getStatusCode(),
+                'httpCode' => $response->getStatusCode(),
                 'contentType' => $response->getHeaderLine('Content-Type'),
             ];
-        } catch (\GuzzleHttp\Exception\RequestException $e) {
-            $responseBody = [
-                'status' => 'error',
-                'message' => $e->getMessage(),
-            ];
+        } catch (RequestException $e) {
+            $responseBody = $e->hasResponse()
+                ? $e->getResponse()->getBody()->getContents()
+                : json_encode([
+                    'status' => 'error',
+                    'message' => $e->getMessage(),
+                ]);
 
             $responseInfo = [
-                'http_code' => $e->hasResponse() ? $e->getResponse()->getStatusCode() : 0,
+                'httpCode' => $e->hasResponse() ? $e->getResponse()->getStatusCode() : 0,
                 'contentType' => $e->hasResponse() ? $e->getResponse()->getHeaderLine('Content-Type') : '',
+            ];
+        } catch (GuzzleException $e) {
+            $responseBody = json_encode([
+                'status' => 'error',
+                'message' => $e->getMessage(),
+            ]);
+
+            $responseInfo = [
+                'httpCode' => 0,
+                'contentType' => '',
             ];
         }
 
