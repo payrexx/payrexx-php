@@ -194,7 +194,7 @@ class Communicator
     /**
      * Sets the HTTP headers
      */
-    protected function setHttpHeaders(): void
+    private function setHttpHeaders(): void
     {
         $this->httpHeaders = [
             'User-Agent' => 'payrexx-php/1.8.0',
