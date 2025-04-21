@@ -115,7 +115,6 @@ class Communicator
     public function performApiRequest($method, \Payrexx\Models\Base $model)
     {
         $params = $model->toArray($method);
-        $this->setHttpHeaders();
         $params['instance'] = $this->instance;
 
         $id = isset($params['id']) ? $params['id'] : 0;
@@ -129,6 +128,7 @@ class Communicator
         $httpMethod = $this->getHttpMethod($method) === 'PUT' && $params['model'] === 'Design'
             ? 'POST'
             : $this->getHttpMethod($method);
+        $this->setHttpHeaders();
         $response = $this->communicationHandler->requestApi(
             $apiUrl,
             $params,
