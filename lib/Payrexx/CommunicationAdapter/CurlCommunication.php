@@ -73,10 +73,7 @@ class CurlCommunication extends AbstractCommunication
         $hasFile = false;
         $hasCurlFile = class_exists('CURLFile', false);
         foreach ($params as $param) {
-            if (is_resource($param)) {
-                $hasFile = true;
-                break;
-            } elseif ($hasCurlFile && $param instanceof CURLFile) {
+            if (is_resource($param) || ($hasCurlFile && $param instanceof CURLFile)) {
                 $hasFile = true;
                 break;
             }
@@ -85,7 +82,17 @@ class CurlCommunication extends AbstractCommunication
             if (empty($params['id'])) {
                 unset($params['id']);
             }
-            $curlOpts[CURLOPT_POSTFIELDS] = $params;
+            $postFields = [];
+            foreach ($params as $key => $param) {
+                if (is_array($param)) {
+                    foreach ($param as $index => $value) {
+                        $postFields["{$key}[{$index}]"] = $value;
+                    }
+                } else {
+                    $postFields[$key] = $param;
+                }
+            }
+            $curlOpts[CURLOPT_POSTFIELDS] = $postFields;
         }
         $curlOpts[CURLOPT_HTTPHEADER][] = 'Content-Type: ' . (
             $hasFile ? 'multipart/form-data' : 'application/json'
