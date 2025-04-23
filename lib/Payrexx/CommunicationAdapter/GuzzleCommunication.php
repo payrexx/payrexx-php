@@ -47,7 +47,7 @@ class GuzzleCommunication extends AbstractCommunication
             $filePath = false;
             if (is_string($param) && is_file($param)) {
                 $filePath = $param;
-            } else if ($hasCurlFile && $param instanceof CURLFile) {
+            } elseif ($hasCurlFile && $param instanceof CURLFile) {
                 $filePath = $param->getFilename();
             }
 
@@ -61,7 +61,7 @@ class GuzzleCommunication extends AbstractCommunication
                     ];
                     $hasFile = true;
                 }
-            } else if (is_array($param)) {
+            } elseif (is_array($param)) {
                 foreach ($param as $subKey => $subValue) {
                     $multipart[] = [
                         'name' => "{$key}[$subKey]",
