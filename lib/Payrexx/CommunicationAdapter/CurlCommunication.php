@@ -59,7 +59,7 @@ class CurlCommunication extends AbstractCommunication
                 $curlOpts[CURLOPT_URL] .= $paramString;
             }
         } else {
-            $curlOpts[CURLOPT_POSTFIELDS] = $paramString;
+            $curlOpts[CURLOPT_POSTFIELDS] = json_encode($params);
             $curlOpts[CURLOPT_URL] .= strpos($curlOpts[CURLOPT_URL], '?') === false ? '?' : '&';
             $curlOpts[CURLOPT_URL] .= 'instance=' . $params['instance'];
         }
@@ -73,21 +73,30 @@ class CurlCommunication extends AbstractCommunication
         $hasFile = false;
         $hasCurlFile = class_exists('CURLFile', false);
         foreach ($params as $param) {
-            if (is_resource($param)) {
-                $hasFile = true;
-                break;
-            } elseif ($hasCurlFile && $param instanceof CURLFile) {
+            if (is_resource($param) || ($hasCurlFile && $param instanceof CURLFile)) {
                 $hasFile = true;
                 break;
             }
         }
         if ($hasFile) {
-            $curlOpts[CURLOPT_HTTPHEADER][] = 'Content-type: multipart/form-data';
             if (empty($params['id'])) {
                 unset($params['id']);
             }
-            $curlOpts[CURLOPT_POSTFIELDS] = $params;
+            $postFields = [];
+            foreach ($params as $key => $param) {
+                if (is_array($param)) {
+                    foreach ($param as $index => $value) {
+                        $postFields["{$key}[{$index}]"] = $value;
+                    }
+                } else {
+                    $postFields[$key] = $param;
+                }
+            }
+            $curlOpts[CURLOPT_POSTFIELDS] = $postFields;
         }
+        $curlOpts[CURLOPT_HTTPHEADER][] = 'Content-Type: ' . (
+            $hasFile ? 'multipart/form-data' : 'application/json'
+        );
 
         $curl = curl_init();
         curl_setopt_array($curl, $curlOpts);
