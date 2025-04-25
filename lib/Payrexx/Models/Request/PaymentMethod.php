@@ -8,74 +8,52 @@
  */
 namespace Payrexx\Models\Request;
 
+use Payrexx\Models\Base;
+
 /**
  * PaymentMethod class
  *
  * @package Payrexx\Models\Request
  */
-class PaymentMethod extends \Payrexx\Models\Base
+class PaymentMethod extends Base
 {
-    /** @var string */
-    protected $filterCurrency;
+    protected string $filterCurrency;
 
-    /** @var string */
-    protected $filterPaymentType;
+    protected string $filterPaymentType;
 
-    /** @var int */
-    protected $filterPsp;
+    protected int $filterPsp;
 
-    /**
-     * @return string
-     */
     public function getFilterCurrency(): string
     {
         return $this->filterCurrency;
     }
 
-    /**
-     * @param string $filterCurrency
-     */
     public function setFilterCurrency(string $filterCurrency): void
     {
         $this->filterCurrency = $filterCurrency;
     }
 
-    /**
-     * @return string
-     */
     public function getFilterPaymentType(): string
     {
         return $this->filterPaymentType;
     }
 
-    /**
-     * @param string $filterPaymentType
-     */
     public function setFilterPaymentType(string $filterPaymentType): void
     {
         $this->filterPaymentType = $filterPaymentType;
     }
 
-    /**
-     * @return int
-     */
     public function getFilterPsp(): int
     {
         return $this->filterPsp;
     }
 
-    /**
-     * @param int $filterPsp
-     */
     public function setFilterPsp(int $filterPsp): void
     {
         $this->filterPsp = $filterPsp;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getResponseModel()
+    public function getResponseModel(): \Payrexx\Models\Response\PaymentMethod
     {
         return new \Payrexx\Models\Response\PaymentMethod();
     }

@@ -2,6 +2,8 @@
 
 namespace Payrexx\Models\Request;
 
+use Payrexx\Models\Base;
+
 /**
  * QrCodeScan request class
  *
@@ -9,39 +11,22 @@ namespace Payrexx\Models\Request;
  * @author      Payrexx Development Team <info@payrexx.com>
  * @package     \Payrexx\Models\Request
  */
-class QrCodeScan extends \Payrexx\Models\Base
+class QrCodeScan extends Base
 {
-    /**
-     * mandatory
-     *
-     * @access  protected
-     * @var     string
-     */
-    protected $sessionId;
+    /** mandatory */
+    protected string $sessionId;
 
-    /**
-     * @access  public
-     * @return  string
-     */
     public function getSessionId(): string
     {
         return $this->sessionId;
     }
 
-    /**
-     * @access  public
-     * @param   string   $sessionId
-     * @return  void
-     */
     public function setSessionId(string $sessionId): void
     {
         $this->sessionId = $sessionId;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getResponseModel()
+    public function getResponseModel(): \Payrexx\Models\Response\QrCodeScan
     {
         return new \Payrexx\Models\Response\QrCodeScan();
     }
