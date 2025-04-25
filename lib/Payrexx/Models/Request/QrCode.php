@@ -10,65 +10,38 @@
 
 namespace Payrexx\Models\Request;
 
+use Payrexx\Models\Base;
+
 /**
  * QrCode request class
  *
  * @package \Payrexx\Models\Request
  */
-class QrCode extends \Payrexx\Models\Base
+class QrCode extends Base
 {
-    /**
-     * mandatory
-     *
-     * @access  protected
-     * @var     string
-     */
-    protected $webshopUrl;
+    /** mandatory */
+    protected string $webshopUrl;
 
-    /**
-     * @access  protected
-     * @var string
-     */
-    protected $uuid;
-
-    /**
-     * @access  public
-     * @return  string
-     */
     public function getWebshopUrl(): string
     {
         return $this->webshopUrl;
     }
 
-    /**
-     * @access  public
-     * @param   string   $webshopUrl
-     * @return  void
-     */
     public function setWebshopUrl(string $webshopUrl): void
     {
         $this->webshopUrl = $webshopUrl;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getResponseModel()
+    public function getResponseModel(): \Payrexx\Models\Response\QrCode
     {
         return new \Payrexx\Models\Response\QrCode();
     }
 
-    /**
-     * @return string
-     */
     public function getUuid(): string
     {
         return $this->uuid;
     }
 
-    /**
-     * @param string $uuid
-     */
     public function setUuid($uuid): void
     {
         $this->uuid = $uuid;

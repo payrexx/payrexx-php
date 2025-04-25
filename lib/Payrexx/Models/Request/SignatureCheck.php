@@ -10,17 +10,16 @@
 
 namespace Payrexx\Models\Request;
 
+use Payrexx\Models\Base;
+
 /**
  * Class SignatureCheck
  *
  * @package Payrexx\Models\Request
  */
-class SignatureCheck extends \Payrexx\Models\Base
+class SignatureCheck extends Base
 {
-    /**
-     * {@inheritdoc}
-     */
-    public function getResponseModel()
+    public function getResponseModel(): \Payrexx\Models\Response\SignatureCheck
     {
         return new \Payrexx\Models\Response\SignatureCheck();
     }
