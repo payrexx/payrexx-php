@@ -128,7 +128,7 @@ class Communicator
         $httpMethod = $this->getHttpMethod($method) === 'PUT' && $params['model'] === 'Design'
             ? 'POST'
             : $this->getHttpMethod($method);
-        $this->setHttpHeaders();
+        $this->setDefaultHttpHeaders();
         $response = $this->communicationHandler->requestApi(
             $apiUrl,
             $params,
@@ -192,13 +192,11 @@ class Communicator
     }
 
     /**
-     * Sets the HTTP headers
+     * Sets the default HTTP headers
      */
-    private function setHttpHeaders(): void
+    private function setDefaultHttpHeaders(): void
     {
-        $this->httpHeaders = [
-            'User-Agent' => 'payrexx-php/1.8.0',
-            'x-api-key' => $this->apiSecret,
-        ];
+        $this->httpHeaders['user-agent'] = 'payrexx-php/' . Payrexx::CLIENT_VERSION;
+        $this->httpHeaders['x-api-key'] = $this->apiSecret;
     }
 }

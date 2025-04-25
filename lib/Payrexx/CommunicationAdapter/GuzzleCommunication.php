@@ -15,6 +15,7 @@ use Exception;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Exception\RequestException;
+use GuzzleHttp\RequestOptions;
 
 try {
     if (version_compare(PHP_VERSION, '8.0', '<')) {
@@ -85,8 +86,8 @@ class GuzzleCommunication extends AbstractCommunication
 
         try {
             $client = new Client([
-                'headers' => $httpHeader,
-                'verify' => dirname(__DIR__) . '/certs/ca.pem',
+                RequestOptions::HEADERS => $httpHeader,
+                RequestOptions::VERIFY => dirname(__DIR__) . '/certs/ca.pem',
             ]);
             $response = $client->request(
                 $method,

@@ -13,6 +13,7 @@ namespace Payrexx;
  */
 class Payrexx
 {
+    public const CLIENT_VERSION = '1.8.0';
     /**
      * @var Communicator The object for the communication wrapper.
      */
