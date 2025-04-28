@@ -17,28 +17,19 @@ namespace Payrexx\Models\Response;
  */
 class Page extends \Payrexx\Models\Request\Page
 {
-    protected $createdAt = 0;
+    protected int $createdAt = 0;
 
-    /**
-     * @return int
-     */
-    public function getCreatedDate()
+    public function getCreatedDate(): int
     {
         return $this->createdAt;
     }
 
-    /**
-     * @param int $createdAt
-     */
-    public function setCreatedDate($createdAt)
+    public function setCreatedDate(int $createdAt): void
     {
         $this->createdAt = $createdAt;
     }
 
-    /**
-     * @param array $fields
-     */
-    public function setFields($fields)
+    public function setFields(array $fields): void
     {
         $this->fields = $fields;
     }

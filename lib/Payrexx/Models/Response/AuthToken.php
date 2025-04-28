@@ -10,6 +10,8 @@
 
 namespace Payrexx\Models\Response;
 
+use DateTime;
+
 /**
  * Class AuthToken
  *
@@ -17,70 +19,46 @@ namespace Payrexx\Models\Response;
  */
 class AuthToken extends \Payrexx\Models\Request\Invoice
 {
-    protected $authToken = '';
-    protected $authTokenExpirationDate = null;
-    protected $link = '';
+    protected string $authToken = '';
+    protected ?DateTime $authTokenExpirationDate = null;
+    protected string $link = '';
 
-    /**
-     * @return string
-     */
-    public function getAuthToken()
+    public function getAuthToken(): string
     {
         return $this->authToken;
     }
 
-    /**
-     * @param string $authToken
-     */
-    public function setAuthToken($authToken)
+    public function setAuthToken(string $authToken): void
     {
         $this->authToken = $authToken;
     }
 
-    /**
-     * @return null
-     */
-    public function getAuthTokenExpirationDate()
+    public function getAuthTokenExpirationDate(): string
     {
         return $this->authTokenExpirationDate;
     }
 
-    /**
-     * @param null $authTokenExpirationDate
-     */
-    public function setAuthTokenExpirationDate($authTokenExpirationDate)
+    public function setAuthTokenExpirationDate(?DateTime $authTokenExpirationDate): void
     {
         $this->authTokenExpirationDate = $authTokenExpirationDate;
     }
 
-    /**
-     * @return string
-     */
-    public function getLink()
+    public function getLink(): string
     {
         return $this->link;
     }
 
-    /**
-     * @param string $link
-     */
-    public function setLink($link)
+    public function setLink(string $link): void
     {
         $this->link = $link;
     }
 
-    /**
-     * @return string
-     */
-    public function getSubscriptionPeriodMinAmount()
+    public function getSubscriptionPeriodMinAmount(): string
     {
         return $this->subscriptionPeriodMinAmount;
     }
 
-    /**
-     * @param string $subscriptionPeriodMinAmount
-     */
-    public function setSubscriptionPeriodMinAmount($subscriptionPeriodMinAmount)
+    public function setSubscriptionPeriodMinAmount(string $subscriptionPeriodMinAmount): void
     {
         $this->subscriptionPeriodMinAmount = $subscriptionPeriodMinAmount;
     }

@@ -18,16 +18,16 @@ namespace Payrexx\Models\Response;
 class PaymentMethod extends \Payrexx\Models\Request\PaymentMethod
 {
     /** @var string */
-    protected $name;
+    protected string $name;
 
     /** @var array */
-    protected $label;
+    protected array $label;
 
     /** @var array */
-    protected $logo;
+    protected array $logo;
 
     /** @var array */
-    protected $options_by_psp;
+    protected array $options_by_psp;
 
     /**
      * @return string
