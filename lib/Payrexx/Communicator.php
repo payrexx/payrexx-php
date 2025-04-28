@@ -10,6 +10,7 @@
 
 namespace Payrexx;
 
+use Payrexx\Models\Base;
 use Payrexx\Models\Request\Bill;
 use Payrexx\Models\Request\PaymentMethod;
 
@@ -19,16 +20,16 @@ use Payrexx\Models\Request\PaymentMethod;
  */
 class Communicator
 {
-    const VERSIONS = [1.0, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 1.9];
-    const API_URL_FORMAT = 'https://api.%s/%s/%s/%s/%s';
-    const API_URL_BASE_DOMAIN = 'payrexx.com';
-    const DEFAULT_COMMUNICATION_HANDLER = '\Payrexx\CommunicationAdapter\CurlCommunication';
-    const GUZZLE_COMMUNICATION_HANDLER = '\Payrexx\CommunicationAdapter\GuzzleCommunication';
+    public const VERSIONS = [1.0, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 1.9];
+    public const API_URL_FORMAT = 'https://api.%s/%s/%s/%s/%s';
+    public const API_URL_BASE_DOMAIN = 'payrexx.com';
+    public const DEFAULT_COMMUNICATION_HANDLER = '\Payrexx\CommunicationAdapter\CurlCommunication';
+    public const GUZZLE_COMMUNICATION_HANDLER = '\Payrexx\CommunicationAdapter\GuzzleCommunication';
 
     /**
      * @var array A set of methods which can be used to communicate with the API server.
      */
-    protected static $methods = array(
+    protected static array $methods = [
         'create'       => 'POST',
         'charge'       => 'POST',
         'refund'       => 'POST',
@@ -42,45 +43,25 @@ class Communicator
         'getOne'       => 'GET',
         'details'      => 'GET',
         'patchUpdate'  => 'PATCH',
-    );
-    /**
-     * @var string The Payrexx instance name.
-     */
-    protected $instance;
-    /**
-     * @var string The API secret which is used to generate a signature.
-     */
-    protected $apiSecret;
-    /**
-     * @var string The base domain of the API URL.
-     */
-    protected $apiBaseDomain;
-    /**
-     * @var string The communication handler which handles the HTTP requests. Default cURL Communication handler
-     */
-    protected $communicationHandler;
-    /**
-     * @var string The version to use
-     */
-    protected $version;
-    /**
-     * @var array The HTTP Headers
-     */
-    public $httpHeaders;
+    ];
+    protected string $instance;
+    protected string $apiSecret;
+    protected string $apiBaseDomain;
+    protected string $communicationHandler;
+    protected ?string $version;
+    public array $httpHeaders;
 
     /**
      * Generates a communicator object with a communication handler like cURL.
-     *
-     * @param string $instance The instance name, needed for the generation of the API url.
-     * @param string $apiSecret The API secret which is the key to hash all the parameters passed to the API server.
-     * @param string $communicationHandler The preferred communication handler. Default is cURL.
-     * @param string $apiBaseDomain The base domain of the API URL.
-     * @param float $version The version of the API to query.
-     *
      * @throws PayrexxException
      */
-    public function __construct($instance, $apiSecret, $communicationHandler, $apiBaseDomain, $version = null)
-    {
+    public function __construct(
+        string $instance,
+        string $apiSecret,
+        string $communicationHandler,
+        string $apiBaseDomain,
+        ?string $version = null
+    ) {
         $this->instance = $instance;
         $this->apiSecret = $apiSecret;
         $this->apiBaseDomain = $apiBaseDomain;
@@ -101,9 +82,9 @@ class Communicator
     /**
      * Gets the version of the API used.
      *
-     * @return string The version of the API
+     * @return float|string|null The version of the API
      */
-    public function getVersion()
+    public function getVersion(): float|string|null
     {
         return $this->version;
     }
@@ -111,19 +92,19 @@ class Communicator
     /**
      * Perform a simple API request by method name and Request model.
      *
-     * @param string                       $method The name of the API method to call
-     * @param \Payrexx\Models\Base $model  The model which has the same functionality like a filter.
+     * @param string $method The name of the API method to call
+     * @param Base $model  The model which has the same functionality like a filter.
      *
-     * @return \Payrexx\Models\Base[]|\Payrexx\Models\Base An array of models or just one model which
+     * @return Base[]|Base An array of models or just one model which
      *                                                                       is the result of the API call
-     * @throws \Payrexx\PayrexxException An error occurred during the Payrexx Request
+     * @throws PayrexxException An error occurred during the Payrexx Request
      */
-    public function performApiRequest($method, \Payrexx\Models\Base $model)
+    public function performApiRequest(string $method, Base $model)
     {
         $params = $model->toArray();
         $params['instance'] = $this->instance;
 
-        $id = isset($params['id']) ? $params['id'] : 0;
+        $id = $params['id'] ?? 0;
         if ($id === 0 && isset($params['uuid'])) {
             $id = $params['uuid'];
         }
@@ -143,15 +124,16 @@ class Communicator
             $this->httpHeaders
         );
 
-        $convertedResponse = array();
+        $convertedResponse = [];
         if (!isset($response['body']['data']) || !is_array($response['body']['data'])) {
             if (!isset($response['body']['message'])) {
-                throw new \Payrexx\PayrexxException('Payrexx PHP: Configuration is wrong! Check instance name and API secret', $response['info']['http_code']);
+                throw new PayrexxException('Payrexx PHP: Configuration is wrong! Check instance name and API secret', $response['info']['http_code']);
             }
-            $exception = new \Payrexx\PayrexxException($response['body']['message'], $response['info']['http_code']);
+            $exception = new PayrexxException($response['body']['message'], $response['info']['http_code']);
             if (!empty($response['body']['reason'])) {
                 $exception->setReason($response['body']['reason']);
             }
+
             throw $exception;
         }
 
@@ -170,33 +152,28 @@ class Communicator
         if ($method !== 'getAll') {
             $convertedResponse = current($convertedResponse);
         }
+
         return $convertedResponse;
     }
 
     /**
      * Gets the HTTP method to use for a specific API method
      *
-     * @param string $method The API method to check for
-     *
-     * @return string The HTTP method to use for the queried API method
-     * @throws \Payrexx\PayrexxException The method is not implemented yet.
+     * @throws PayrexxException
      */
-    protected function getHttpMethod($method)
+    protected function getHttpMethod(string $method): string
     {
         if (!$this->methodAvailable($method)) {
-            throw new \Payrexx\PayrexxException('Method ' . $method . ' not implemented');
+            throw new PayrexxException('Method ' . $method . ' not implemented');
         }
+
         return self::$methods[$method];
     }
 
     /**
      * Checks whether a method is available and activated in methods array.
-     *
-     * @param string $method The method name to check
-     *
-     * @return bool True if the method exists, False if not
      */
-    public function methodAvailable($method)
+    public function methodAvailable(string $method): bool
     {
         return array_key_exists($method, self::$methods);
     }

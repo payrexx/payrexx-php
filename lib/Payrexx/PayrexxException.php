@@ -10,21 +10,23 @@
 
 namespace Payrexx;
 
+use Exception;
+
 /**
  * Class PayrexxException
  *
  * @package Payrexx
  */
-class PayrexxException extends \Exception
+class PayrexxException extends Exception
 {
-    private $reason = '';
+    private string $reason = '';
 
-    public function getReason()
+    public function getReason(): string
     {
         return $this->reason;
     }
 
-    public function setReason($reason = '')
+    public function setReason($reason = ''): void
     {
         $this->reason = $reason;
     }

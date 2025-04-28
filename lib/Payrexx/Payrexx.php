@@ -10,6 +10,8 @@
 
 namespace Payrexx;
 
+use Payrexx\Models\Base;
+
 /**
  * All interactions with the API can be done with an instance of this class.
  *
@@ -21,21 +23,26 @@ class Payrexx
     /**
      * @var Communicator The object for the communication wrapper.
      */
-    protected $communicator;
+    protected Communicator $communicator;
 
     /**
      * Generates an API object to use for the whole interaction with Payrexx.
      *
-     * @param string $instance             The name of the Payrexx instance.
-     * @param string $apiSecret            The API secret which can be found in the Payrexx administration.
+     * @param string $instance The name of the Payrexx instance.
+     * @param string $apiSecret The API secret which can be found in the Payrexx administration.
      * @param string $communicationHandler The preferred communication handler. Default is cURL.
-     * @param string $apiBaseDomain        The base domain of the API URL.
-     * @param string $version              The version of the API to use.
+     * @param string $apiBaseDomain The base domain of the API URL.
+     * @param string|null $version The version of the API to use.
      *
      * @throws PayrexxException
      */
-    public function __construct($instance, $apiSecret, $communicationHandler = '', $apiBaseDomain = Communicator::API_URL_BASE_DOMAIN, $version = null)
-    {
+    public function __construct(
+        string $instance,
+        string $apiSecret,
+        string $communicationHandler = '',
+        string $apiBaseDomain = Communicator::API_URL_BASE_DOMAIN,
+        ?string $version = null
+    ) {
         $defaultHandler = class_exists(\GuzzleHttp\Client::class)
             ? Communicator::GUZZLE_COMMUNICATION_HANDLER
             : Communicator::DEFAULT_COMMUNICATION_HANDLER;
@@ -64,7 +71,7 @@ class Payrexx
      *
      * @return string The version of the API communicator
      */
-    public function getVersion()
+    public function getVersion(): string
     {
         return $this->communicator->getVersion();
     }
@@ -73,18 +80,18 @@ class Payrexx
      * This magic method is used to call any method available in communication object.
      *
      * @param string $method The name of the method called.
-     * @param array  $args   The arguments passed to the method call. There can only be one argument which is the model.
+     * @param array $args   The arguments passed to the method call. There can only be one argument which is the model.
      *
-     * @return \Payrexx\Models\Response\Base[]|\Payrexx\Models\Response\Base
-     * @throws \Payrexx\PayrexxException The model argument is missing or the method is not implemented
+     * @return Base[]|Base
+     * @throws PayrexxException The model argument is missing or the method is not implemented
      */
-    public function __call($method, $args)
+    public function __call(string $method, array $args)
     {
         if (!$this->communicator->methodAvailable($method)) {
-            throw new \Payrexx\PayrexxException('Method ' . $method . ' not implemented');
+            throw new PayrexxException('Method ' . $method . ' not implemented');
         }
         if (empty($args)) {
-            throw new \Payrexx\PayrexxException('Argument model is missing');
+            throw new PayrexxException('Argument model is missing');
         }
         $model = current($args);
         return $this->communicator->performApiRequest($method, $model);
