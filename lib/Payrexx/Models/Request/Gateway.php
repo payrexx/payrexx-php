@@ -17,7 +17,7 @@ class Gateway extends Base
     protected int $amount;
 
     /** optional */
-    protected float|null $vatRate;
+    protected ?float $vatRate;
 
     /** optional */
     protected string $sku;
@@ -123,12 +123,12 @@ class Gateway extends Base
         $this->amount = $amount;
     }
 
-    public function getVatRate(): float|null
+    public function getVatRate(): ?float
     {
         return $this->vatRate;
     }
 
-    public function setVatRate(float|null $vatRate): void
+    public function setVatRate(?float $vatRate): void
     {
         $this->vatRate = $vatRate;
     }

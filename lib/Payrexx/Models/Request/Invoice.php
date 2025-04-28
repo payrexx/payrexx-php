@@ -38,7 +38,7 @@ class Invoice extends Base
     protected string $purpose = '';
     protected string $buttonText = '';
     protected int $amount = 0;
-    protected float|null $vatRate = null;
+    protected ?float $vatRate = null;
     protected string $sku = '';
     protected string $currency = '';
     protected bool $preAuthorization = false;
