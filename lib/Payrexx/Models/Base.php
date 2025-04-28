@@ -49,7 +49,7 @@ abstract class Base
     /**
      * Returns the corresponding response model object
      */
-    abstract public function getResponseModel(): object;
+    public abstract function getResponseModel(): object;
 
     public function getId(): int
     {
