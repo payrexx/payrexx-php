@@ -6,8 +6,6 @@ class QrCode extends \Payrexx\Models\Request\QrCode
 {
     protected string $qrCode;
 
-    protected $uuid;
-
     protected string $png;
 
     protected string $svg;
