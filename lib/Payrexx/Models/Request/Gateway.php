@@ -1,13 +1,19 @@
 <?php
 
+/**
+ * The Gateway request model
+ *
+ * @author    Payrexx Development <info@payrexx.com>
+ * @copyright Payrexx AG
+ * @since     v1.3.0
+ */
+
 namespace Payrexx\Models\Request;
 
 /**
  * Gateway request class
  *
- * @copyright   Payrexx AG
- * @author      Payrexx Development Team <info@payrexx.com>
- * @package     \Payrexx\Models\Request
+ * @package \Payrexx\Models\Request
  */
 class Gateway extends \Payrexx\Models\Base
 {

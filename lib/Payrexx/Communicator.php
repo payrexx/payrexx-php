@@ -1,10 +1,13 @@
 <?php
+
 /**
- * This class has the definition of the API used for the communication.
- * @author    Ueli Kramer <ueli.kramer@comvation.com>
- * @copyright 2014 Payrexx AG
+ * This class has the definition of the API used for the communication
+ *
+ * @author    Payrexx Development <info@payrexx.com>
+ * @copyright Payrexx AG
  * @since     v1.0
  */
+
 namespace Payrexx;
 
 use Payrexx\Models\Request\PaymentMethod;

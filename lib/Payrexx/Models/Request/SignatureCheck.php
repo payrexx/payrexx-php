@@ -1,14 +1,18 @@
 <?php
+
 /**
- * The signatureCheck request model
- * @author    Remo Siegenthaler <remo.siegenthaler@payrexx.com>
- * @copyright 2017 Payrexx AG
- * @since     v1.0
+ * The SignatureCheck request model
+ *
+ * @author    Payrexx Development <info@payrexx.com>
+ * @copyright Payrexx AG
+ * @since     v1.5.0
  */
+
 namespace Payrexx\Models\Request;
 
 /**
  * Class SignatureCheck
+ *
  * @package Payrexx\Models\Request
  */
 class SignatureCheck extends \Payrexx\Models\Base

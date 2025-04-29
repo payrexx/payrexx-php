@@ -1,5 +1,13 @@
 <?php
 
+/**
+ * The Design request model
+ *
+ * @author    Payrexx Development <info@payrexx.com>
+ * @copyright Payrexx AG
+ * @since     v1.7.0
+ */
+
 namespace Payrexx\Models\Request;
 
 use CURLFile;
@@ -8,9 +16,7 @@ use Payrexx\Models\Base;
 /**
  * Design request class
  *
- * @copyright Payrexx AG
- * @author    Payrexx Development Team <info@payrexx.com>
- * @package   \Payrexx\Models\Request
+ * @package \Payrexx\Models\Request
  */
 class Design extends Base
 {

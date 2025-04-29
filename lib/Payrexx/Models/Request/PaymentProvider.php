@@ -3,15 +3,16 @@
 /**
  * The PaymentProvider request model.
  *
- * @author    Payrexx Development <dev@payrexx.com>
- * @copyright 2018 Payrexx AG
- * @since     v1.0
+ * @author    Payrexx Development <info@payrexx.com>
+ * @copyright Payrexx AG
+ * @since     v1.5.5
  */
 
 namespace Payrexx\Models\Request;
 
 /**
  * Class PaymentProvider
+ *
  * @package Payrexx\Models\Request
  */
 class PaymentProvider extends \Payrexx\Models\Base

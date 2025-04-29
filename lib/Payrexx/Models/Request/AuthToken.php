@@ -1,14 +1,18 @@
 <?php
+
 /**
  * The AuthToken request model
- * @author    Ueli Kramer <ueli.kramer@comvation.com>
- * @copyright 2014 Payrexx AG
- * @since     v1.0
+ *
+ * @author    Payrexx Development <info@payrexx.com>
+ * @copyright Payrexx AG
+ * @since     v1.1.0
  */
+
 namespace Payrexx\Models\Request;
 
 /**
  * Class AuthToken
+ *
  * @package Payrexx\Models\Request
  */
 class AuthToken extends \Payrexx\Models\Base

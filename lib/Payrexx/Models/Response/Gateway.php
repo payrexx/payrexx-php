@@ -1,12 +1,18 @@
 <?php
 
+/**
+ * The Gateway response model
+ *
+ * @author    Payrexx Development <info@payrexx.com>
+ * @copyright Payrexx AG
+ * @since     v1.3.0
+ */
+
 namespace Payrexx\Models\Response;
 
 /**
  * Gateway response class
  *
- * @copyright   Payrexx AG
- * @author      Payrexx Development Team <info@payrexx.com>
  * @package     \Payrexx\Models\Response
  */
 class Gateway extends \Payrexx\Models\Request\Gateway

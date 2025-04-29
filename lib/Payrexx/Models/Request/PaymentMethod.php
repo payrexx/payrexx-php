@@ -3,9 +3,11 @@
 /**
  * PaymentMethod request model
  *
- * @copyright   Payrexx AG
- * @author      Payrexx Development Team <info@payrexx.com>
+ * @author    Payrexx Development <info@payrexx.com>
+ * @copyright Payrexx AG
+ * @since     v1.7.5
  */
+
 namespace Payrexx\Models\Request;
 
 /**
