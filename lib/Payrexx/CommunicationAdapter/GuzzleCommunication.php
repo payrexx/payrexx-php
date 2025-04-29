@@ -5,7 +5,7 @@
  *
  * @author    Payrexx Development <info@payrexx.com>
  * @copyright Payrexx AG
- * @since     v1.0
+ * @since     v1.8.12
  */
 
 namespace Payrexx\CommunicationAdapter;
