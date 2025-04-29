@@ -47,7 +47,7 @@ class Communicator
     protected string $instance;
     protected string $apiSecret;
     protected string $apiBaseDomain;
-    protected string $communicationHandler;
+    protected object $communicationHandler;
     protected ?string $version;
     public array $httpHeaders;
 
@@ -70,7 +70,7 @@ class Communicator
             $this->version = $version;
         } else {
             $versions = self::VERSIONS;
-            $this->version = end($versions);
+            $this->version = strval(end($versions));
         }
 
         if (!class_exists($communicationHandler)) {

@@ -35,7 +35,7 @@ class CurlCommunication extends AbstractCommunication
     /**
      * {@inheritdoc}
      */
-    public function requestApi($apiUrl, $params = [], $method = 'POST', $httpHeader = [])
+    public function requestApi(string $apiUrl, $params = [], $method = 'POST', $httpHeader = []): array
     {
         $curlOpts = [
             CURLOPT_URL => $apiUrl,
@@ -44,7 +44,7 @@ class CurlCommunication extends AbstractCommunication
             CURLOPT_SSL_VERIFYPEER => true,
             CURLOPT_CAINFO => dirname(__DIR__) . '/certs/ca.pem',
         ];
-        if (defined(PHP_QUERY_RFC3986)) {
+        if (defined('PHP_QUERY_RFC3986')) {
             $paramString = http_build_query($params, '', '&', PHP_QUERY_RFC3986);
         } else {
             // legacy, because the $enc_type has been implemented with PHP 5.4
