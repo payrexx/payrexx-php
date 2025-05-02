@@ -22,15 +22,6 @@ class Device extends Base
     protected string $deviceUrl;
     protected const APT_ACT = 'twint';
 
-    public function setId(int $id): void
-    {
-        $this->id = $id;
-    }
-    public function getId(): int
-    {
-        return $this->id;
-    }
-
     public function setDeviceUrl(string $deviceUrl): void
     {
         $this->deviceUrl = $deviceUrl;

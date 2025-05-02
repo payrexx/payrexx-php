@@ -19,28 +19,8 @@ use Payrexx\Models\Base;
  */
 class DeviceTransaction extends Base
 {
-    protected string $deviceUrl;
     protected const API_MODEL_ENDPOINT = 'Device/Transaction';
 
-    public function setId(int $id): void
-    {
-        $this->id = $id;
-    }
-
-    public function getId(): int
-    {
-        return $this->id;
-    }
-
-    public function setDeviceUrl(string $deviceUrl): void
-    {
-        $this->deviceUrl = $deviceUrl;
-    }
-
-    public function getDeviceUrl(): int
-    {
-        return $this->deviceUrl;
-    }
 
     public function getResponseModel(): \Payrexx\Models\Response\DeviceTransaction
     {

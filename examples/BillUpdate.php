@@ -126,7 +126,7 @@ $bill->setPositions(
 //$bill->setTerms('YOUR_TERMS');
 
 try {
-    $response = $payrexx->create($bill);
+    $response = $payrexx->patchUpdate($bill);
     var_dump($response);
 } catch (PayrexxException $e) {
     print $e->getMessage();
