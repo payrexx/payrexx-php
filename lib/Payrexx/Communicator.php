@@ -40,6 +40,9 @@ class Communicator
         'getAll'       => 'GET',
         'getOne'       => 'GET',
         'details'      => 'GET',
+        'patchCancel'  => 'PATCH',
+        'patchRefund'  => 'PATCH',
+        'patchUpdate'  => 'PATCH',
     );
     /**
      * @var string The Payrexx instance name.
@@ -126,8 +129,16 @@ class Communicator
             $id = $params['uuid'];
         }
 
+        $modelEndPoint = $params['model'];
+        if (method_exists($model, 'getApiModelEndPoint')) {
+            $modelEndPoint = $model->getApiModelEndPoint();
+        }
+
         $act = in_array($method, ['refund', 'capture', 'receipt', 'preAuthorize', 'details']) ? $method : '';
-        $apiUrl = sprintf(self::API_URL_FORMAT, $this->apiBaseDomain, 'v' . $this->version, $params['model'], $id, $act);
+        if (empty($act) && method_exists($model, 'getApiAct')) {
+            $act = $model->getApiAct($method);
+        }
+        $apiUrl = sprintf(self::API_URL_FORMAT, $this->apiBaseDomain, 'v' . $this->version, $modelEndPoint, $id, $act);
 
         $httpMethod = $this->getHttpMethod($method) === 'PUT' && $params['model'] === 'Design'
             ? 'POST'
