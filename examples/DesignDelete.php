@@ -1,5 +1,13 @@
 <?php
 
+/**
+ * Example: Design request model
+ *
+ * @author    Payrexx Development <info@payrexx.com>
+ * @copyright Payrexx AG
+ * @since     v1.7.0
+ */
+
 use Payrexx\Models\Request\Design;
 use Payrexx\Payrexx;
 use Payrexx\PayrexxException;

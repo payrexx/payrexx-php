@@ -1,5 +1,13 @@
 <?php
 
+/**
+ * Example: AuthToken request model
+ *
+ * @author    Payrexx Development <info@payrexx.com>
+ * @copyright Payrexx AG
+ * @since     v1.1.0
+ */
+
 spl_autoload_register(function($class) {
     $root = dirname(__DIR__);
     $classFile = $root . '/lib/' . str_replace('\\', '/', $class) . '.php';

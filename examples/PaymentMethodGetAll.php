@@ -1,5 +1,13 @@
 <?php
 
+/**
+ * Example: PaymentMethod request model
+ *
+ * @author    Payrexx Development <info@payrexx.com>
+ * @copyright Payrexx AG
+ * @since     v1.7.5
+ */
+
 use Payrexx\Models\Request\PaymentMethod;
 use Payrexx\Payrexx;
 use Payrexx\PayrexxException;
