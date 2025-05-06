@@ -34,5 +34,10 @@
     },
     "scripts": {
         "phpstan": "phpstan analyse lib/"
+    },
+    "config": {
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
     }
 }
