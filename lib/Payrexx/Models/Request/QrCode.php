@@ -32,11 +32,6 @@ class QrCode extends Base
         $this->webshopUrl = $webshopUrl;
     }
 
-    public function getResponseModel(): \Payrexx\Models\Response\QrCode
-    {
-        return new \Payrexx\Models\Response\QrCode();
-    }
-
     public function getUuid(): string
     {
         return $this->uuid;
@@ -45,5 +40,10 @@ class QrCode extends Base
     public function setUuid($uuid): void
     {
         $this->uuid = $uuid;
+    }
+
+    public function getResponseModel(): \Payrexx\Models\Response\QrCode
+    {
+        return new \Payrexx\Models\Response\QrCode();
     }
 }

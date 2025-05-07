@@ -84,14 +84,6 @@ class Design extends Base
     protected CURLFile $VPOSBackgroundImage;
 
     /**
-     * {@inheritdoc}
-     */
-    public function getResponseModel(): ResponseDesign
-    {
-        return new ResponseDesign();
-    }
-
-    /**
      * @param string $uuid
      */
     public function setUuid(string $uuid): void
@@ -420,5 +412,10 @@ class Design extends Base
     public function setLimit(int $limit): void
     {
         $this->limit = $limit;
+    }
+
+    public function getResponseModel(): ResponseDesign
+    {
+        return new ResponseDesign();
     }
 }

@@ -354,11 +354,6 @@ class Gateway extends Base
         $this->validity = $validity;
     }
 
-    public function getResponseModel(): \Payrexx\Models\Response\Gateway
-    {
-        return new \Payrexx\Models\Response\Gateway();
-    }
-
     public function isSubscriptionState(): bool
     {
         return $this->subscriptionState;
@@ -531,5 +526,10 @@ class Gateway extends Base
     public function setSpotlightOrderDetailsUrl(string $spotlightOrderDetailsUrl): void
     {
         $this->spotlightOrderDetailsUrl = $spotlightOrderDetailsUrl;
+    }
+
+    public function getResponseModel(): \Payrexx\Models\Response\Gateway
+    {
+        return new \Payrexx\Models\Response\Gateway();
     }
 }
