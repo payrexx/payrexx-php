@@ -97,7 +97,7 @@ class GuzzleCommunication extends AbstractCommunication
 
             $responseBody = $response->getBody()->getContents();
             $responseInfo = [
-                'httpCode' => $response->getStatusCode(),
+                'http_code' => $response->getStatusCode(),
                 'contentType' => $response->getHeaderLine('Content-Type'),
             ];
         } catch (RequestException $e) {
@@ -109,7 +109,7 @@ class GuzzleCommunication extends AbstractCommunication
                 ]);
 
             $responseInfo = [
-                'httpCode' => $e->hasResponse() ? $e->getResponse()->getStatusCode() : 0,
+                'http_code' => $e->hasResponse() ? $e->getResponse()->getStatusCode() : 0,
                 'contentType' => $e->hasResponse() ? $e->getResponse()->getHeaderLine('Content-Type') : '',
             ];
         } catch (GuzzleException $e) {
@@ -119,7 +119,7 @@ class GuzzleCommunication extends AbstractCommunication
             ]);
 
             $responseInfo = [
-                'httpCode' => 0,
+                'http_code' => 0,
                 'contentType' => '',
             ];
         }

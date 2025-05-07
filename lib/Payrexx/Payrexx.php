@@ -35,6 +35,7 @@ class Payrexx
         $defaultHandler = class_exists(\GuzzleHttp\Client::class)
             ? Communicator::GUZZLE_COMMUNICATION_HANDLER
             : Communicator::DEFAULT_COMMUNICATION_HANDLER;
+
         $this->communicator = new Communicator(
             $instance,
             $apiSecret,

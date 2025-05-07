@@ -20,6 +20,7 @@ class Communicator
     const API_URL_BASE_DOMAIN = 'payrexx.com';
     const DEFAULT_COMMUNICATION_HANDLER = '\Payrexx\CommunicationAdapter\CurlCommunication';
     const GUZZLE_COMMUNICATION_HANDLER = '\Payrexx\CommunicationAdapter\GuzzleCommunication';
+
     /**
      * @var array A set of methods which can be used to communicate with the API server.
      */
@@ -139,9 +140,9 @@ class Communicator
         $convertedResponse = array();
         if (!isset($response['body']['data']) || !is_array($response['body']['data'])) {
             if (!isset($response['body']['message'])) {
-                throw new \Payrexx\PayrexxException('Payrexx PHP: Configuration is wrong! Check instance name and API secret', $response['info']['httpCode']);
+                throw new \Payrexx\PayrexxException('Payrexx PHP: Configuration is wrong! Check instance name and API secret', $response['info']['http_code']);
             }
-            $exception = new \Payrexx\PayrexxException($response['body']['message'], $response['info']['httpCode']);
+            $exception = new \Payrexx\PayrexxException($response['body']['message'], $response['info']['http_code']);
             if (!empty($response['body']['reason'])) {
                 $exception->setReason($response['body']['reason']);
             }
