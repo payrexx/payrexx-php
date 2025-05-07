@@ -12,7 +12,6 @@ namespace Payrexx\Models\Request;
 
 use CURLFile;
 use Payrexx\Models\Base;
-use Payrexx\Models\Response\Design as ResponseDesign;
 
 /**
  * Design request class
@@ -414,8 +413,8 @@ class Design extends Base
         $this->limit = $limit;
     }
 
-    public function getResponseModel(): ResponseDesign
+    public function getResponseModel(): \Payrexx\Models\Response\Design
     {
-        return new ResponseDesign();
+        return new \Payrexx\Models\Response\Design();
     }
 }
