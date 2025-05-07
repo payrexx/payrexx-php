@@ -129,6 +129,7 @@ class Communicator
         $httpMethod = $this->getHttpMethod($method) === 'PUT' && $params['model'] === 'Design'
             ? 'POST'
             : $this->getHttpMethod($method);
+
         $this->setDefaultHttpHeaders();
         $response = $this->communicationHandler->requestApi(
             $apiUrl,
