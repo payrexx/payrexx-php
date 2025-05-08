@@ -1,9 +1,22 @@
 <?php
 
+/**
+ * The Payout request model
+ *
+ * @author    Payrexx Development <info@payrexx.com>
+ * @copyright Payrexx AG
+ * @since     v1.8.4
+ */
+
 namespace Payrexx\Models\Request;
 
 use Payrexx\Models\Base;
 
+/**
+ * Class Payout
+ *
+ * @package Payrexx\Models\Request
+ */
 class Payout extends Base
 {
     protected string $currency;

@@ -1,14 +1,18 @@
 <?php
+
 /**
  * The Payrexx client API basic class file
- * @author    Ueli Kramer <ueli.kramer@comvation.com>
- * @copyright 2014 Payrexx AG
+ *
+ * @author    Payrexx Development <info@payrexx.com>
+ * @copyright Payrexx AG
  * @since     v1.0
  */
+
 namespace Payrexx;
 
 /**
  * All interactions with the API can be done with an instance of this class.
+ *
  * @package Payrexx
  */
 class Payrexx

@@ -1,14 +1,18 @@
 <?php
+
 /**
- * The page request model
- * @author    Ueli Kramer <ueli.kramer@comvation.com>
- * @copyright 2014 Payrexx AG
+ * The Page request model
+ *
+ * @author    Payrexx Development <info@payrexx.com>
+ * @copyright Payrexx AG
  * @since     v1.0
  */
+
 namespace Payrexx\Models\Request;
 
 /**
  * Class Page
+ *
  * @package Payrexx\Models\Request
  */
 class Page extends \Payrexx\Models\Base

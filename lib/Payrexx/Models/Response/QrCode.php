@@ -1,7 +1,20 @@
 <?php
 
+/**
+ * The QrCode response model
+ *
+ * @author    Payrexx Development <info@payrexx.com>
+ * @copyright Payrexx AG
+ * @since     v1.7.5
+ */
+
 namespace Payrexx\Models\Response;
 
+/**
+ * QrCode response class
+ *
+ * @package \Payrexx\Models\Response
+ */
 class QrCode extends \Payrexx\Models\Request\QrCode
 {
     /** @var string */

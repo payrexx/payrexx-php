@@ -3,9 +3,11 @@
 /**
  * Transaction response model
  *
- * @copyright   Payrexx AG
- * @author      Payrexx Development Team <info@payrexx.com>
+ * @author    Payrexx Development <info@payrexx.com>
+ * @copyright Payrexx AG
+ * @since     v1.5.0
  */
+
 namespace Payrexx\Models\Response;
 
 /**

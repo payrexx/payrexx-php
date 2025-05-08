@@ -1,13 +1,19 @@
 <?php
 
+/**
+ * The QrCode request model
+ *
+ * @author    Payrexx Development <info@payrexx.com>
+ * @copyright Payrexx AG
+ * @since     v1.7.5
+ */
+
 namespace Payrexx\Models\Request;
 
 /**
  * QrCode request class
  *
- * @copyright   Payrexx AG
- * @author      Payrexx Development Team <info@payrexx.com>
- * @package     \Payrexx\Models\Request
+ * @package \Payrexx\Models\Request
  */
 class QrCode extends \Payrexx\Models\Base
 {

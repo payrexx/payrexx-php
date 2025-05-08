@@ -2,8 +2,9 @@
 
 /**
  * This is the cURL communication adapter
- * @author    Ueli Kramer <ueli.kramer@comvation.com>
- * @copyright 2014 Payrexx AG
+ *
+ * @author    Payrexx Development <info@payrexx.com>
+ * @copyright Payrexx AG
  * @since     v1.0
  */
 

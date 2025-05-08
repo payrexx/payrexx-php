@@ -1,7 +1,20 @@
 <?php
 
+/**
+ * The Payout response model
+ *
+ * @author    Payrexx Development <info@payrexx.com>
+ * @copyright Payrexx AG
+ * @since     v1.8.4
+ */
+
 namespace Payrexx\Models\Response;
 
+/**
+ * Class Payout
+ *
+ * @package Payrexx\Models\Response
+ */
 class Payout extends \Payrexx\Models\Request\Payout
 {
 
