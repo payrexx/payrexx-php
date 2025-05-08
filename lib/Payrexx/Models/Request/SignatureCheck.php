@@ -11,6 +11,7 @@
 namespace Payrexx\Models\Request;
 
 use Payrexx\Models\Base;
+use Payrexx\Models\Response\SignatureCheck as ResponseSignatureCheck;
 
 /**
  * Class SignatureCheck
@@ -19,8 +20,8 @@ use Payrexx\Models\Base;
  */
 class SignatureCheck extends Base
 {
-    public function getResponseModel(): \Payrexx\Models\Response\SignatureCheck
+    public function getResponseModel(): ResponseSignatureCheck
     {
-        return new \Payrexx\Models\Response\SignatureCheck();
+        return new ResponseSignatureCheck();
     }
 }

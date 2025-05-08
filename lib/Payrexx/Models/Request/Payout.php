@@ -11,6 +11,7 @@
 namespace Payrexx\Models\Request;
 
 use Payrexx\Models\Base;
+use Payrexx\Models\Response\Payout as ResponsePayout;
 
 /**
  * Class Payout
@@ -67,8 +68,8 @@ class Payout extends Base
         $this->statementDescriptor = $statementDescriptor;
     }
 
-    public function getResponseModel(): \Payrexx\Models\Response\Payout
+    public function getResponseModel(): ResponsePayout
     {
-        return new \Payrexx\Models\Response\Payout();
+        return new ResponsePayout();
     }
 }

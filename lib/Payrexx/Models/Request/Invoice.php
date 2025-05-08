@@ -11,6 +11,7 @@
 namespace Payrexx\Models\Request;
 
 use Payrexx\Models\Base;
+use Payrexx\Models\Response\Invoice as ResponseInvoice;
 
 /**
  * Class Invoice
@@ -109,7 +110,7 @@ class Invoice extends Base
      * list of available payment service providers (short psp)
      * can be found here: http://developers.payrexx.com/docs/miscellaneous
      */
-    public function setPsp($psp): void
+    public function setPsp(int $psp): void
     {
         $this->psp = $psp;
     }
@@ -220,7 +221,7 @@ class Invoice extends Base
      *  Whether charge payment manually at a later date (type authorization).
      *  Note: Subscription and authorization can not be combined.
      */
-    public function setPreAuthorization($preAuthorization): void
+    public function setPreAuthorization(bool $preAuthorization): void
     {
         $this->preAuthorization = $preAuthorization;
     }
@@ -259,9 +260,6 @@ class Invoice extends Base
         $this->failedRedirectUrl = $failedRedirectUrl;
     }
 
-    /**
-     * @return boolean
-     */
     public function isSubscriptionState(): bool
     {
         return $this->subscriptionState;
@@ -273,7 +271,7 @@ class Invoice extends Base
      * subscription interval, period and cancellation interval
      * Note: Subscription and pre-authorization can not be combined.
      */
-    public function setSubscriptionState($subscriptionState): void
+    public function setSubscriptionState(bool $subscriptionState): void
     {
         $this->subscriptionState = $subscriptionState;
     }
@@ -294,17 +292,12 @@ class Invoice extends Base
      * It is possible to define XY years / months or days.
      *
      * For further information see http://php.net/manual/en/class.dateinterval.php
-     *
-     * @param string $subscriptionInterval
      */
     public function setSubscriptionInterval(string $subscriptionInterval): void
     {
         $this->subscriptionInterval = $subscriptionInterval;
     }
 
-    /**
-     * @return string
-     */
     public function getSubscriptionPeriod(): string
     {
         return $this->subscriptionPeriod;
@@ -322,17 +315,12 @@ class Invoice extends Base
      * It is possible to define XY years / months or days.
      *
      * For further information see http://php.net/manual/en/class.dateinterval.php
-     *
-     * @param string $subscriptionPeriod
      */
     public function setSubscriptionPeriod(string $subscriptionPeriod): void
     {
         $this->subscriptionPeriod = $subscriptionPeriod;
     }
 
-    /**
-     * @return string
-     */
     public function getSubscriptionCancellationInterval(): string
     {
         return $this->subscriptionCancellationInterval;
@@ -364,6 +352,8 @@ class Invoice extends Base
 
     /**
      * Define a new field of the payment page
+     *
+     * Reference link: https://developers.payrexx.com/reference/create-a-gateway -> fields
      */
     public function addField(string $type, bool $mandatory, string $defaultValue = '', string $name = ''): void
     {
@@ -374,9 +364,6 @@ class Invoice extends Base
         ];
     }
 
-    /**
-     * @return string
-     */
     public function getConcardisOrderId(): string
     {
         return $this->concardisOrderId;
@@ -406,8 +393,8 @@ class Invoice extends Base
         $this->expirationDate = $expirationDate;
     }
 
-    public function getResponseModel(): \Payrexx\Models\Response\Invoice
+    public function getResponseModel(): ResponseInvoice
     {
-        return new \Payrexx\Models\Response\Invoice();
+        return new ResponseInvoice();
     }
 }

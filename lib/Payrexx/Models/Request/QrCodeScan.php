@@ -11,6 +11,7 @@
 namespace Payrexx\Models\Request;
 
 use Payrexx\Models\Base;
+use Payrexx\Models\Response\QrCodeScan as ResponseQrCodeScan;
 
 /**
  * QrCodeScan request class
@@ -32,8 +33,8 @@ class QrCodeScan extends Base
         $this->sessionId = $sessionId;
     }
 
-    public function getResponseModel(): \Payrexx\Models\Response\QrCodeScan
+    public function getResponseModel(): ResponseQrCodeScan
     {
-        return new \Payrexx\Models\Response\QrCodeScan();
+        return new ResponseQrCodeScan();
     }
 }

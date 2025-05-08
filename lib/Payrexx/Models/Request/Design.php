@@ -12,6 +12,7 @@ namespace Payrexx\Models\Request;
 
 use CURLFile;
 use Payrexx\Models\Base;
+use Payrexx\Models\Response\Design as ResponseDesign;
 
 /**
  * Design request class
@@ -81,19 +82,6 @@ class Design extends Base
     protected int $limit;
 
     protected CURLFile $VPOSBackgroundImage;
-
-    /**
-     * @param string $uuid
-     */
-    public function setUuid(string $uuid): void
-    {
-        $this->uuid = $uuid;
-    }
-
-    public function getUuid(): string
-    {
-        return $this->uuid;
-    }
 
     public function isDefault(): bool
     {
@@ -388,7 +376,7 @@ class Design extends Base
         return $this->VPOSBackgroundImage;
     }
 
-    public function setVPOSBackgroundImage($VPOSBackgroundImage): void
+    public function setVPOSBackgroundImage(CURLFile $VPOSBackgroundImage): void
     {
         $this->VPOSBackgroundImage = $VPOSBackgroundImage;
     }
@@ -413,8 +401,8 @@ class Design extends Base
         $this->limit = $limit;
     }
 
-    public function getResponseModel(): \Payrexx\Models\Response\Design
+    public function getResponseModel(): ResponseDesign
     {
-        return new \Payrexx\Models\Response\Design();
+        return new ResponseDesign();
     }
 }

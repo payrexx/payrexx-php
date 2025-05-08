@@ -48,16 +48,6 @@ class Transaction extends \Payrexx\Models\Request\Transaction
     public const INSECURE = 'insecure';
     public const UNCAPTURED = 'uncaptured';
 
-    public function setUuid($uuid): void
-    {
-        $this->uuid = $uuid;
-    }
-
-    public function getUuid(): string
-    {
-        return $this->uuid;
-    }
-
     public function setTime(string $time): void
     {
         $this->time = $time;
@@ -186,7 +176,7 @@ class Transaction extends \Payrexx\Models\Request\Transaction
         return $this->refundable;
     }
 
-    public function setRefundable(mixed $refundable): void
+    public function setRefundable(?bool $refundable): void
     {
         $this->refundable = $refundable;
     }
@@ -199,7 +189,7 @@ class Transaction extends \Payrexx\Models\Request\Transaction
         return $this->partiallyRefundable;
     }
 
-    public function setPartiallyRefundable(mixed $partiallyRefundable): void
+    public function setPartiallyRefundable(?bool $partiallyRefundable): void
     {
         $this->partiallyRefundable = $partiallyRefundable;
     }

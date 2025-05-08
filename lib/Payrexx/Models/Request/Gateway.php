@@ -11,6 +11,7 @@
 namespace Payrexx\Models\Request;
 
 use Payrexx\Models\Base;
+use Payrexx\Models\Response\Gateway as ResponseGateway;
 
 /**
  * Gateway request class
@@ -528,8 +529,8 @@ class Gateway extends Base
         $this->spotlightOrderDetailsUrl = $spotlightOrderDetailsUrl;
     }
 
-    public function getResponseModel(): \Payrexx\Models\Response\Gateway
+    public function getResponseModel(): ResponseGateway
     {
-        return new \Payrexx\Models\Response\Gateway();
+        return new ResponseGateway();
     }
 }

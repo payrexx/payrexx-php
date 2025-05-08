@@ -17,7 +17,6 @@ namespace Payrexx\Models\Response;
  */
 class Gateway extends \Payrexx\Models\Request\Gateway
 {
-    /** @var string */
     protected string $hash;
 
     protected string $link;
@@ -37,7 +36,7 @@ class Gateway extends \Payrexx\Models\Request\Gateway
         return $this->hash;
     }
 
-    public function setHash($hash): void
+    public function setHash(string $hash): void
     {
         $this->hash = $hash;
     }

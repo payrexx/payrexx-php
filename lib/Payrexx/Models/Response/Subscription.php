@@ -30,7 +30,7 @@ class Subscription extends \Payrexx\Models\Request\Subscription
         return $this->cancelledDate;
     }
 
-    public function setCancelledDate($cancelledDate): void
+    public function setCancelledDate(int $cancelledDate): void
     {
         $this->cancelledDate = $cancelledDate;
     }
@@ -40,7 +40,7 @@ class Subscription extends \Payrexx\Models\Request\Subscription
         return $this->end;
     }
 
-    public function setEnd($end): void
+    public function setEnd(string $end): void
     {
         $this->end = $end;
     }
@@ -50,7 +50,7 @@ class Subscription extends \Payrexx\Models\Request\Subscription
         return $this->firstCancelDate;
     }
 
-    public function setFirstCancelDate($firstCancelDate): void
+    public function setFirstCancelDate(int $firstCancelDate): void
     {
         $this->firstCancelDate = $firstCancelDate;
     }
@@ -60,7 +60,7 @@ class Subscription extends \Payrexx\Models\Request\Subscription
         return $this->nextPayDate;
     }
 
-    public function setNextPayDate($nextPayDate): void
+    public function setNextPayDate(int $nextPayDate): void
     {
         $this->nextPayDate = $nextPayDate;
     }
@@ -70,7 +70,7 @@ class Subscription extends \Payrexx\Models\Request\Subscription
         return $this->pspSubscriptionId;
     }
 
-    public function setPspSubscriptionId($pspSubscriptionId): void
+    public function setPspSubscriptionId(string $pspSubscriptionId): void
     {
         $this->pspSubscriptionId = $pspSubscriptionId;
     }

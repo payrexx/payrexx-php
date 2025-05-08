@@ -11,6 +11,7 @@
 namespace Payrexx\Models\Request;
 
 use Payrexx\Models\Base;
+use Payrexx\Models\Response\Page as ResponsePage;
 
 /**
  * Class Page
@@ -46,9 +47,6 @@ class Page extends Base
 
     protected array $fields = [];
 
-    /**
-     * @return string
-     */
     public function getTitle(): string
     {
         return $this->title;
@@ -116,9 +114,6 @@ class Page extends Base
         $this->purpose = $purpose;
     }
 
-    /**
-     * @return int
-     */
     public function getAmount(): int
     {
         return $this->amount;
@@ -143,7 +138,7 @@ class Page extends Base
      * You can use the ISO Code.
      * A list of available currencies you can find on http://developers.payrexx.com/docs/miscellaneous
      */
-    public function setCurrency($currency): void
+    public function setCurrency(string $currency): void
     {
         $this->currency = $currency;
     }
@@ -158,7 +153,7 @@ class Page extends Base
      * If you set to TRUE, you should provide a
      * subscription interval, period and cancellation interval
      */
-    public function setSubscriptionState($subscriptionState): void
+    public function setSubscriptionState(bool $subscriptionState): void
     {
         $this->subscriptionState = $subscriptionState;
     }
@@ -185,9 +180,6 @@ class Page extends Base
         $this->subscriptionInterval = $subscriptionInterval;
     }
 
-    /**
-     * @return string
-     */
     public function getSubscriptionPeriod(): string
     {
         return $this->subscriptionPeriod;
@@ -206,14 +198,11 @@ class Page extends Base
      *
      * For further information see http://php.net/manual/en/class.dateinterval.php
      */
-    public function setSubscriptionPeriod($subscriptionPeriod): void
+    public function setSubscriptionPeriod(string $subscriptionPeriod): void
     {
         $this->subscriptionPeriod = $subscriptionPeriod;
     }
 
-    /**
-     * @return string
-     */
     public function getSubscriptionCancellationInterval(): string
     {
         return $this->subscriptionCancellationInterval;
@@ -233,7 +222,7 @@ class Page extends Base
      *
      * For further information see http://php.net/manual/en/class.dateinterval.php
      */
-    public function setSubscriptionCancellationInterval($subscriptionCancellationInterval): void
+    public function setSubscriptionCancellationInterval(string $subscriptionCancellationInterval): void
     {
         $this->subscriptionCancellationInterval = $subscriptionCancellationInterval;
     }
@@ -265,6 +254,11 @@ class Page extends Base
         return $this->fields;
     }
 
+    /**
+     * Define a new field of the payment page
+     *
+     * Reference link: https://developers.payrexx.com/reference/create-a-gateway -> fields
+     */
     public function addField(string $type, bool $mandatory, string $defaultValue = '', string $name = ''): void
     {
         $this->fields[$type] = [
@@ -274,8 +268,8 @@ class Page extends Base
         ];
     }
 
-    public function getResponseModel(): \Payrexx\Models\Response\Page
+    public function getResponseModel(): ResponsePage
     {
-        return new \Payrexx\Models\Response\Page();
+        return new ResponsePage();
     }
 }

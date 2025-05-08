@@ -11,6 +11,7 @@
 namespace Payrexx\Models\Request;
 
 use Payrexx\Models\Base;
+use Payrexx\Models\Response\QrCode as ResponseQrCode;
 
 /**
  * QrCode request class
@@ -32,18 +33,8 @@ class QrCode extends Base
         $this->webshopUrl = $webshopUrl;
     }
 
-    public function getUuid(): string
+    public function getResponseModel(): ResponseQrCode
     {
-        return $this->uuid;
-    }
-
-    public function setUuid($uuid): void
-    {
-        $this->uuid = $uuid;
-    }
-
-    public function getResponseModel(): \Payrexx\Models\Response\QrCode
-    {
-        return new \Payrexx\Models\Response\QrCode();
+        return new ResponseQrCode();
     }
 }

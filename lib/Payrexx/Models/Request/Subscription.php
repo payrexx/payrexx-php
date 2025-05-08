@@ -11,6 +11,7 @@
 namespace Payrexx\Models\Request;
 
 use Payrexx\Models\Base;
+use Payrexx\Models\Response\Subscription as ResponseSubscription;
 
 /**
  * Class Subscription
@@ -84,7 +85,7 @@ class Subscription extends Base
         return $this->currency;
     }
 
-    public function setCurrency($currency): void
+    public function setCurrency(string $currency): void
     {
         $this->currency = $currency;
     }
@@ -124,13 +125,13 @@ class Subscription extends Base
         return $this->referenceId;
     }
 
-    public function setReferenceId($referenceId): void
+    public function setReferenceId(string $referenceId): void
     {
         $this->referenceId = $referenceId;
     }
 
-    public function getResponseModel(): \Payrexx\Models\Response\Subscription
+    public function getResponseModel(): ResponseSubscription
     {
-        return new \Payrexx\Models\Response\Subscription();
+        return new ResponseSubscription();
     }
 }

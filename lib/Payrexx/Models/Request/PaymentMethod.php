@@ -11,6 +11,7 @@
 namespace Payrexx\Models\Request;
 
 use Payrexx\Models\Base;
+use Payrexx\Models\Response\PaymentMethod as ResponsePaymentMethod;
 
 /**
  * PaymentMethod class
@@ -55,8 +56,8 @@ class PaymentMethod extends Base
         $this->filterPsp = $filterPsp;
     }
 
-    public function getResponseModel(): \Payrexx\Models\Response\PaymentMethod
+    public function getResponseModel(): ResponsePaymentMethod
     {
-        return new \Payrexx\Models\Response\PaymentMethod();
+        return new ResponsePaymentMethod();
     }
 }

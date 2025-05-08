@@ -11,6 +11,7 @@
 namespace Payrexx\Models\Request;
 
 use Payrexx\Models\Base;
+use Payrexx\Models\Response\AuthToken as ResponseAuthToken;
 
 /**
  * Class AuthToken
@@ -37,8 +38,8 @@ class AuthToken extends Base
         $this->userId = $userId;
     }
 
-    public function getResponseModel(): \Payrexx\Models\Response\AuthToken
+    public function getResponseModel(): ResponseAuthToken
     {
-        return new \Payrexx\Models\Response\AuthToken();
+        return new ResponseAuthToken();
     }
 }

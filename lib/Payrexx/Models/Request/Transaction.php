@@ -13,6 +13,7 @@ namespace Payrexx\Models\Request;
 use Payrexx\Models\Base;
 use DateTime;
 use DateTimeZone;
+use Payrexx\Models\Response\Transaction as ResponseTransaction;
 
 /**
  * Transaction class
@@ -88,41 +89,26 @@ class Transaction extends Base
         ];
     }
 
-    /**
-     * @return string
-     */
     public function getReferenceId(): string
     {
         return $this->referenceId;
     }
 
-    /**
-     * @param string $referenceId
-     */
     public function setReferenceId(string $referenceId): void
     {
         $this->referenceId = $referenceId;
     }
 
-    /**
-     * @return string
-     */
     public function getRecipient(): string
     {
         return $this->recipient;
     }
 
-    /**
-     * @param string $recipient
-     */
     public function setRecipient(string $recipient): void
     {
         $this->recipient = $recipient;
     }
 
-    /**
-     * @return DateTime
-     */
     public function getFilterDatetimeUtcGreaterThan(): DateTime
     {
         return $this->filterDatetimeUtcGreaterThan;
@@ -183,8 +169,8 @@ class Transaction extends Base
         $this->limit = $limit;
     }
 
-    public function getResponseModel(): \Payrexx\Models\Response\Transaction
+    public function getResponseModel(): ResponseTransaction
     {
-        return new \Payrexx\Models\Response\Transaction();
+        return new ResponseTransaction();
     }
 }

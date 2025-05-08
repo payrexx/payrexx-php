@@ -11,6 +11,7 @@
 namespace Payrexx\Models\Request;
 
 use Payrexx\Models\Base;
+use Payrexx\Models\Response\PaymentProvider as ResponsePaymentProvider;
 
 /**
  * Class PaymentProvider
@@ -53,8 +54,8 @@ class PaymentProvider extends Base
         $this->activePaymentMethods = $activePaymentMethods;
     }
 
-    public function getResponseModel(): \Payrexx\Models\Response\PaymentProvider
+    public function getResponseModel(): ResponsePaymentProvider
     {
-        return new \Payrexx\Models\Response\PaymentProvider();
+        return new ResponsePaymentProvider();
     }
 }
