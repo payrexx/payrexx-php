@@ -13,6 +13,7 @@ namespace Payrexx;
  */
 class Payrexx
 {
+    public const CLIENT_VERSION = '1.8.12';
     /**
      * @var Communicator The object for the communication wrapper.
      */
@@ -31,10 +32,14 @@ class Payrexx
      */
     public function __construct($instance, $apiSecret, $communicationHandler = '', $apiBaseDomain = Communicator::API_URL_BASE_DOMAIN, $version = null)
     {
+        $defaultHandler = class_exists(\GuzzleHttp\Client::class)
+            ? Communicator::GUZZLE_COMMUNICATION_HANDLER
+            : Communicator::DEFAULT_COMMUNICATION_HANDLER;
+
         $this->communicator = new Communicator(
             $instance,
             $apiSecret,
-            $communicationHandler ?: Communicator::DEFAULT_COMMUNICATION_HANDLER,
+            $communicationHandler ?: $defaultHandler,
             $apiBaseDomain,
             $version
         );
