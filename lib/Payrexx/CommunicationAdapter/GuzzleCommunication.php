@@ -45,7 +45,7 @@ class GuzzleCommunication extends AbstractCommunication
         $this->client = $client;
     }
 
-    public function requestApi($apiUrl, $params = [], $method = 'POST', $httpHeader = [])
+    public function requestApi($apiUrl, $params = [], $method = 'POST', $httpHeader = []): array
     {
         $hasCurlFile = class_exists('CURLFile', false);
         $multipart = [];
@@ -131,7 +131,7 @@ class GuzzleCommunication extends AbstractCommunication
         }
 
         // Decode JSON if content-type is application/json
-        if (isset($responseInfo['contentType']) && str_contains($responseInfo['contentType'], 'application/json')) {
+        if (str_contains($responseInfo['contentType'], 'application/json')) {
             $decoded = json_decode($responseBody, true);
             if (json_last_error() === JSON_ERROR_NONE) {
                 $responseBody = $decoded;
