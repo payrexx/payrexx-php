@@ -20,19 +20,11 @@ use Payrexx\Models\Base;
 class Payrexx
 {
     public const CLIENT_VERSION = '1.8.12';
-    /**
-     * @var Communicator The object for the communication wrapper.
-     */
+
     protected Communicator $communicator;
 
     /**
      * Generates an API object to use for the whole interaction with Payrexx.
-     *
-     * @param string $instance The name of the Payrexx instance.
-     * @param string $apiSecret The API secret which can be found in the Payrexx administration.
-     * @param string $communicationHandler The preferred communication handler. Default is cURL.
-     * @param string $apiBaseDomain The base domain of the API URL.
-     * @param string|null $version The version of the API to use.
      *
      * @throws PayrexxException
      */
@@ -68,8 +60,6 @@ class Payrexx
     /**
      * This method returns the version of the API communicator which is the API version used for this
      * application.
-     *
-     * @return string The version of the API communicator
      */
     public function getVersion(): string
     {
@@ -78,9 +68,6 @@ class Payrexx
 
     /**
      * This magic method is used to call any method available in communication object.
-     *
-     * @param string $method The name of the method called.
-     * @param array $args   The arguments passed to the method call. There can only be one argument which is the model.
      *
      * @return Base[]|Base
      * @throws PayrexxException The model argument is missing or the method is not implemented

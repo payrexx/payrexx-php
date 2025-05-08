@@ -26,9 +26,6 @@ class Communicator
     public const DEFAULT_COMMUNICATION_HANDLER = '\Payrexx\CommunicationAdapter\CurlCommunication';
     public const GUZZLE_COMMUNICATION_HANDLER = '\Payrexx\CommunicationAdapter\GuzzleCommunication';
 
-    /**
-     * @var array A set of methods which can be used to communicate with the API server.
-     */
     protected static array $methods = [
         'create'       => 'POST',
         'charge'       => 'POST',
@@ -53,6 +50,7 @@ class Communicator
 
     /**
      * Generates a communicator object with a communication handler like cURL.
+     *
      * @throws PayrexxException
      */
     public function __construct(
@@ -81,8 +79,6 @@ class Communicator
 
     /**
      * Gets the version of the API used.
-     *
-     * @return float|string|null The version of the API
      */
     public function getVersion(): float|string|null
     {
@@ -92,11 +88,8 @@ class Communicator
     /**
      * Perform a simple API request by method name and Request model.
      *
-     * @param string $method The name of the API method to call
-     * @param Base $model  The model which has the same functionality like a filter.
+     * @return Base[]|Base An array of models or just one model which is the result of the API call
      *
-     * @return Base[]|Base An array of models or just one model which
-     *                                                                       is the result of the API call
      * @throws PayrexxException An error occurred during the Payrexx Request
      */
     public function performApiRequest(string $method, Base $model)

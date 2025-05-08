@@ -26,7 +26,7 @@ class PayrexxException extends Exception
         return $this->reason;
     }
 
-    public function setReason($reason = ''): void
+    public function setReason(string $reason = ''): void
     {
         $this->reason = $reason;
     }
