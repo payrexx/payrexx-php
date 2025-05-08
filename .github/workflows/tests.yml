@@ -20,5 +20,5 @@ jobs:
       - name: Install Dependencies
         run: composer install --no-interaction --prefer-dist --optimize-autoloader
 
-      - name: Run Pest without config
-        run: ./vendor/bin/pest --ci --no-configuration
+      - name: Test
+        run: ./vendor/bin/pest --ci
