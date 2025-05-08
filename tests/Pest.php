@@ -43,3 +43,27 @@ function something()
 {
     // ..
 }
+
+function getMockResponse(
+    $httpCode = 0,
+    array $data = [],
+    string $message = '',
+    string $reason = ''
+): array {
+    $response = [
+        'info' => [
+            'http_code' => $httpCode
+        ],
+    ];
+    if (!empty($data)) {
+        $response['body']['data'] = $data;
+    }
+    if (!empty($message)) {
+        $response['body']['message'] = $message;
+    }
+    if (!empty($reason)) {
+        $response['body']['reason'] = $reason;
+    }
+
+    return $response;
+}

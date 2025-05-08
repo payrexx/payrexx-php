@@ -3,50 +3,126 @@
 use Payrexx\Models\Request\AuthToken;
 use Payrexx\PayrexxException;
 
-test('AuthToken request returns mocked response success', function () {
+it('Success response - 200', function () {
     $mockCommunicator = new class () {
-        public function requestApi($apiUrl, $params = [], $method = 'POST', $httpHeader = [])
+        public function requestApi(): array
         {
-            return [
-                'info' => ['http_code' => 200],
-                'body' => [
-                    'data' => [
-                        ['authToken' => 'fake-token']
-                    ]
-                ]
-            ];
+            return getMockResponse(
+                200,
+                [
+                    ['authToken' => 'fake-token'],
+                ],
+                'Test Message'
+            );
         }
     };
-    $payrexx = new Payrexx\Payrexx('test', 'dummy', $mockCommunicator::class);
-
+    $custom = new \Payrexx\Payrexx('dummy', 'dummy', $mockCommunicator::class);
     $authToken = new AuthToken();
-    $authToken->setUserId('1'); // fake user id.
+    $authToken->setUserId('1');
 
-    $response = $payrexx->create($authToken);
-
-    expect($response)->toBeInstanceOf(\Payrexx\Models\Response\AuthToken::class)
-        ->and($response->getAuthToken())->toBe('fake-token');
+    $response = $custom->create($authToken);
+    expect($response->getAuthToken())->toBe('fake-token');
 });
 
-test('AuthToken request returns mocked response error', function () {
+it('Exception response - 400', function () {
     $mockCommunicator = new class () {
-        public function requestApi($apiUrl, $params = [], $method = 'POST', $httpHeader = [])
+        public function requestApi(): array
         {
-            return [
-                'info' => ['http_code' => 400],  // Simulate a failed API request
-                'body' => [
-                    'message' => 'Invalid user',
-                    'reason' => 'INVALID_TOKEN',
-                ]
-            ];
+            return getMockResponse(400);
         }
     };
-    $payrexx = new Payrexx\Payrexx('test', 'dummy', $mockCommunicator::class);
-
+    $custom = new \Payrexx\Payrexx('dummy', 'dummy', $mockCommunicator::class);
     $authToken = new AuthToken();
-    $authToken->setUserId('1'); // fake user id.
+    $authToken->setUserId('1');
+    $custom->create($authToken);
+})->throws(PayrexxException::class);
 
-    $this->expectException(PayrexxException::class);
-    $this->expectExceptionMessage('Invalid user');
-    $payrexx->create($authToken);
+it('Exception response - 401', function () {
+    $mockCommunicator = new class () {
+        public function requestApi(): array
+        {
+            return getMockResponse(401);
+        }
+    };
+    $custom = new \Payrexx\Payrexx('dummy', 'dummy', $mockCommunicator::class);
+    $authToken = new AuthToken();
+    $authToken->setUserId('1');
+    $custom->create($authToken);
+})->throws(PayrexxException::class);
+
+it('Exception response - 403', function () {
+    $mockCommunicator = new class () {
+        public function requestApi(): array
+        {
+            return getMockResponse(403, [], '');
+        }
+    };
+    $custom = new \Payrexx\Payrexx('dummy', 'dummy', $mockCommunicator::class);
+    $authToken = new AuthToken();
+    $authToken->setUserId('1');
+    $custom->create($authToken);
+})->throws(PayrexxException::class);
+
+it('Exception response - 404', function () {
+    $mockCommunicator = new class () {
+        public function requestApi(): array
+        {
+            return getMockResponse(404);
+        }
+    };
+    $custom = new \Payrexx\Payrexx('dummy', 'dummy', $mockCommunicator::class);
+    $authToken = new AuthToken();
+    $authToken->setUserId('1');
+    $custom->create($authToken);
+})->throws(PayrexxException::class);
+
+it('Exception response - 500', function () {
+    $mockCommunicator = new class () {
+        public function requestApi(): array
+        {
+            return getMockResponse(500);
+        }
+    };
+    $custom = new \Payrexx\Payrexx('dummy', 'dummy', $mockCommunicator::class);
+    $authToken = new AuthToken();
+    $authToken->setUserId('1');
+    $custom->create($authToken);
+})->throws(PayrexxException::class);
+
+it('Exception response - 503', function () {
+    $mockCommunicator = new class () {
+        public function requestApi(): array
+        {
+            return getMockResponse(503, [], 'test', 'test');
+        }
+    };
+    $custom = new \Payrexx\Payrexx('dummy', 'dummy', $mockCommunicator::class);
+    $authToken = new AuthToken();
+    $authToken->setUserId('1');
+    $custom->create($authToken);
+})->throws(PayrexxException::class);
+
+/**
+ * @throws PayrexxException
+ */
+it('Success response - 201', function () {
+    $mockCommunicator = new class () {
+        public function requestApi(): array
+        {
+            return getMockResponse(
+                201,
+                [
+                    ['authToken' => 'fake-token'],
+                ],
+                'Test Message',
+                'Test Reason'
+            );
+        }
+    };
+    $custom = new \Payrexx\Payrexx('dummy', 'dummy', $mockCommunicator::class);
+    $authToken = new AuthToken();
+    $authToken->setUserId('1');
+
+    $response = $custom->create($authToken);
+    expect($response->getAuthToken())->toBe('fake-token');
 });
