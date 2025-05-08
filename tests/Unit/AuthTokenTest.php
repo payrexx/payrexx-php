@@ -102,9 +102,6 @@ it('Exception response - 503', function () {
     $custom->create($authToken);
 })->throws(PayrexxException::class);
 
-/**
- * @throws PayrexxException
- */
 it('Success response - 201', function () {
     $mockCommunicator = new class () {
         public function requestApi(): array
