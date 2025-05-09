@@ -156,7 +156,10 @@ class Communicator
         }
 
         $data = $response['body']['data'];
-        if (($model instanceof PaymentMethod && $method === 'getOne') || $model instanceof Bill) {
+        if (
+            ($model instanceof PaymentMethod && $method === 'getOne') ||
+            ($model instanceof Bill && $method !== 'getAll')
+        ) {
             $data = [$data];
         }
 

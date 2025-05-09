@@ -24,10 +24,11 @@ class Bill extends \Payrexx\Models\Request\Bill
     protected array $transactions;
     protected string $paymentLink;
     protected array $purchaseOnInvoiceInformation;
+    protected array $meta;
 
-    public function setStatus(string $status)
+    public function setStatus(string $status): void
     {
-        return $this->status = $status;
+        $this->status = $status;
     }
 
     public function getStatus(): string
@@ -35,7 +36,7 @@ class Bill extends \Payrexx\Models\Request\Bill
         return $this->status;
     }
 
-    public function setPaymentStatus(string $paymentStatus)
+    public function setPaymentStatus(string $paymentStatus): void
     {
         $this->paymentStatus = $paymentStatus;
     }
@@ -45,7 +46,7 @@ class Bill extends \Payrexx\Models\Request\Bill
         return $this->paymentStatus;
     }
 
-    public function setNumber(string $number)
+    public function setNumber(string $number): void
     {
         $this->number = $number;
     }
@@ -55,7 +56,7 @@ class Bill extends \Payrexx\Models\Request\Bill
         return $this->number;
     }
 
-    public function setTotal(int $total)
+    public function setTotal(int $total): void
     {
         $this->total = $total;
     }
@@ -65,7 +66,7 @@ class Bill extends \Payrexx\Models\Request\Bill
         return $this->total;
     }
 
-    public function setTransactions(array $transactions)
+    public function setTransactions(array $transactions): void
     {
         $this->transactions = $transactions;
     }
@@ -75,7 +76,7 @@ class Bill extends \Payrexx\Models\Request\Bill
         return $this->transactions;
     }
 
-    public function setPaymentLink(string $paymentLink)
+    public function setPaymentLink(string $paymentLink): void
     {
         $this->paymentLink = $paymentLink;
     }
@@ -85,7 +86,7 @@ class Bill extends \Payrexx\Models\Request\Bill
         return $this->paymentLink;
     }
 
-    public function setPurchaseOnInvoiceInformation(array $invoiceInformation)
+    public function setPurchaseOnInvoiceInformation(array $invoiceInformation): void
     {
         $this->purchaseOnInvoiceInformation = $invoiceInformation;
     }
@@ -93,5 +94,15 @@ class Bill extends \Payrexx\Models\Request\Bill
     public function getPurchaseOnInvoiceInformation(): array
     {
         return $this->purchaseOnInvoiceInformation;
+    }
+
+    public function setMeta(array $meta): void
+    {   
+        $this->meta = $meta;
+    }
+
+    public function getMeta(): array
+    {
+        return $this->meta;
     }
 }
