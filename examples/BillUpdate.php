@@ -37,18 +37,17 @@ try {
 
 $bill = new Bill();
 $bill->setUuid('YOUR_UUID');
+$bill->setLanguage('EN');
+// currency ISO code
+$bill->setCurrency('CHF');
+// Due days
+$bill->setDueAfterDays(5);
 $bill->setRecipient([
     'first_name' => 'Max',
     'last_name' => 'Mustermann',
     'email' => 'max.muster@payrexx.com',
     'country' => 'AT',
 ]);
-
-$bill->setLanguage('EN');
-// currency ISO code
-$bill->setCurrency('CHF');
-// Due days
-$bill->setDueAfterDays(5);
 $bill->setPositions(
     [
         [
@@ -67,42 +66,10 @@ $bill->setPositions(
 );
 
 // optional
-//$bill->setIsPriceExclusiveVat(true);
-//$bill->setSend(false);
-//$bill->setComplete(false);
-//$bill->setReminders([
-//    [
-//        'days' => 5,
-//        'fee' => 300, // multiplied by 100
-//        'friendly' => true,
-//        'delay_type' => 'days_after_invoice_date',// days_after_invoice_date | days_before_due_date | days_after_due_date
-//    ]
-//]);
-//
-//$bill->setPsp([13]);
-//$bill->setPm(['visa']);
-//$bill->setDate('2025-05-02');
-//$bill->setAdditionalRecipient(
-//    [
-//        'recipient1@payrexx.com',
-//        'recipient2@payrexx.com',
-//    ]
-//);
-//
-//$bill->setAttachments([
-//    [
-//        'name' => 'invioce.pdf',
-//        'data' => 'data:application/pdf;base64 ....',
-//    ],
-//]);
-//
 //$bill->setServicePeriod([
 //    'from' => '2025-05-02',
 //    'to' => '2025-06-02'
 //]);
-//
-//$bill->setShippingCost(200); // multiplied by 100
-//$bill->setApplicationFee(300); // multiplied by 100
 //$bill->setDiscount([
 //    'type' => 'amount', // percent or amount
 //    'amount' => 200, // multiplied by 100
@@ -114,16 +81,42 @@ $bill->setPositions(
 //        'percent' => 3
 //    ],
 //]);
-//
+//$bill->setShippingCost(200); // multiplied by 100
+//$bill->setApplicationFee(300); // multiplied by 100
+//$bill->setNote('YOUR_NOTES');
+//$bill->setTerms('YOUR_TERMS');
+//$bill->setAttachments([
+//    [
+//        'name' => 'invioce.pdf',
+//        'data' => 'data:application/pdf;base64 ....',
+//    ],
+//]);
 //$bill->setBankInformation([
 //    'iban' => '',
 //    'name' => '',
 //    'address' => '',
 //]);
-//$bill->setReference('YOUR_REFERENCE');
 //$bill->setPayoutDescriptor('YOUR_PAYOUT_DESCRIPTOR');
-//$bill->setNote('YOUR_NOTES');
-//$bill->setTerms('YOUR_TERMS');
+//$bill->setPsp([13]);
+//$bill->setPm(['visa']);
+//$bill->setReminders([
+//    [
+//        'days' => 5,
+//        'fee' => 300, // multiplied by 100
+//        'friendly' => true,
+//        'delay_type' => 'days_after_invoice_date',// days_after_invoice_date | days_before_due_date | days_after_due_date
+//    ]
+//]);
+//$bill->setReference('YOUR_REFERENCE');
+//$bill->setDesign('YOUR_DESIGN_UUID');
+//$bill->setSend(false); // Whether to send the invoice.
+//$bill->setAdditionalRecipient(
+//    [
+//        'recipient1@payrexx.com',
+//        'recipient2@payrexx.com',
+//    ]
+//);
+//$bill->setComplete(false); // Whether to complete the invoice.
 
 try {
     $response = $payrexx->patchUpdate($bill);

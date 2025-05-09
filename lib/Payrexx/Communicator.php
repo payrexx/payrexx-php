@@ -10,6 +10,7 @@
 
 namespace Payrexx;
 
+use Payrexx\Models\Request\Bill;
 use Payrexx\Models\Request\PaymentMethod;
 
 /**
@@ -40,8 +41,6 @@ class Communicator
         'getAll'       => 'GET',
         'getOne'       => 'GET',
         'details'      => 'GET',
-        'patchCancel'  => 'PATCH',
-        'patchRefund'  => 'PATCH',
         'patchUpdate'  => 'PATCH',
     );
     /**
@@ -129,16 +128,8 @@ class Communicator
             $id = $params['uuid'];
         }
 
-        $modelEndPoint = $params['model'];
-        if (method_exists($model, 'getApiModelEndPoint')) {
-            $modelEndPoint = $model->getApiModelEndPoint();
-        }
-
         $act = in_array($method, ['refund', 'capture', 'receipt', 'preAuthorize', 'details']) ? $method : '';
-        if (empty($act) && method_exists($model, 'getApiAct')) {
-            $act = $model->getApiAct($method);
-        }
-        $apiUrl = sprintf(self::API_URL_FORMAT, $this->apiBaseDomain, 'v' . $this->version, $modelEndPoint, $id, $act);
+        $apiUrl = sprintf(self::API_URL_FORMAT, $this->apiBaseDomain, 'v' . $this->version, $params['model'], $id, $act);
 
         $httpMethod = $this->getHttpMethod($method) === 'PUT' && $params['model'] === 'Design'
             ? 'POST'
@@ -165,7 +156,7 @@ class Communicator
         }
 
         $data = $response['body']['data'];
-        if ($model instanceof PaymentMethod && $method === 'getOne') {
+        if (($model instanceof PaymentMethod && $method === 'getOne') || $model instanceof Bill) {
             $data = [$data];
         }
 
