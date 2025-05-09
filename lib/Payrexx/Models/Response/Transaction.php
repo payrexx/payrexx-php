@@ -22,7 +22,7 @@ class Transaction extends \Payrexx\Models\Request\Transaction
     private string $lang;
     private string $psp;
     private int $pspId;
-    private mixed $mode;
+    private string $mode;
     private array $payment;
     private array $invoice;
     private array $contact;
@@ -98,12 +98,12 @@ class Transaction extends \Payrexx\Models\Request\Transaction
         $this->pspId = $pspId;
     }
 
-    public function getMode(): mixed
+    public function getMode(): string
     {
         return $this->mode;
     }
 
-    public function setMode(int $mode): void
+    public function setMode(string $mode): void
     {
         $this->mode = $mode;
     }
