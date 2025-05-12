@@ -29,8 +29,8 @@ class Transaction extends Base
     protected array $fields;
     protected string $referenceId;
     protected string $recipient;
-    protected DateTime $filterDatetimeUtcGreaterThan;
-    protected DateTime $filterDatetimeUtcLessThan;
+    protected string $filterDatetimeUtcGreaterThan;
+    protected string $filterDatetimeUtcLessThan;
     protected bool $filterMyTransactionsOnly = false;
     protected string $orderByTime = 'ASC';
     protected int $offset;
@@ -109,7 +109,7 @@ class Transaction extends Base
         $this->recipient = $recipient;
     }
 
-    public function getFilterDatetimeUtcGreaterThan(): DateTime
+    public function getFilterDatetimeUtcGreaterThan(): string
     {
         return $this->filterDatetimeUtcGreaterThan;
     }
@@ -119,7 +119,7 @@ class Transaction extends Base
         $this->filterDatetimeUtcGreaterThan = $filterDatetimeUtcGreaterThan->setTimezone(new DateTimeZone('UTC'))->format('Y-m-d H:i:s');
     }
 
-    public function getFilterDatetimeUtcLessThan(): DateTime
+    public function getFilterDatetimeUtcLessThan(): string
     {
         return $this->filterDatetimeUtcLessThan;
     }
