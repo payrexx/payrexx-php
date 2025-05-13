@@ -22,10 +22,8 @@ abstract class Base
 
     /**
      * Converts array to response model
-     * 
-     * @return static
      */
-    public function fromArray(array $data)
+    public function fromArray(array $data): static
     {
         foreach ($data as $param => $value) {
             if (!method_exists($this, 'set' . ucfirst($param))) {

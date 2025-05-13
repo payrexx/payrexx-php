@@ -253,10 +253,8 @@ class Gateway extends Base
 
     /**
      * Add a new field of the payment page
-     *
-     * @param array|string $name
      */
-    public function addField(string $type, string $value, $name = []): void
+    public function addField(string $type, string $value, array|string $name = []): void
     {
         $this->fields[$type] = [
             'value' => $value,

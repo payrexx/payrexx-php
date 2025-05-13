@@ -69,34 +69,19 @@ class Design extends Base
 
     protected string $VPOSBackground;
 
-    /**
-     * @var CURLFile|string
-     */
-    protected $headerImage;
+    protected string|CURLFile $headerImage;
 
-    /**
-     * @var CURLFile|string
-     */
-    protected $backgroundImage;
+    protected string|CURLFile $backgroundImage;
 
-    /**
-     * @var CURLFile|string
-     */
-    protected $headerBackgroundImage;
+    protected string|CURLFile $headerBackgroundImage;
 
-    /**
-     * @var CURLFile|string
-     */
-    protected $emailHeaderImage;
+    protected string|CURLFile $emailHeaderImage;
 
     protected int $offset;
 
     protected int $limit;
 
-    /**
-     * @var CURLFile|string
-     */
-    protected $VPOSBackgroundImage;
+    protected string|CURLFile $VPOSBackgroundImage;
 
     public function isDefault(): bool
     {
@@ -266,10 +251,8 @@ class Design extends Base
     /**
      * Use language ID as array key. Array key 0 or datatype 'string' will be handled as the default value (Will be used
      * for each activated frontend language).
-     *
-     * @param string|array $headerImageCustomLink
      */
-    public function setHeaderImageCustomLink($headerImageCustomLink): void
+    public function setHeaderImageCustomLink(string|array $headerImageCustomLink): void
     {
         if (is_string($headerImageCustomLink)) {
             $this->headerImageCustomLink = [$headerImageCustomLink];
@@ -338,54 +321,42 @@ class Design extends Base
         $this->enableRoundedCorners = (int)$enableRoundedCorners;
     }
 
-    public function getHeaderImage(): string
+    public function getHeaderImage(): string|CURLFile
     {
         return $this->headerImage;
     }
 
-    /**
-     * @param string|CURLFile $headerImage
-     */
-    public function setHeaderImage($headerImage): void
+    public function setHeaderImage(string|CURLFile $headerImage): void
     {
         $this->headerImage = $headerImage;
     }
 
-    public function getBackgroundImage(): string
+    public function getBackgroundImage(): string|CURLFile
     {
         return $this->backgroundImage;
     }
 
-    /**
-     * @param string|CURLFile $backgroundImage
-     */
-    public function setBackgroundImage($backgroundImage): void
+    public function setBackgroundImage(string|CURLFile $backgroundImage): void
     {
         $this->backgroundImage = $backgroundImage;
     }
 
-    public function getHeaderBackgroundImage(): string
+    public function getHeaderBackgroundImage(): string|CURLFile
     {
         return $this->headerBackgroundImage;
     }
 
-    /**
-     * @param string|CURLFile $headerBackgroundImage
-     */
-    public function setHeaderBackgroundImage($headerBackgroundImage): void
+    public function setHeaderBackgroundImage(string|CURLFile $headerBackgroundImage): void
     {
         $this->headerBackgroundImage = $headerBackgroundImage;
     }
 
-    public function getEmailHeaderImage(): string
+    public function getEmailHeaderImage(): string|CURLFile
     {
         return $this->emailHeaderImage;
     }
 
-    /**
-     * @param string|CURLFile $emailHeaderImage
-     */
-    public function setEmailHeaderImage($emailHeaderImage): void
+    public function setEmailHeaderImage(string|CURLFile $emailHeaderImage): void
     {
         $this->emailHeaderImage = $emailHeaderImage;
     }
@@ -400,15 +371,12 @@ class Design extends Base
         $this->VPOSBackground = $VPOSBackground;
     }
 
-    public function getVPOSBackgroundImage(): string
+    public function getVPOSBackgroundImage(): string|CURLFile
     {
         return $this->VPOSBackgroundImage;
     }
 
-    /**
-     * @param string|CURLFile $VPOSBackgroundImage
-     */
-    public function setVPOSBackgroundImage($VPOSBackgroundImage): void
+    public function setVPOSBackgroundImage(string|CURLFile $VPOSBackgroundImage): void
     {
         $this->VPOSBackgroundImage = $VPOSBackgroundImage;
     }
