@@ -69,19 +69,34 @@ class Design extends Base
 
     protected string $VPOSBackground;
 
-    protected CURLFile $headerImage;
+    /**
+     * @var CURLFile|string
+     */
+    protected $headerImage;
 
-    protected CURLFile $backgroundImage;
+    /**
+     * @var CURLFile|string
+     */
+    protected $backgroundImage;
 
-    protected CURLFile $headerBackgroundImage;
+    /**
+     * @var CURLFile|string
+     */
+    protected $headerBackgroundImage;
 
-    protected CURLFile $emailHeaderImage;
+    /**
+     * @var CURLFile|string
+     */
+    protected $emailHeaderImage;
 
     protected int $offset;
 
     protected int $limit;
 
-    protected CURLFile $VPOSBackgroundImage;
+    /**
+     * @var CURLFile|string
+     */
+    protected $VPOSBackgroundImage;
 
     public function isDefault(): bool
     {
@@ -328,7 +343,10 @@ class Design extends Base
         return $this->headerImage;
     }
 
-    public function setHeaderImage(CURLFile $headerImage): void
+    /**
+     * @param string|CURLFile $headerImage
+     */
+    public function setHeaderImage($headerImage): void
     {
         $this->headerImage = $headerImage;
     }
@@ -338,7 +356,10 @@ class Design extends Base
         return $this->backgroundImage;
     }
 
-    public function setBackgroundImage(CURLFile $backgroundImage): void
+    /**
+     * @param string|CURLFile $backgroundImage
+     */
+    public function setBackgroundImage($backgroundImage): void
     {
         $this->backgroundImage = $backgroundImage;
     }
@@ -348,7 +369,10 @@ class Design extends Base
         return $this->headerBackgroundImage;
     }
 
-    public function setHeaderBackgroundImage(CURLFile $headerBackgroundImage): void
+    /**
+     * @param string|CURLFile $headerBackgroundImage
+     */
+    public function setHeaderBackgroundImage($headerBackgroundImage): void
     {
         $this->headerBackgroundImage = $headerBackgroundImage;
     }
@@ -358,7 +382,10 @@ class Design extends Base
         return $this->emailHeaderImage;
     }
 
-    public function setEmailHeaderImage(CURLFile $emailHeaderImage): void
+    /**
+     * @param string|CURLFile $emailHeaderImage
+     */
+    public function setEmailHeaderImage($emailHeaderImage): void
     {
         $this->emailHeaderImage = $emailHeaderImage;
     }
@@ -378,7 +405,10 @@ class Design extends Base
         return $this->VPOSBackgroundImage;
     }
 
-    public function setVPOSBackgroundImage(CURLFile $VPOSBackgroundImage): void
+    /**
+     * @param string|CURLFile $VPOSBackgroundImage
+     */
+    public function setVPOSBackgroundImage($VPOSBackgroundImage): void
     {
         $this->VPOSBackgroundImage = $VPOSBackgroundImage;
     }
