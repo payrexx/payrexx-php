@@ -18,7 +18,7 @@ namespace Payrexx\Models;
 abstract class Base
 {
     protected string $uuid;
-    protected int $id;
+    protected int|string $id;
 
     /**
      * Converts array to response model
