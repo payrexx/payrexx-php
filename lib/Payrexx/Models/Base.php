@@ -51,12 +51,12 @@ abstract class Base
      */
     public abstract function getResponseModel(): object;
 
-    public function getId(): int
+    public function getId(): int|string
     {
         return $this->id;
     }
 
-    public function setId(int $id): void
+    public function setId(int|string $id): void
     {
         $this->id = $id;
     }
