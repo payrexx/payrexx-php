@@ -251,8 +251,10 @@ class Design extends Base
     /**
      * Use language ID as array key. Array key 0 or datatype 'string' will be handled as the default value (Will be used
      * for each activated frontend language).
+     *
+     * @param string|array $headerImageCustomLink
      */
-    public function setHeaderImageCustomLink(string|array $headerImageCustomLink): void
+    public function setHeaderImageCustomLink($headerImageCustomLink): void
     {
         if (is_string($headerImageCustomLink)) {
             $this->headerImageCustomLink = [$headerImageCustomLink];
