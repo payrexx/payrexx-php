@@ -33,7 +33,8 @@
         }
     },
     "scripts": {
-        "phpstan": "phpstan analyse lib/"
+        "phpstan": "phpstan analyse lib/",
+        "test": "./vendor/bin/pest ."
     },
     "config": {
         "allow-plugins": {
