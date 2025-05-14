@@ -13,6 +13,7 @@ namespace Payrexx\CommunicationAdapter;
 use CURLFile;
 use Exception;
 use GuzzleHttp\Client;
+use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\RequestOptions;
@@ -36,9 +37,14 @@ try {
  */
 class GuzzleCommunication extends AbstractCommunication
 {
-    /**
-     * {@inheritdoc}
-     */
+
+    protected ClientInterface $client;
+
+    public function __construct(?ClientInterface $client = null)
+    {
+        $this->client = $client;
+    }
+
     public function requestApi($apiUrl, $params = [], $method = 'POST', $httpHeader = [])
     {
         $hasCurlFile = class_exists('CURLFile', false);
@@ -85,7 +91,7 @@ class GuzzleCommunication extends AbstractCommunication
         }
 
         try {
-            $client = new Client([
+            $client = $this->client ?? new Client([
                 RequestOptions::HEADERS => $httpHeader,
                 RequestOptions::VERIFY => dirname(__DIR__) . '/certs/ca.pem',
             ]);
