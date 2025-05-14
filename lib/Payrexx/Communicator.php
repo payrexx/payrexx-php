@@ -118,7 +118,7 @@ class Communicator
      */
     public function performApiRequest($method, \Payrexx\Models\Base $model)
     {
-        $params = $model->toArray($method);
+        $params = $model->toArray();
         $params['instance'] = $this->instance;
 
         $id = isset($params['id']) ? $params['id'] : 0;
