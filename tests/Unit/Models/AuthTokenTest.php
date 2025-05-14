@@ -133,21 +133,24 @@ it('Success response - 201', function () {
 
 it('can create a GuzzleCommunication object', function () {
     $mock = new MockHandler([
-        new Response(200, [], json_encode(['authToken' => 'fake-token'])),
+        new Response(200, ['Content-Type' => 'application/json'], json_encode(['authToken' => 'fake-token'])),
     ]);
 
     $handlerStack = HandlerStack::create($mock);
-    $client = new Client(['handler' => $handlerStack]);
+    $client = new Client([
+        'handler' => $handlerStack,
+        'base_uri' => 'https://fake.test/', // prevents DNS error
+    ]);
 
-    // Inject the mock client into GuzzleCommunication
     $guzzleCommunication = new GuzzleCommunication($client);
 
-    // Act: Make the API request
     $response = $guzzleCommunication->requestApi("test", ['instance' => 'demo']);
 
-    // Assert
     expect($response)->toBeArray()
         ->and($response)->toHaveKeys(['info', 'body'])
-        ->and($response['info'])->toHaveKeys(['http_code', 'contentType'])
-        ->and($response['body'])->toBeJson()->toBe('{"authToken":"fake-token"}');
+        ->and($response['info'])->toMatchArray([
+            'http_code' => 200,
+            'contentType' => 'application/json',
+        ])
+        ->and(json_decode($response['body'], true))->toBe(['authToken' => 'fake-token']);
 });
