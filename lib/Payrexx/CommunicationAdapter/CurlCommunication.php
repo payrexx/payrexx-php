@@ -15,8 +15,8 @@ use Exception;
 use CurlHandle;
 
 // check for php version 8.0 or higher
-if (version_compare(PHP_VERSION, '7.4', '<')) {
-    throw new Exception('Your PHP version is not supported. Minimum version should be 7.4');
+if (version_compare(PHP_VERSION, '8.0', '<')) {
+    throw new Exception('Your PHP version is not supported. Minimum version should be 8.0');
 } else if (!function_exists('json_decode')) {
     throw new Exception('json_decode function missing. Please install the JSON extension');
 }

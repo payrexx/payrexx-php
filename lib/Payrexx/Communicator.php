@@ -80,7 +80,7 @@ class Communicator
     /**
      * Gets the version of the API used.
      */
-    public function getVersion(): float|string|null
+    public function getVersion(): ?string
     {
         return $this->version;
     }

@@ -19,7 +19,7 @@ use Payrexx\Models\Base;
  */
 class Payrexx
 {
-    public const CLIENT_VERSION = '1.8.12';
+    public const CLIENT_VERSION = '2.0.0';
 
     protected Communicator $communicator;
 
@@ -61,7 +61,7 @@ class Payrexx
      * This method returns the version of the API communicator which is the API version used for this
      * application.
      */
-    public function getVersion(): string
+    public function getVersion(): ?string
     {
         return $this->communicator->getVersion();
     }
