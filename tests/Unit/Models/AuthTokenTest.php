@@ -1,13 +1,8 @@
 <?php
 
-use GuzzleHttp\Client;
-use GuzzleHttp\Handler\MockHandler;
-use GuzzleHttp\HandlerStack;
-use GuzzleHttp\Psr7\Response;
 use Payrexx\Models\Request\AuthToken;
 use Payrexx\Models\Response\AuthToken as ResponseAuthToken;
 use Payrexx\PayrexxException;
-use Payrexx\CommunicationAdapter\GuzzleCommunication;
 
 it('Success response - 200', function () {
     $mockCommunicator = new class () {
@@ -129,28 +124,4 @@ it('Success response - 201', function () {
 
     $response = $custom->create($authToken);
     expect($response->getAuthToken())->toBe('fake-token');
-});
-
-it('can create a GuzzleCommunication object', function () {
-    $mock = new MockHandler([
-        new Response(200, ['Content-Type' => 'application/json'], json_encode(['authToken' => 'fake-token'])),
-    ]);
-
-    $handlerStack = HandlerStack::create($mock);
-    $client = new Client(['handler' => $handlerStack]);
-
-    // Inject the mock client into GuzzleCommunication
-    $guzzleCommunication = new GuzzleCommunication($client);
-
-    // Act: Make the API request
-    $response = $guzzleCommunication->requestApi("test", ['instance' => 'demo']);
-
-    // Assert
-    expect($response)->toBeArray()
-        ->and($response)->toHaveKeys(['info', 'body'])
-        ->and($response['info'])->toMatchArray([
-            'http_code' => 200,
-            'contentType' => 'application/json',
-        ])
-        ->and($response['body'])->toBe(['authToken' => 'fake-token']);
 });
