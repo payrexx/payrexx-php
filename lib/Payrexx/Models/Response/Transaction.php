@@ -21,12 +21,12 @@ class Transaction extends \Payrexx\Models\Request\Transaction
     private string $status;
     private string $lang;
     private string $psp;
-    private int $pspId;
+    private ?int $pspId;
     private string $mode;
     private array $payment;
     private array $invoice;
     private array $contact;
-    private string $pageUuid;
+    private ?string $pageUuid;
     private ?int $payrexxFee;
     private int $fee;
     private ?bool $refundable;
@@ -88,12 +88,12 @@ class Transaction extends \Payrexx\Models\Request\Transaction
         return $this->psp;
     }
 
-    public function getPspId(): int
+    public function getPspId(): ?int
     {
         return $this->pspId;
     }
 
-    public function setPspId(int $pspId): void
+    public function setPspId(?int $pspId): void
     {
         $this->pspId = $pspId;
     }
@@ -138,12 +138,12 @@ class Transaction extends \Payrexx\Models\Request\Transaction
         $this->contact = $contact;
     }
 
-    public function getPageUuid(): string
+    public function getPageUuid(): ?string
     {
         return $this->pageUuid;
     }
 
-    public function setPageUuid(string $pageUuid): void
+    public function setPageUuid(?string $pageUuid): void
     {
         $this->pageUuid = $pageUuid;
     }

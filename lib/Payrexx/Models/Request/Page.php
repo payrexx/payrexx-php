@@ -28,10 +28,10 @@ class Page extends Base
     // mandatory
     protected string $title = '';
     protected string $description = '';
-    protected int $psp = 0;
+    protected array $psp = [];
 
     // optional
-    protected string $name = '';
+    protected ?string $name = '';
     protected string $purpose = '';
     protected int $amount = 0;
     protected string $currency = '';
@@ -71,7 +71,7 @@ class Page extends Base
         $this->description = $description;
     }
 
-    public function getPsp(): int
+    public function getPsp(): array
     {
         return $this->psp;
     }
@@ -79,14 +79,18 @@ class Page extends Base
     /**
      * Set the payment service provider to use, a
      * list of available payment service providers (short psp)
-     * can be found here: http://developers.payrexx.com/docs/miscellaneous
+     * can be found here: https://docs.payrexx.com/developer/general-info/payment-provider
      */
-    public function setPsp(int $psp): void
+    public function setPsp(array|int $psp): void
     {
-        $this->psp = $psp;
+        if (is_int($psp)) {
+           $this->psp = [$psp];
+        } else {
+            $this->psp = $psp;
+        }
     }
 
-    public function getName(): string
+    public function getName(): ?string
     {
         return $this->name;
     }
@@ -95,7 +99,7 @@ class Page extends Base
      * Set the internal name of the form which will be generated.
      * This name will only be shown to administrator of the Payrexx site.
      */
-    public function setName(string $name): void
+    public function setName(?string $name): void
     {
         $this->name = $name;
     }
@@ -136,7 +140,6 @@ class Page extends Base
     /**
      * Set the corresponding payment currency for the amount.
      * You can use the ISO Code.
-     * A list of available currencies you can find on http://developers.payrexx.com/docs/miscellaneous
      */
     public function setCurrency(string $currency): void
     {

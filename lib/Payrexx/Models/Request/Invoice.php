@@ -29,7 +29,7 @@ class Invoice extends Base
     protected string $referenceId = '';
     protected string $title = '';
     protected string $description = '';
-    protected int $psp = 0;
+    protected array $psp = [];
 
 
     /** optional */
@@ -37,7 +37,7 @@ class Invoice extends Base
 
     // optional
     protected string $name = '';
-    protected string $purpose = '';
+    protected array|string $purpose = '';
     protected string $buttonText = '';
     protected int $amount = 0;
     protected ?float $vatRate = null;
@@ -55,7 +55,7 @@ class Invoice extends Base
     protected string $subscriptionPeriodMinAmount = '';
     protected string $subscriptionCancellationInterval = '';
     protected array $fields = [];
-    protected string $concardisOrderId = '';
+    protected ?string $concardisOrderId = '';
 
     protected string $expirationDate;
 
@@ -100,7 +100,7 @@ class Invoice extends Base
         $this->description = $description;
     }
 
-    public function getPsp(): int
+    public function getPsp(): array
     {
         return $this->psp;
     }
@@ -110,7 +110,7 @@ class Invoice extends Base
      * list of available payment service providers (short psp)
      * can be found here: http://developers.payrexx.com/docs/miscellaneous
      */
-    public function setPsp(int $psp): void
+    public function setPsp(array $psp): void
     {
         $this->psp = $psp;
     }
@@ -139,7 +139,7 @@ class Invoice extends Base
         $this->name = $name;
     }
 
-    public function getPurpose(): string
+    public function getPurpose(): string|array
     {
         return $this->purpose;
     }
@@ -148,7 +148,7 @@ class Invoice extends Base
      * Set the payment purpose which will be inserted automatically.
      * This field won't be editable anymore for the client if you predefine it.
      */
-    public function setPurpose(string $purpose): void
+    public function setPurpose(string|array $purpose): void
     {
         $this->purpose = $purpose;
     }
@@ -364,7 +364,7 @@ class Invoice extends Base
         ];
     }
 
-    public function getConcardisOrderId(): string
+    public function getConcardisOrderId(): ?string
     {
         return $this->concardisOrderId;
     }
@@ -372,7 +372,7 @@ class Invoice extends Base
     /**
      * Define an ORDER ID which should be used for the Concardis PSPs
      */
-    public function setConcardisOrderId(string $concardisOrderId): void
+    public function setConcardisOrderId(?string $concardisOrderId): void
     {
         $this->concardisOrderId = $concardisOrderId;
     }
