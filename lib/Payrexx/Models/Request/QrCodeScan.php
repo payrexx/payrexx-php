@@ -16,7 +16,7 @@ use Payrexx\Models\Response\QrCodeScan as ResponseQrCodeScan;
 /**
  * QrCodeScan request class
  *
- * @package     \Payrexx\Models\Request
+ * @package Payrexx\Models\Request
  */
 class QrCodeScan extends Base
 {

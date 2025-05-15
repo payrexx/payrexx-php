@@ -13,7 +13,7 @@ namespace Payrexx\Models\Response;
 /**
  * Design response class
  *
- * @package   \Payrexx\Models\Response
+ * @package Payrexx\Models\Response
  */
 class Design extends \Payrexx\Models\Request\Design
 {
