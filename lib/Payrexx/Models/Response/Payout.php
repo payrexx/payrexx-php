@@ -135,7 +135,7 @@ class Payout extends \Payrexx\Models\Request\Payout
         $this->isManualPayout = $isManualPayout;
     }
 
-    public function getIsManualPayout()
+    public function getIsManualPayout(): bool
     {
         return $this->isManualPayout;
     }
