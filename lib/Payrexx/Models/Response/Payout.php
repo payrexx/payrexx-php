@@ -36,6 +36,10 @@ class Payout extends \Payrexx\Models\Request\Payout
 
     protected ?array $merchant = [];
 
+    protected string $payer = '';
+
+    protected bool $isManualPayout;
+
     public function getObject(): string
     {
         return $this->object;
@@ -114,5 +118,25 @@ class Payout extends \Payrexx\Models\Request\Payout
     public function setMerchant(?array $merchant): void
     {
         $this->merchant = $merchant;
+    }
+
+    public function setPayer(string $payer): void
+    {
+        $this->payer = $payer;
+    }
+
+    public function getPayer(): string
+    {
+        return $this->payer;
+    }
+
+    public function setIsManualPayout(bool $isManualPayout): void
+    {
+        $this->isManualPayout = $isManualPayout;
+    }
+
+    public function getIsManualPayout()
+    {
+        return $this->isManualPayout;
     }
 }
