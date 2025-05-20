@@ -5,7 +5,7 @@
  *
  * @author    Payrexx Development <info@payrexx.com>
  * @copyright Payrexx AG
- * @since     v1.8.12
+ * @since     v2.0.0
  */
 
 namespace Payrexx\Models\Request;
