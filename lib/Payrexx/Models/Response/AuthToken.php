@@ -10,17 +10,15 @@
 
 namespace Payrexx\Models\Response;
 
-use DateTime;
-
 /**
  * Class AuthToken
  *
  * @package Payrexx\Models\Response
  */
-class AuthToken extends \Payrexx\Models\Request\Invoice
+class AuthToken extends \Payrexx\Models\Request\AuthToken
 {
     protected string $authToken = '';
-    protected ?DateTime $authTokenExpirationDate = null;
+    protected ?string $authTokenExpirationDate = null;
     protected string $link = '';
 
     public function getAuthToken(): string
@@ -33,12 +31,12 @@ class AuthToken extends \Payrexx\Models\Request\Invoice
         $this->authToken = $authToken;
     }
 
-    public function getAuthTokenExpirationDate(): string
+    public function getAuthTokenExpirationDate(): ?string
     {
         return $this->authTokenExpirationDate;
     }
 
-    public function setAuthTokenExpirationDate(?DateTime $authTokenExpirationDate): void
+    public function setAuthTokenExpirationDate(?string $authTokenExpirationDate): void
     {
         $this->authTokenExpirationDate = $authTokenExpirationDate;
     }
@@ -51,15 +49,5 @@ class AuthToken extends \Payrexx\Models\Request\Invoice
     public function setLink(string $link): void
     {
         $this->link = $link;
-    }
-
-    public function getSubscriptionPeriodMinAmount(): string
-    {
-        return $this->subscriptionPeriodMinAmount;
-    }
-
-    public function setSubscriptionPeriodMinAmount(string $subscriptionPeriodMinAmount): void
-    {
-        $this->subscriptionPeriodMinAmount = $subscriptionPeriodMinAmount;
     }
 }
