@@ -213,7 +213,7 @@ class Bill extends Base
     /**
      * Set payment service providers to use.
      * A list of available payment service providers
-     * can be found here: http://developers.payrexx.com/docs/miscellaneous
+     * can be found here: https://docs.payrexx.com/developer/general-info/payment-provider
      * All available psp will be used on payment page if none have been defined.
      */
     public function setPsp(array $psp): void

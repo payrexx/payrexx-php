@@ -108,7 +108,7 @@ class Invoice extends Base
     /**
      * Set the payment service provider to use, a
      * list of available payment service providers (short psp)
-     * can be found here: http://developers.payrexx.com/docs/miscellaneous
+     * can be found here: https://docs.payrexx.com/developer/general-info/payment-provider
      */
     public function setPsp(array $psp): void
     {
@@ -205,7 +205,6 @@ class Invoice extends Base
     /**
      * Set the corresponding payment currency for the amount.
      * You can use the ISO Code.
-     * A list of available currencies you can find on http://developers.payrexx.com/docs/miscellaneous
      */
     public function setCurrency(string $currency): void
     {

@@ -45,7 +45,7 @@ $gateway->setSuccessRedirectUrl('https://www.merchant-website.com/success');
 $gateway->setFailedRedirectUrl('https://www.merchant-website.com/failed');
 $gateway->setCancelRedirectUrl('https://www.merchant-website.com/cancel');
 
-// optional: payment service provider(s) to use (see http://developers.payrexx.com/docs/miscellaneous)
+// optional: payment service provider(s) to use (see https://docs.payrexx.com/developer/general-info/payment-provider)
 // empty array = all available psps
 $gateway->setPsp([]);
 //$gateway->setPsp(array(4));
