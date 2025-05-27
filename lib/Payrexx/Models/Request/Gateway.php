@@ -27,7 +27,7 @@ class Gateway extends Base
     protected ?float $vatRate;
 
     /** optional */
-    protected string $sku;
+    protected ?string $sku;
 
     /** mandatory */
     protected string $currency;
@@ -140,12 +140,12 @@ class Gateway extends Base
         $this->vatRate = $vatRate;
     }
 
-    public function getSku(): string
+    public function getSku(): ?string
     {
         return $this->sku;
     }
 
-    public function setSku(string $sku): void
+    public function setSku(?string $sku): void
     {
         $this->sku = $sku;
     }
@@ -185,7 +185,7 @@ class Gateway extends Base
     /**
      * Set payment service providers to use.
      * A list of available payment service providers
-     * can be found here: http://developers.payrexx.com/docs/miscellaneous
+     * can be found here: https://docs.payrexx.com/developer/general-info/payment-provider
      * All available psp will be used on payment page if none have been defined.
      */
     public function setPsp(array $psp): void

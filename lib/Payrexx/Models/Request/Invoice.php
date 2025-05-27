@@ -26,29 +26,24 @@ class Invoice extends Base
     public const CURRENCY_GBP = 'GBP';
 
     // mandatory
+    protected string $currency = '';
+    protected int $amount = 0;
+    
+    // Optional
     protected string $referenceId = '';
     protected string $title = '';
     protected string $description = '';
     protected array $psp = [];
-
-
-    /** optional */
     protected array $pm;
-
-    // optional
     protected string $name = '';
     protected array|string $purpose = '';
     protected string $buttonText = '';
-    protected int $amount = 0;
     protected ?float $vatRate = null;
-    protected string $sku = '';
-    protected string $currency = '';
+    protected ?string $sku = '';
     protected bool $preAuthorization = false;
     protected bool $reservation = false;
-
     protected string $successRedirectUrl;
     protected string $failedRedirectUrl;
-
     protected bool $subscriptionState = false;
     protected string $subscriptionInterval = '';
     protected string $subscriptionPeriod = '';
@@ -56,7 +51,6 @@ class Invoice extends Base
     protected string $subscriptionCancellationInterval = '';
     protected array $fields = [];
     protected ?string $concardisOrderId = '';
-
     protected string $expirationDate;
 
     public function getReferenceId(): string
@@ -108,7 +102,7 @@ class Invoice extends Base
     /**
      * Set the payment service provider to use, a
      * list of available payment service providers (short psp)
-     * can be found here: http://developers.payrexx.com/docs/miscellaneous
+     * can be found here: https://docs.payrexx.com/developer/general-info/payment-provider
      */
     public function setPsp(array $psp): void
     {
@@ -187,12 +181,12 @@ class Invoice extends Base
         $this->vatRate = $vatRate;
     }
 
-    public function getSku(): string
+    public function getSku(): ?string
     {
         return $this->sku;
     }
 
-    public function setSku(string $sku): void
+    public function setSku(?string $sku): void
     {
         $this->sku = $sku;
     }
@@ -205,7 +199,6 @@ class Invoice extends Base
     /**
      * Set the corresponding payment currency for the amount.
      * You can use the ISO Code.
-     * A list of available currencies you can find on http://developers.payrexx.com/docs/miscellaneous
      */
     public function setCurrency(string $currency): void
     {

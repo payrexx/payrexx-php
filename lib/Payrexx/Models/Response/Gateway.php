@@ -31,6 +31,10 @@ class Gateway extends \Payrexx\Models\Request\Gateway
 
     protected string $appLink;
 
+    protected int $applicationFee;
+
+    protected int $requestId;
+
     public function getHash(): string
     {
         return $this->hash;
@@ -104,5 +108,25 @@ class Gateway extends \Payrexx\Models\Request\Gateway
     public function setAppLink(string $appLink): void
     {
         $this->appLink = $appLink;
+    }
+
+    public function getApplicationFee(): int
+    {
+        return $this->applicationFee;
+    }
+
+    public function setApplicationFee(int $applicationFee): void
+    {
+        $this->applicationFee = $applicationFee;
+    }
+
+    public function getRequestId(): int
+    {
+        return $this->requestId;
+    }
+
+    public function setRequestId(int $requestId): void
+    {
+        $this->requestId = $requestId;
     }
 }

@@ -26,10 +26,11 @@ abstract class Base
     public function fromArray(array $data): static
     {
         foreach ($data as $param => $value) {
-            if (!method_exists($this, 'set' . ucfirst($param))) {
+            $method = 'set' . str_replace(' ', '', ucwords(str_replace('_', ' ', $param)));
+            if (!method_exists($this, $method)) {
                 continue;
             }
-            $this->{'set' . ucfirst($param)}($value);
+            $this->$method($value);
         }
 
         return $this;

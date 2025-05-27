@@ -10,6 +10,7 @@
 
 namespace Payrexx;
 
+use Payrexx\Models\Request\Bill;
 use Payrexx\Models\Request\PaymentMethod;
 
 /**
@@ -40,6 +41,7 @@ class Communicator
         'getAll'       => 'GET',
         'getOne'       => 'GET',
         'details'      => 'GET',
+        'patchUpdate'  => 'PATCH',
     );
     /**
      * @var string The Payrexx instance name.
@@ -154,7 +156,10 @@ class Communicator
         }
 
         $data = $response['body']['data'];
-        if ($model instanceof PaymentMethod && $method === 'getOne') {
+        if (
+            ($model instanceof PaymentMethod && $method === 'getOne') ||
+            ($model instanceof Bill && $method !== 'getAll')
+        ) {
             $data = [$data];
         }
 
