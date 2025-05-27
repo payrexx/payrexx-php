@@ -27,7 +27,7 @@ class Gateway extends Base
     protected ?float $vatRate;
 
     /** optional */
-    protected string $sku;
+    protected ?string $sku;
 
     /** mandatory */
     protected string $currency;
@@ -140,12 +140,12 @@ class Gateway extends Base
         $this->vatRate = $vatRate;
     }
 
-    public function getSku(): string
+    public function getSku(): ?string
     {
         return $this->sku;
     }
 
-    public function setSku(string $sku): void
+    public function setSku(?string $sku): void
     {
         $this->sku = $sku;
     }
