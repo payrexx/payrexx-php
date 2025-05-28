@@ -10,6 +10,7 @@
 
 namespace Payrexx;
 
+use Payrexx\CommunicationAdapter\AbstractCommunication;
 use Payrexx\Models\Base;
 use Payrexx\Models\Request\Bill;
 use Payrexx\Models\Request\PaymentMethod;
@@ -44,7 +45,7 @@ class Communicator
     protected string $instance;
     protected string $apiSecret;
     protected string $apiBaseDomain;
-    protected object $communicationHandler;
+    protected AbstractCommunication $communicationHandler;
     protected ?string $version;
     public array $httpHeaders;
 
@@ -88,11 +89,9 @@ class Communicator
     /**
      * Perform a simple API request by method name and Request model.
      *
-     * @return Base[]|Base An array of models or just one model which is the result of the API call
-     *
      * @throws PayrexxException An error occurred during the Payrexx Request
      */
-    public function performApiRequest(string $method, Base $model)
+    public function performApiRequest(string $method, Base $model): Base|array
     {
         $params = $model->toArray();
         $params['instance'] = $this->instance;

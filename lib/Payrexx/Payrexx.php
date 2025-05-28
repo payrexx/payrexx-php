@@ -69,10 +69,9 @@ class Payrexx
     /**
      * This magic method is used to call any method available in communication object.
      *
-     * @return Base[]|Base
      * @throws PayrexxException The model argument is missing or the method is not implemented
      */
-    public function __call(string $method, array $args)
+    public function __call(string $method, array $args): Base|array
     {
         if (!$this->communicator->methodAvailable($method)) {
             throw new PayrexxException('Method ' . $method . ' not implemented');

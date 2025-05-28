@@ -78,7 +78,7 @@ class Transaction extends Base
 
     public function getFields(): array
     {
-        return $this->fields;
+        return $this->fields ?? [];
     }
 
     public function addField(string $type, string $value, array $name = []): void
