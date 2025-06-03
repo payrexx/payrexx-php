@@ -46,5 +46,5 @@ it('can create a Payrexx instance with GuzzleCommunication as handler', function
         'demo',
         'demo',
         Communicator::GUZZLE_COMMUNICATION_HANDLER,
-        'payrexx.com.loc');
+        'payrexx.com');
 })->throwsNoExceptions();
