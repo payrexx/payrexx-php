@@ -38,7 +38,7 @@ try {
 class GuzzleCommunication extends AbstractCommunication
 {
 
-    protected ClientInterface $client;
+    protected ?ClientInterface $client;
 
     public function __construct(?ClientInterface $client = null)
     {
