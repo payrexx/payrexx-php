@@ -16,7 +16,7 @@ use Payrexx\Models\Response\Gateway as ResponseGateway;
 /**
  * Gateway request class
  *
- * @package \Payrexx\Models\Request
+ * @package Payrexx\Models\Request
  */
 class Gateway extends Base
 {

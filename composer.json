@@ -20,7 +20,7 @@
         }
     },
     "require": {
-        "php": "^7.4 || ^8.0"
+        "php": "^8.0"
     },
     "require-dev": {
         "phpstan/phpstan": "^1.9",
@@ -33,12 +33,13 @@
         }
     },
     "scripts": {
-        "phpstan": "phpstan analyse lib/",
+        "phpstan": "phpstan analyse lib/ --level=5",
         "test": "./vendor/bin/pest ."
     },
     "config": {
         "allow-plugins": {
             "pestphp/pest-plugin": true
         }
+        
     }
 }

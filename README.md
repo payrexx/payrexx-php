@@ -8,7 +8,7 @@ This client API library uses the API version 1.0.0 of Payrexx. If you got troubl
 
 Requirements
 ------------
-We recommend to use PHP version >= 7.4
+We recommend to use PHP version >= 8.0 from version 2.0.0
 
 The following php modules are required: cURL
 

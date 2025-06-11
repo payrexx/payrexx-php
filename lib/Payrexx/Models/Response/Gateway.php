@@ -13,7 +13,7 @@ namespace Payrexx\Models\Response;
 /**
  * Gateway response class
  *
- * @package     \Payrexx\Models\Response
+ * @package Payrexx\Models\Response
  */
 class Gateway extends \Payrexx\Models\Request\Gateway
 {

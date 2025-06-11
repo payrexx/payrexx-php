@@ -17,7 +17,7 @@ use Payrexx\Models\Response\Design as ResponseDesign;
 /**
  * Design request class
  *
- * @package \Payrexx\Models\Request
+ * @package Payrexx\Models\Request
  */
 class Design extends Base
 {

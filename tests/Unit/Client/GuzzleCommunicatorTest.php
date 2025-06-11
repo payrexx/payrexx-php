@@ -5,6 +5,8 @@ use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
 use Payrexx\CommunicationAdapter\GuzzleCommunication;
+use Payrexx\Communicator;
+use Payrexx\Payrexx;
 
 it('can create a GuzzleCommunication object', function () {
     $mock = new MockHandler([
@@ -28,3 +30,21 @@ it('can create a GuzzleCommunication object', function () {
         ])
         ->and($response['body'])->toMatchArray(['authToken' => 'fake-token']);
 });
+
+it('can create a Payrexx instance and newest api version', function () {
+    $versions = Communicator::VERSIONS;
+    $latestVersion = (string) end($versions);
+
+    $payrexx = new Payrexx('demo', 'demo');
+
+    expect($payrexx)->toBeInstanceOf(Payrexx::class)
+        ->and($payrexx->getVersion())->toBe($latestVersion);
+});
+
+it('can create a Payrexx instance with GuzzleCommunication as handler', function () {
+    new Payrexx(
+        'demo',
+        'demo',
+        Communicator::GUZZLE_COMMUNICATION_HANDLER,
+        'payrexx.com');
+})->throwsNoExceptions();

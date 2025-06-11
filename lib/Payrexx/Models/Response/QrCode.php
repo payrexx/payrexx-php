@@ -13,7 +13,7 @@ namespace Payrexx\Models\Response;
 /**
  * QrCode response class
  *
- * @package \Payrexx\Models\Response
+ * @package Payrexx\Models\Response
  */
 class QrCode extends \Payrexx\Models\Request\QrCode
 {

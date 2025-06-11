@@ -13,7 +13,7 @@ namespace Payrexx\Models\Response;
 /**
  * QrCodeScan response class
  *
- * @package \Payrexx\Models\Response
+ * @package Payrexx\Models\Response
  */
 class QrCodeScan extends \Payrexx\Models\Request\QrCodeScan
 {

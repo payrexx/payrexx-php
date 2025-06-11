@@ -5,7 +5,7 @@
  *
  * @author    Payrexx Development <info@payrexx.com>
  * @copyright Payrexx AG
- * @since     v1.8.12
+ * @since     v2.0.0
  */
 
 namespace Payrexx\CommunicationAdapter;
@@ -38,14 +38,14 @@ try {
 class GuzzleCommunication extends AbstractCommunication
 {
 
-    protected ClientInterface $client;
+    protected ?ClientInterface $client;
 
     public function __construct(?ClientInterface $client = null)
     {
         $this->client = $client;
     }
 
-    public function requestApi($apiUrl, $params = [], $method = 'POST', $httpHeader = [])
+    public function requestApi($apiUrl, $params = [], $method = 'POST', $httpHeader = []): array
     {
         $hasCurlFile = class_exists('CURLFile', false);
         $multipart = [];
@@ -131,7 +131,7 @@ class GuzzleCommunication extends AbstractCommunication
         }
 
         // Decode JSON if content-type is application/json
-        if (isset($responseInfo['contentType']) && str_contains($responseInfo['contentType'], 'application/json')) {
+        if (str_contains($responseInfo['contentType'], 'application/json')) {
             $decoded = json_decode($responseBody, true);
             if (json_last_error() === JSON_ERROR_NONE) {
                 $responseBody = $decoded;
