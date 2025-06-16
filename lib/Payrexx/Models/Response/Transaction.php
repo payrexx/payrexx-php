@@ -25,7 +25,7 @@ class Transaction extends \Payrexx\Models\Request\Transaction
     private string $mode;
     private array $payment;
     private array $invoice;
-    private array $contact;
+    private ?array $contact;
     private ?string $pageUuid;
     private ?int $payrexxFee;
     private int $fee;
@@ -128,12 +128,12 @@ class Transaction extends \Payrexx\Models\Request\Transaction
         $this->invoice = $invoice;
     }
 
-    public function getContact(): array
+    public function getContact(): ?array
     {
         return $this->contact;
     }
 
-    public function setContact(array $contact): void
+    public function setContact(?array $contact): void
     {
         $this->contact = $contact;
     }
