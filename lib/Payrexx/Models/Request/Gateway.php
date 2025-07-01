@@ -96,7 +96,7 @@ class Gateway extends Base
     protected array $buttonText;
 
     /** optional */
-    protected string $lookAndFeelProfile;
+    protected ?string $lookAndFeelProfile;
 
     /** optional */
     protected array $successMessage;
@@ -453,12 +453,12 @@ class Gateway extends Base
         $this->buttonText = $buttonText;
     }
 
-    public function getLookAndFeelProfile(): string
+    public function getLookAndFeelProfile(): ?string
     {
         return $this->lookAndFeelProfile;
     }
 
-    public function setLookAndFeelProfile(string $lookAndFeelProfile): void
+    public function setLookAndFeelProfile(?string $lookAndFeelProfile): void
     {
         $this->lookAndFeelProfile = $lookAndFeelProfile;
     }
