@@ -20,7 +20,8 @@ class Subscription extends \Payrexx\Models\Request\Subscription
     protected string $status = '';
     protected string $pspSubscriptionId = '';
     protected string $start = '';
-    protected string $end = '';
+    protected ?string $end = '';
+    protected ?string $validUntil = '';
     protected int $cancelledDate = 0;
     protected int $firstCancelDate = 0;
     protected int $nextPayDate = 0;
@@ -35,14 +36,24 @@ class Subscription extends \Payrexx\Models\Request\Subscription
         $this->cancelledDate = $cancelledDate;
     }
 
-    public function getEnd(): string
+    public function getEnd(): ?string
     {
         return $this->end;
     }
 
-    public function setEnd(string $end): void
+    public function setEnd(?string $end): void
     {
         $this->end = $end;
+    }
+
+    public function getValidUntil(): ?string
+    {
+        return $this->validUntil;
+    }
+
+    public function setValidUntil(?string $validUntil): void
+    {
+        $this->validUntil = $validUntil;
     }
 
     public function getFirstCancelDate(): int
