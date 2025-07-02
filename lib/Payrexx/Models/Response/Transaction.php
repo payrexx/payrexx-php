@@ -3,9 +3,11 @@
 /**
  * Transaction response model
  *
- * @copyright   Payrexx AG
- * @author      Payrexx Development Team <info@payrexx.com>
+ * @author    Payrexx Development <info@payrexx.com>
+ * @copyright Payrexx AG
+ * @since     v1.5.0
  */
+
 namespace Payrexx\Models\Response;
 
 /**
@@ -15,288 +17,179 @@ namespace Payrexx\Models\Response;
  */
 class Transaction extends \Payrexx\Models\Request\Transaction
 {
+    private string $time;
+    private string $status;
+    private string $lang;
+    private string $psp;
+    private ?int $pspId;
+    private string $mode;
+    private array $payment;
+    private array $invoice;
+    private ?array $contact;
+    private ?string $pageUuid;
+    private ?int $payrexxFee;
+    private int $fee;
+    private ?bool $refundable;
+    private ?bool $partiallyRefundable;
 
-    private $time;
-    private $status;
-    private $lang;
-    private $psp;
-    private $pspId;
-    private $mode;
-    private $payment;
-    private $invoice;
-    private $contact;
-    private $pageUuid;
-    private $payrexxFee;
-    private $fee;
-    private $refundable;
-    private $partiallyRefundable;
+    public const CONFIRMED = 'confirmed';
+    public const INITIATED = 'initiated';
+    public const WAITING = 'waiting';
+    public const AUTHORIZED = 'authorized';
+    public const RESERVED = 'reserved';
+    public const CANCELLED = 'cancelled';
+    public const REFUNDED = 'refunded';
+    public const DISPUTED = 'disputed';
+    public const DECLINED = 'declined';
+    public const ERROR = 'error';
+    public const EXPIRED = 'expired';
+    public const PARTIALLY_REFUNDED = 'partially-refunded';
+    public const REFUND_PENDING = 'refund_pending';
+    public const INSECURE = 'insecure';
+    public const UNCAPTURED = 'uncaptured';
 
-    const CONFIRMED = 'confirmed';
-    const INITIATED = 'initiated';
-    const WAITING = 'waiting';
-    const AUTHORIZED = 'authorized';
-    const RESERVED = 'reserved';
-    const CANCELLED = 'cancelled';
-    const REFUNDED = 'refunded';
-    const DISPUTED = 'disputed';
-    const DECLINED = 'declined';
-    const ERROR = 'error';
-    const EXPIRED = 'expired';
-    const PARTIALLY_REFUNDED = 'partially-refunded';
-    const REFUND_PENDING = 'refund_pending';
-    const INSECURE = 'insecure';
-    const UNCAPTURED = 'uncaptured';
-
-    /**
-     * @access  public
-     * @param   string  $uuid
-     */
-    public function setUuid($uuid)
-    {
-        $this->uuid = $uuid;
-    }
-
-    /**
-     * @access  public
-     * @return  string
-     */
-    public function getUuid()
-    {
-        return $this->uuid;
-    }
-
-    /**
-     * @access  public
-     * @param   string  $time
-     */
-    public function setTime($time)
+    public function setTime(string $time): void
     {
         $this->time = $time;
     }
 
-    /**
-     * @access  public
-     * @return  string
-     */
-    public function getTime()
+    public function getTime(): string
     {
         return $this->time;
     }
 
-    /**
-     * @access  public
-     * @param   string  $status
-     */
-    public function setStatus($status)
+    public function setStatus(string $status): void
     {
         $this->status = $status;
     }
 
-    /**
-     * @access  public
-     * @return  string
-     */
-    public function getStatus()
+    public function getStatus(): string
     {
         return $this->status;
     }
 
-    /**
-     * @access  public
-     * @param   string  $lang
-     */
-    public function setLang($lang)
+    public function setLang(string $lang): void
     {
         $this->lang = $lang;
     }
 
-    /**
-     * @access  public
-     * @return  string
-     */
-    public function getLang()
+    public function getLang(): string
     {
         return $this->lang;
     }
 
-    /**
-     * @access  public
-     * @param   string  $psp
-     */
-    public function setPsp($psp)
+    public function setPsp(string $psp): void
     {
         $this->psp = $psp;
     }
 
-    /**
-     * @access  public
-     * @return  string
-     */
-    public function getPsp()
+    public function getPsp(): string
     {
         return $this->psp;
     }
 
-    /**
-     * @return int
-     */
-    public function getPspId()
+    public function getPspId(): ?int
     {
         return $this->pspId;
     }
 
-    /**
-     * @param int $pspId
-     */
-    public function setPspId($pspId)
+    public function setPspId(?int $pspId): void
     {
         $this->pspId = $pspId;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getMode()
+    public function getMode(): string
     {
         return $this->mode;
     }
 
-    /**
-     * @param int $mode
-     */
-    public function setMode($mode)
+    public function setMode(string $mode): void
     {
         $this->mode = $mode;
     }
 
-    /**
-     * @access  public
-     * @param   array  $payment
-     */
-    public function setPayment($payment)
+    public function setPayment(array $payment): void
     {
         $this->payment = $payment;
     }
 
-    /**
-     * @access  public
-     * @return  array
-     */
-    public function getPayment()
+    public function getPayment(): array
     {
         return $this->payment;
     }
 
-    /**
-     * @return array
-     */
-    public function getInvoice()
+    public function getInvoice(): array
     {
         return $this->invoice;
     }
 
-    /**
-     * @param array $invoice
-     */
-    public function setInvoice($invoice)
+    public function setInvoice(array $invoice): void
     {
         $this->invoice = $invoice;
     }
 
-    /**
-     * @return array
-     */
-    public function getContact()
+    public function getContact(): ?array
     {
         return $this->contact;
     }
 
-    /**
-     * @param array $contact
-     */
-    public function setContact($contact)
+    public function setContact(?array $contact): void
     {
         $this->contact = $contact;
     }
 
-    /**
-     * @return string
-     */
-    public function getPageUuid()
+    public function getPageUuid(): ?string
     {
         return $this->pageUuid;
     }
 
-    /**
-     * @param string $pageUuid
-     */
-    public function setPageUuid($pageUuid)
+    public function setPageUuid(?string $pageUuid): void
     {
         $this->pageUuid = $pageUuid;
     }
 
-    /**
-     * @return integer
-     */
-    public function getPayrexxFee()
+    public function getPayrexxFee(): ?int
     {
         return $this->payrexxFee;
     }
 
-    /**
-     * @param int $payrexxFee
-     */
-    public function setPayrexxFee(int $payrexxFee)
+    public function setPayrexxFee(?int $payrexxFee): void
     {
         $this->payrexxFee = $payrexxFee;
     }
 
-    /**
-     * @return integer
-     */
-    public function getFee()
+    public function getFee(): int
     {
         return $this->fee;
     }
 
-    /**
-     * @param int $fee
-     */
-    public function setFee(int $fee)
+    public function setFee(int $fee): void
     {
         $this->fee = $fee;
     }
 
     /**
      * Supported since version 1.2
-     * @return bool|null
      */
-    public function getRefundable()
+    public function getRefundable(): ?bool
     {
         return $this->refundable;
     }
 
-    /**
-     * @param mixed $refundable
-     */
-    public function setRefundable($refundable)
+    public function setRefundable(?bool $refundable): void
     {
         $this->refundable = $refundable;
     }
 
     /**
      * Supported since version 1.2
-     * @return bool|null
      */
-    public function getPartiallyRefundable()
+    public function getPartiallyRefundable(): ?bool
     {
         return $this->partiallyRefundable;
     }
 
-    /**
-     * @param mixed $partiallyRefundable
-     */
-    public function setPartiallyRefundable($partiallyRefundable)
+    public function setPartiallyRefundable(?bool $partiallyRefundable): void
     {
         $this->partiallyRefundable = $partiallyRefundable;
     }

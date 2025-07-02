@@ -1,91 +1,73 @@
 <?php
+
 /**
  * The Base model class for request and response models.
- * @author    Ueli Kramer <ueli.kramer@comvation.com>
- * @copyright 2014 Payrexx AG
+ *
+ * @author    Payrexx Development <info@payrexx.com>
+ * @copyright Payrexx AG
  * @since     v1.0
  */
+
 namespace Payrexx\Models;
 
 /**
  * Class Base
+ *
  * @package Payrexx\Models
  */
 abstract class Base
 {
-    /** @var string */
-    protected $uuid;
-
-    /** @var int */
-    protected $id;
+    protected string $uuid;
+    protected int|string $id;
 
     /**
      * Converts array to response model
-     *
-     * @param array $data
-     *
-     * @return $this
      */
-    public function fromArray($data)
+    public function fromArray(array $data): static
     {
         foreach ($data as $param => $value) {
-            if (!method_exists($this, 'set' . ucfirst($param))) {
+            $method = 'set' . str_replace(' ', '', ucwords(str_replace('_', ' ', $param)));
+            if (!method_exists($this, $method)) {
                 continue;
             }
-            $this->{'set' . ucfirst($param)}($value);
+            $this->$method($value);
         }
+
         return $this;
     }
 
     /**
      * Convert object to an associative array
-     *
-     * @param string $method The API method called
-     *
-     * @return array
      */
-    public function toArray($method)
+    public function toArray(): array
     {
         $vars = get_object_vars($this);
         $className = explode('\\', get_called_class());
-        return $vars + array('model' => end($className));
+
+        return $vars + ['model' => end($className)];
     }
 
     /**
      * Returns the corresponding response model object
-     *
-     * @return \Payrexx\Models\Response\Base
      */
-    public abstract function getResponseModel();
+    public abstract function getResponseModel(): object;
 
-    /**
-     * @return integer
-     */
-    public function getId()
+    public function getId(): int|string
     {
         return $this->id;
     }
 
-    /**
-     * @param integer $id
-     */
-    public function setId($id)
+    public function setId(int|string $id): void
     {
         $this->id = $id;
     }
 
-    /**
-     * @return string
-     */
-    public function getUuid()
+    public function getUuid(): string
     {
         return $this->uuid;
     }
 
-    /**
-     * @param string $uuid
-     */
-    public function setUuid($uuid)
+    public function setUuid(string $uuid): void
     {
         $this->uuid = $uuid;
     }

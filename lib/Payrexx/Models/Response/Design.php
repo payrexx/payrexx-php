@@ -1,13 +1,19 @@
 <?php
 
+/**
+ * The Design response model
+ *
+ * @author    Payrexx Development <info@payrexx.com>
+ * @copyright Payrexx AG
+ * @since     v1.7.0
+ */
+
 namespace Payrexx\Models\Response;
 
 /**
  * Design response class
  *
- * @copyright Payrexx AG
- * @author    Payrexx Development Team <info@payrexx.com>
- * @package   \Payrexx\Models\Response
+ * @package Payrexx\Models\Response
  */
 class Design extends \Payrexx\Models\Request\Design
 {

@@ -1,84 +1,120 @@
-payrexx-php
-===========
+# payrexx-php SDK
 
-VERSIONING
-----------
+## Overview
 
-This client API library uses the API version 1.0.0 of Payrexx. If you got troubles, make sure you are using the correct library version!
+This is the official PHP client library for the Payrexx API, supporting API version **1.0 - 1.11**. It enables easy integration with Payrexx payment services from your PHP applications.
 
-Requirements
-------------
-We recommend to use PHP version >= 7.4
+---
 
-The following php modules are required: cURL
+## Versioning
 
-Getting started with PAYREXX
-----------------------------
-If you don't already use Composer, then you probably should read the installation guide http://getcomposer.org/download/.
+- This client library targets **Payrexx API version 1.11**.
+- Make sure to use the compatible library version to avoid compatibility issues.
+- The current stable release is **2.0.0**, which requires PHP 8.0 or higher.
 
-Please include this library via Composer in your composer.json and execute **composer update** to refresh the autoload.php.
+---
 
-For the latest library version you can use the following content of composer.json:
+## Requirements
 
-```json
-{
-    "require": {
+- **PHP version:** 8.0 or higher (recommended from version 2.0.0 onwards)
+- **PHP modules:** cURL extension enabled
+
+---
+
+## Installation
+
+### Using Composer (recommended)
+
+If you do not have Composer installed, please visit [https://getcomposer.org/download/](https://getcomposer.org/download/) for installation instructions.
+
+Add Payrexx SDK to your project via Composer:
+
+```bash
+composer require payrexx/payrexx
+```
+Alternatively, add this to your composer.json and run composer update:
+- For the latest development version:
+    ```JSON
+    {
+      "require": {
         "payrexx/payrexx": "dev-master"
+      }
     }
-}
-```
-
-
-For the Version 1.0.0 you can use the following content of composer.json:
-
-```json
-{
-    "require": {
-        "payrexx/payrexx": "1.0.0"
+    ```
+- For the stable version 2.0.0:
+    ```JSON
+    {
+      "require": {
+        "payrexx/payrexx": "2.0.0"
+      }
     }
-}
-```
+    ```
 
+This will install the SDK and generate the necessary autoload files.
 
-1.  Instantiate the payrexx class with the following parameters:
-    $instance: Your Payrexx instance name. (e.g. instance name 'demo' you request your Payrexx instance https://demo.payrexx.com
-    $apiSecret: This is your API secret which you can find in your instance's administration.
+---
 
-    ```php
+## Quick Start
+1. Instantiate the Payrexx client
+    ```PHP
+    $instance = 'your-instance-name'; // e.g., 'demo' for https://demo.payrexx.com
+    $apiSecret = 'your-api-secret';   // Find this in your Payrexx instance admin panel
+    
     $payrexx = new \Payrexx\Payrexx($instance, $apiSecret);
     ```
-2.  Instantiate the model class with the parameters described in the API-reference:
 
-    ```php
-    $subscription = new \Payrexx\Models\Request\Subscription();
+2. Create a model object
+    For example, to work with subscriptions:
+    ```PHP
+    use Payrexx\Models\Request\Subscription;
+    
+    $subscription = new Subscription();
     $subscription->setId(1);
     ```
-3.  Use your desired function:
 
-    ```php
-    $response  = $payrexx->cancel($subscription);
-    $subscriptionId = $response->getId();
-    ```
+3. Call API methods
 
-    It recommend to wrap it into a "try/catch" to handle exceptions like this:
-    ```php
-    try{
-        $response  = $payrexx->cancel($subscription);
+   For example, to cancel a subscription:
+    ```PHP
+    try {
+        $response = $payrexx->cancel($subscription);
         $subscriptionId = $response->getId();
-    }catch(\Payrexx\PayrexxException $e){
-        //Do something with the error informations below
-        $e->getCode();
-        $e->getMessage();
+    } catch (\Payrexx\PayrexxException $e) {
+        // Handle errors
+        echo 'Error Code: ' . $e->getCode() . PHP_EOL;
+        echo 'Error Message: ' . $e->getMessage() . PHP_EOL;
     }
     ```
 
-Platform API
---------------
+### Specifying the API Version
 
-When working with Platform accounts, you will need to specify your custom domain as the API Base URL when instantiating the client:
+The Payrexx PHP SDK constructor supports an optional `$version` parameter that allows you to specify the API version you want to use.
 
-```php
+```PHP
+$instance = 'your-instance-name';
+$apiSecret = 'your-api-secret';
+
+// Specify the API version explicitly (e.g., "1.8")
+$apiVersion = '1.8';
+
+$payrexx = new \Payrexx\Payrexx(
+    $instance,
+    $apiSecret,
+    \Payrexx\Communicator::DEFAULT_COMMUNICATION_HANDLER,
+    '',           // leave empty if not using a custom API base domain
+    $apiVersion   // specify the API version here
+);
+```
+---
+
+## Using Platform Accounts (Custom API Base URL)
+If you are working with Platform accounts, you must specify a custom API base domain when instantiating the client.
+
+```PHP
+use Payrexx\Communicator;
+
 $apiBaseDomain = 'your.domain.com';
+
 $payrexx = new \Payrexx\Payrexx(
     $instance, 
     $apiSecret, 
@@ -86,10 +122,15 @@ $payrexx = new \Payrexx\Payrexx(
     $apiBaseDomain
 );
 ```
+Notes:
 
-The `$instance` is still expected to be the subdomain portion of their unique domain. For example, a Platform account that logs in on `client.platform.yourcompany.com` has `$instance` set to `client`, and `$apiBaseDomain` is set to `platform.yourcompany.com`. 
+- `$instance` is the subdomain part of your unique domain.
+- For example, if your login domain is client.platform.yourcompany.com, then:  
+  - `$instance = 'client'`
+  - `$apiBaseDomain = 'platform.yourcompany.com'`
 
-Documentation
---------------
+---
 
-For further information, please refer to the official REST API reference: https://developers.payrexx.com/v1.0/reference
+## Documentation and Support
+For detailed information about the API endpoints and data models, please refer to the official Payrexx REST API documentation:
+https://developers.payrexx.com/v1.0/reference

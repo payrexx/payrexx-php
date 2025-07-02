@@ -1,5 +1,13 @@
 <?php
 
+/**
+ * Example: Invoice request model
+ *
+ * @author    Payrexx Development <info@payrexx.com>
+ * @copyright Payrexx AG
+ * @since     v1.0
+ */
+
 spl_autoload_register(function($class) {
     $root = dirname(__DIR__);
     $classFile = $root . '/lib/' . str_replace('\\', '/', $class) . '.php';
@@ -29,7 +37,7 @@ $invoice->setTitle('Online shop payment');
 $invoice->setDescription('Thanks for using Payrexx to pay your order');
 
 // administrative information, which provider to use (psp)
-// psp #1 = Payrexx' test mode, see http://developers.payrexx.com/docs/miscellaneous
+// psp #1 = Payrexx' test mode, see https://docs.payrexx.com/developer/general-info/payment-provider
 //$invoice->setPsp([]);
 //$invoice->setPm(['mastercard']);
 
@@ -54,7 +62,6 @@ $sku = 'P01122000';
 $invoice->setSku($sku);
 
 // ISO code of currency, list of alternatives can be found here
-// http://developers.payrexx.com/docs/miscellaneous
 $invoice->setCurrency('CHF');
 
 // Expiration date in format: Y-m-d

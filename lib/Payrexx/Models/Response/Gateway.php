@@ -1,154 +1,132 @@
 <?php
 
+/**
+ * The Gateway response model
+ *
+ * @author    Payrexx Development <info@payrexx.com>
+ * @copyright Payrexx AG
+ * @since     v1.3.0
+ */
+
 namespace Payrexx\Models\Response;
 
 /**
  * Gateway response class
  *
- * @copyright   Payrexx AG
- * @author      Payrexx Development Team <info@payrexx.com>
- * @package     \Payrexx\Models\Response
+ * @package Payrexx\Models\Response
  */
 class Gateway extends \Payrexx\Models\Request\Gateway
 {
-    /** @var string */
-    protected $hash;
+    protected string $hash;
 
-    /** @var string */
-    protected $link;
+    protected string $link;
 
-    /** @var string */
-    protected $status;
+    protected string $status;
 
-    /** @var integer */
-    protected $createdAt;
+    protected int $createdAt;
 
-    /** @var array $invoices */
-    protected $invoices;
+    protected array $invoices;
 
-    /** @var integer */
-    protected $transactionId;
+    protected int $transactionId;
 
-    /** @var string */
-    protected $appLink;
+    protected string $appLink;
 
-    /**
-     * @return string
-     */
-    public function getHash()
+    protected int $applicationFee;
+
+    protected int $requestId;
+
+    public function getHash(): string
     {
         return $this->hash;
     }
 
-    /**
-     * @param string $hash
-     */
-    public function setHash($hash)
+    public function setHash(string $hash): void
     {
         $this->hash = $hash;
     }
 
-    /**
-     * @return string
-     */
-    public function getLink()
+    public function getLink(): string
     {
         return $this->link;
     }
 
-    /**
-     * @param string $link
-     */
-    public function setLink($link)
+    public function setLink(string $link): void
     {
         $this->link = $link;
     }
 
-    /**
-     * @return string
-     */
-    public function getStatus()
+    public function getStatus(): string
     {
         return $this->status;
     }
 
-    /**
-     * @param string $status
-     */
-    public function setStatus($status)
+    public function setStatus(string $status): void
     {
         $this->status = $status;
     }
 
-    /**
-     * @return integer
-     */
-    public function getCreatedAt()
+    public function getCreatedAt(): int
     {
         return $this->createdAt;
     }
 
-    /**
-     * @param integer $createdAt
-     */
-    public function setCreatedAt($createdAt)
+    public function setCreatedAt(int $createdAt): void
     {
         $this->createdAt = $createdAt;
     }
 
-    /**
-     * @param array $fields
-     */
-    public function setFields($fields)
+    public function setFields(array $fields): void
     {
         $this->fields = $fields;
     }
 
-    /**
-     * @return array
-     */
-    public function getInvoices()
+    public function getInvoices(): array
     {
         return $this->invoices;
     }
 
-    /**
-     * @param array $invoices
-     */
-    public function setInvoices($invoices)
+    public function setInvoices(array $invoices): void
     {
         $this->invoices = $invoices;
     }
 
-    /**
-     * @return integer|null
-     */
     public function getTransactionId(): ?int
     {
         return $this->transactionId;
     }
 
-    /**
-     * @param integer $transactionId
-     */
     public function setTransactionId(int $transactionId): void
     {
         $this->transactionId = $transactionId;
     }
 
-    /**
-     * @return string|null
-     */
     public function getAppLink(): ?string
     {
         return $this->appLink;
     }
 
-    /**
-     * @param string $appLink
-     */
     public function setAppLink(string $appLink): void
     {
         $this->appLink = $appLink;
+    }
+
+    public function getApplicationFee(): int
+    {
+        return $this->applicationFee;
+    }
+
+    public function setApplicationFee(int $applicationFee): void
+    {
+        $this->applicationFee = $applicationFee;
+    }
+
+    public function getRequestId(): int
+    {
+        return $this->requestId;
+    }
+
+    public function setRequestId(int $requestId): void
+    {
+        $this->requestId = $requestId;
     }
 }

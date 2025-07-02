@@ -1,27 +1,32 @@
 <?php
+
 /**
  * The Payrexx Exception for any exception occurred during the API process
- * @author    Ueli Kramer <ueli.kramer@comvation.com>
- * @copyright 2014 Payrexx AG
+ *
+ * @author    Payrexx Development <info@payrexx.com>
+ * @copyright Payrexx AG
  * @since     v1.0
  */
 
 namespace Payrexx;
 
+use Exception;
+
 /**
  * Class PayrexxException
+ *
  * @package Payrexx
  */
-class PayrexxException extends \Exception
+class PayrexxException extends Exception
 {
-    private $reason = '';
+    private string $reason = '';
 
-    public function getReason()
+    public function getReason(): string
     {
         return $this->reason;
     }
 
-    public function setReason($reason = '')
+    public function setReason(string $reason = ''): void
     {
         $this->reason = $reason;
     }

@@ -1,48 +1,40 @@
 <?php
 
+/**
+ * The QrCodeScan request model
+ *
+ * @author    Payrexx Development <info@payrexx.com>
+ * @copyright Payrexx AG
+ * @since     v1.7.5
+ */
+
 namespace Payrexx\Models\Request;
+
+use Payrexx\Models\Base;
+use Payrexx\Models\Response\QrCodeScan as ResponseQrCodeScan;
 
 /**
  * QrCodeScan request class
  *
- * @copyright   Payrexx AG
- * @author      Payrexx Development Team <info@payrexx.com>
- * @package     \Payrexx\Models\Request
+ * @package Payrexx\Models\Request
  */
-class QrCodeScan extends \Payrexx\Models\Base
+class QrCodeScan extends Base
 {
-    /**
-     * mandatory
-     *
-     * @access  protected
-     * @var     string
-     */
-    protected $sessionId;
+    /** mandatory */
+    protected string $sessionId;
 
-    /**
-     * @access  public
-     * @return  string
-     */
     public function getSessionId(): string
     {
         return $this->sessionId;
     }
 
-    /**
-     * @access  public
-     * @param   string   $sessionId
-     * @return  void
-     */
     public function setSessionId(string $sessionId): void
     {
         $this->sessionId = $sessionId;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getResponseModel()
+    public function getResponseModel(): ResponseQrCodeScan
     {
-        return new \Payrexx\Models\Response\QrCodeScan();
+        return new ResponseQrCodeScan();
     }
 }
