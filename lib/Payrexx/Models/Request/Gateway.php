@@ -33,7 +33,7 @@ class Gateway extends Base
     protected string $currency;
 
     /** optional */
-    protected array $purpose;
+    protected string|array $purpose;
 
     /** optional */
     protected array $psp;
@@ -163,7 +163,7 @@ class Gateway extends Base
         $this->currency = $currency;
     }
 
-    public function getPurpose(): array
+    public function getPurpose(): string|array
     {
         return $this->purpose;
     }
@@ -172,7 +172,7 @@ class Gateway extends Base
      * Set the purpose of this gateway. Will be displayed as transaction purpose in merchant backend.
      * Use language ID as array key. Use key 0 as default purpose. Will be used for each activated frontend language.
      */
-    public function setPurpose(array $purpose): void
+    public function setPurpose(string|array $purpose): void
     {
         $this->purpose = $purpose;
     }
