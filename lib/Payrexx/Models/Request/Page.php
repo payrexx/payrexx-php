@@ -262,7 +262,7 @@ class Page extends Base
      *
      * Reference link: https://developers.payrexx.com/reference/create-a-gateway -> fields
      */
-    public function addField(string $type, bool $mandatory, string $defaultValue = '', string $name = ''): void
+    public function addField(string $type, bool $mandatory, ?string $defaultValue = '', string $name = ''): void
     {
         $this->fields[$type] = [
             'name' => $name,
