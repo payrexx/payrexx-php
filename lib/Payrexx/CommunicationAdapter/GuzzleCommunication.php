@@ -45,46 +45,53 @@ class GuzzleCommunication extends AbstractCommunication
         $this->client = $client;
     }
 
-    public function requestApi($apiUrl, $params = [], $method = 'POST', $httpHeader = []): array
-    {
+    public function requestApi(
+        string $apiUrl,
+        array $params = [],
+        string $method = 'POST',
+        array $httpHeader = []
+    ): array {
         $hasCurlFile = class_exists('CURLFile', false);
         $multipart = [];
         $hasFile = false;
-        foreach ($params as $key => $param) {
-            $filePath = false;
-            if (is_string($param) && is_file($param)) {
-                $filePath = $param;
-            } elseif ($hasCurlFile && $param instanceof CURLFile) {
-                $filePath = $param->getFilename();
-            }
 
-            if ($filePath) {
-                $resource = fopen($filePath, 'r');
-                if (is_resource($resource)) {
+        if ($this->hasFileUpload($params)) {
+            foreach ($params as $key => $param) {
+                $filePath = false;
+                if (is_string($param) && is_file($param)) {
+                    $filePath = $param;
+                } elseif ($hasCurlFile && $param instanceof CURLFile) {
+                    $filePath = $param->getFilename();
+                }
+
+                if ($filePath) {
+                    $resource = fopen($filePath, 'r');
+                    if (is_resource($resource)) {
+                        $multipart[] = [
+                            'name' => $key,
+                            'contents' => $resource,
+                            'filename' => basename($filePath),
+                        ];
+                        $hasFile = true;
+                    }
+                } elseif (is_array($param)) {
+                    foreach ($param as $subKey => $subValue) {
+                        $this->handleMultiPartParams("{$key}[$subKey]", $subValue, $multipart);
+                    }
+                } else {
                     $multipart[] = [
                         'name' => $key,
-                        'contents' => $resource,
-                        'filename' => basename($filePath),
-                    ];
-                    $hasFile = true;
-                }
-            } elseif (is_array($param)) {
-                foreach ($param as $subKey => $subValue) {
-                    $multipart[] = [
-                        'name' => "{$key}[$subKey]",
-                        'contents' => (string)$subValue,
+                        'contents' => (string)$param,
                     ];
                 }
-            } else {
-                $multipart[] = [
-                    'name' => $key,
-                    'contents' => (string)$param,
-                ];
             }
         }
 
-        if ($hasFile && empty($params['id'])) {
-            unset($params['id']);
+        $requestParams = [];
+        if ($hasFile) {
+            if (empty($params['id'])) {
+                unset($params['id']);
+            }
             $requestParams['multipart'] = $multipart;
         } else {
             $requestParams['json'] = $params;
@@ -142,5 +149,33 @@ class GuzzleCommunication extends AbstractCommunication
             'info' => $responseInfo,
             'body' => $responseBody,
         ];
+    }
+
+    private function handleMultiPartParams(mixed $key, mixed $value, array &$multipart): void
+    {
+        if (is_array($value)) {
+            foreach ($value as $subKey => $subValue) {
+                $this->handleMultiPartParams("{$key}[{$subKey}]", $subValue, $multipart);
+            }
+        } else {
+            $multipart[] = [
+                'name' => $key,
+                'contents' => (string)$value,
+            ];
+        }
+    }
+
+    private function hasFileUpload(array $params): bool
+    {
+        $hasCurlClass = class_exists('CURLFile', false);
+        foreach ($params as $value) {
+            if ((is_string($value) && is_file($value)) ||
+                ($hasCurlClass && $value instanceof CURLFile)
+            ) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }
