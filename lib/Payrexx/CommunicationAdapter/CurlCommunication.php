@@ -32,8 +32,12 @@ if (!extension_loaded('curl')) {
  */
 class CurlCommunication extends AbstractCommunication
 {
-    public function requestApi(string $apiUrl, $params = [], $method = 'POST', $httpHeader = []): array
-    {
+    public function requestApi(
+        string $apiUrl,
+        array $params = [],
+        string $method = 'POST',
+        array $httpHeader = []
+    ): array {
         $curlOpts = [
             CURLOPT_URL => $apiUrl,
             CURLOPT_RETURNTRANSFER => true,
