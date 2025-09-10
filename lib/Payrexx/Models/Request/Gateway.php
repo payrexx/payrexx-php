@@ -71,6 +71,9 @@ class Gateway extends Base
     /** optional */
     protected bool $chargeOnAuthorization;
 
+    /** optional */
+    protected bool $reserveOnAuthorization;
+
     /** optional: Only for Clearhaus transactions. */
     protected string $customerStatementDescriptor;
 
@@ -332,6 +335,16 @@ class Gateway extends Base
     public function setChargeOnAuthorization(bool $chargeOnAuthorization): void
     {
         $this->chargeOnAuthorization = $chargeOnAuthorization;
+    }
+
+    public function isReserveOnAuthorization(): bool
+    {
+        return $this->reserveOnAuthorization;
+    }
+
+    public function setReserveOnAuthorization(bool $reserveOnAuthorization): void
+    {
+        $this->reserveOnAuthorization = $reserveOnAuthorization;
     }
 
     public function getCustomerStatementDescriptor(): string
