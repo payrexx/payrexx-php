@@ -119,6 +119,8 @@ class Gateway extends Base
     /** optional */
     protected string $spotlightOrderDetailsUrl;
 
+    protected string $language;
+
     public function getAmount(): int
     {
         return $this->amount;
@@ -540,6 +542,16 @@ class Gateway extends Base
     public function setSpotlightOrderDetailsUrl(string $spotlightOrderDetailsUrl): void
     {
         $this->spotlightOrderDetailsUrl = $spotlightOrderDetailsUrl;
+    }
+
+    public function setLanguage(string $language): void
+    {
+        $this->language = $language;
+    }
+
+    public function getLanguage(): string
+    {
+        return $this->language;
     }
 
     public function getResponseModel(): ResponseGateway
