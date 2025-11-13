@@ -119,7 +119,7 @@ class Gateway extends Base
     /** optional */
     protected string $spotlightOrderDetailsUrl;
 
-    protected string $language;
+    protected string $language = '';
 
     public function getAmount(): int
     {
