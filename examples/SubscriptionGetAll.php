@@ -31,7 +31,7 @@ try {
     $subscription->setOrderByStartDate('DESC');
     $subscription->setOffset(10);
     $subscription->setLimit(30);
-    $response = $payrexx->getOne($subscription);
+    $response = $payrexx->getAll($subscription);
     var_dump($response);
 } catch (\Payrexx\PayrexxException $e) {
     print $e->getMessage();
