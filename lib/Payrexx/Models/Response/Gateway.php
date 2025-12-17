@@ -17,9 +17,9 @@ namespace Payrexx\Models\Response;
  */
 class Gateway extends \Payrexx\Models\Request\Gateway
 {
-    protected string $hash;
+    protected string $hash = '';
 
-    protected string $link;
+    protected string $link = '';
 
     protected string $status;
 
