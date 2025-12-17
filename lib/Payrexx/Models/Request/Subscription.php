@@ -39,6 +39,9 @@ class Subscription extends Base
 
     // optional
     protected string $referenceId = '';
+    protected string $orderByStartDate = 'ASC';
+    protected int $offset;
+    protected int $limit;
 
     public function getUserId(): int
     {
@@ -128,6 +131,36 @@ class Subscription extends Base
     public function setReferenceId(string $referenceId): void
     {
         $this->referenceId = $referenceId;
+    }
+
+    public function getOrderByStartDate(): string
+    {
+        return $this->orderByStartDate;
+    }
+
+    public function setOrderByStartDate(string $orderByStartDate): void
+    {
+        $this->orderByStartDate = $orderByStartDate;
+    }
+
+    public function getOffset(): int
+    {
+        return $this->offset;
+    }
+
+    public function setOffset(int $offset): void
+    {
+        $this->offset = $offset;
+    }
+
+    public function getLimit(): int
+    {
+        return $this->limit;
+    }
+
+    public function setLimit(int $limit): void
+    {
+        $this->limit = $limit;
     }
 
     public function getResponseModel(): ResponseSubscription
