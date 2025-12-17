@@ -133,7 +133,7 @@ class Subscription extends Base
         $this->referenceId = $referenceId;
     }
 
-    public function getOrderByStartDate(): ?string
+    public function getOrderByStartDate(): string
     {
         return $this->orderByStartDate;
     }
