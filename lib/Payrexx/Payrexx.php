@@ -35,14 +35,10 @@ class Payrexx
         string $apiBaseDomain = Communicator::API_URL_BASE_DOMAIN,
         ?string $version = null
     ) {
-        $defaultHandler = class_exists(\GuzzleHttp\Client::class)
-            ? Communicator::GUZZLE_COMMUNICATION_HANDLER
-            : Communicator::DEFAULT_COMMUNICATION_HANDLER;
-
         $this->communicator = new Communicator(
             $instance,
             $apiSecret,
-            $communicationHandler ?: $defaultHandler,
+            $communicationHandler ?: Communicator::DEFAULT_COMMUNICATION_HANDLER,
             $apiBaseDomain,
             $version
         );
