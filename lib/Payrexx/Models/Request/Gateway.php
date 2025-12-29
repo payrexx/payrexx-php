@@ -121,6 +121,8 @@ class Gateway extends Base
 
     protected string $language = '';
 
+    protected bool $isPriceExclusiveVat = false;
+
     public function getAmount(): int
     {
         return $this->amount;
@@ -552,6 +554,16 @@ class Gateway extends Base
     public function getLanguage(): string
     {
         return $this->language;
+    }
+
+    public function setIsPriceExclusiveVat(bool $isPriceExclusiveVat): void
+    {
+        $this->isPriceExclusiveVat = $isPriceExclusiveVat;
+    }
+
+    public function getIsPriceExclusiveVat(): bool
+    {
+        return $this->isPriceExclusiveVat;
     }
 
     public function getResponseModel(): ResponseGateway
