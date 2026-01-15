@@ -27,8 +27,6 @@ $terminalSerial = 'YOUR_TERMINAL_SERIAL'; // e.g. "SN12345678"
 
 $payrexx = new Payrexx($instanceName, $apiSecret);
 
-echo "--- Payrexx ECR Integration Test ---\n\n";
-
 try {
     // 1. Pair Terminal
     // This connects the physical terminal to your specific Payrexx instance.
