@@ -96,6 +96,11 @@ class Communicator
         return $this->version;
     }
 
+    /**
+     * Perform a simple API request by method name and Request model.
+     *
+     * @throws PayrexxException An error occurred during the Payrexx Request
+     */
     public function performApiRequest(string $method, Base $model): Base|array
     {
         $params = $model->toArray();
@@ -163,8 +168,6 @@ class Communicator
             if (isset($data['id'])) {
                 $data = [$data];
             }
-        } elseif ($method !== 'getAll') {
-            $data = [$data];
         }
 
         foreach ($data as $object) {
