@@ -41,7 +41,17 @@ class Communicator
         'getOne'       => 'GET',
         'details'      => 'GET',
         'patchUpdate'  => 'PATCH',
+
+        // --- ECR Methods (Map these to valid HTTP verbs) ---
+        'pair'                  => 'POST',
+        'unpair'                => 'DELETE',
+        'pay'                   => 'POST',
+        'cancelEcrPayment'      => 'POST',
+        'voidEcrPayment'        => 'POST',
+        'getEcrPayment'         => 'GET',
+        'getEcrPaymentMethods'  => 'GET',
     ];
+
     protected string $instance;
     protected string $apiSecret;
     protected string $apiBaseDomain;
@@ -101,7 +111,21 @@ class Communicator
             $id = $params['uuid'];
         }
 
-        $act = in_array($method, ['refund', 'capture', 'receipt', 'preAuthorize', 'details']) ? $method : '';
+        $act = match ($method) {
+            'refund',
+            'capture',
+            'receipt',
+            'preAuthorize',
+            'details',
+            'pair',
+            'unpair',
+            'pay' => 'payment',
+            'cancelEcrPayment' => 'cancel',
+            'voidEcrPayment' => 'void',
+            'getEcrPaymentMethods' => 'payment-methods',
+            default => '',
+        };
+
         $apiUrl = sprintf(self::API_URL_FORMAT, $this->apiBaseDomain, 'v' . $this->version, $params['model'], $id, $act);
 
         $httpMethod = $this->getHttpMethod($method) === 'PUT' && $params['model'] === 'Design'
@@ -121,6 +145,7 @@ class Communicator
             if (!isset($response['body']['message'])) {
                 throw new PayrexxException('Payrexx PHP: Configuration is wrong! Check instance name and API secret', $response['info']['http_code']);
             }
+
             $exception = new PayrexxException($response['body']['message'], $response['info']['http_code']);
             if (!empty($response['body']['reason'])) {
                 $exception->setReason($response['body']['reason']);
@@ -141,6 +166,7 @@ class Communicator
             $responseModel = $model->getResponseModel();
             $convertedResponse[] = $responseModel->fromArray($object);
         }
+
         if ($method !== 'getAll') {
             $convertedResponse = current($convertedResponse);
         }

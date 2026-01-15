@@ -3,49 +3,63 @@
 namespace Payrexx\Models\Request;
 
 use Payrexx\Models\Base;
+use Payrexx\Models\Response\Ecr as EcrResponse;
 
-/**
- * Ecr Request Model
- */
 class Ecr extends Base
 {
-    protected $serialNumber;
-    protected $pairingCode;
-    protected $cashierName;
-    protected $terminal;
+    protected ?int $amount = null;
+    protected ?string $currency = null;
+    protected ?string $purpose = null;
+    protected ?string $referenceId = null;
 
-    public function setSerialNumber($serialNumber)
+    // Helper for nested IDs (optional, but recommended)
+    public function setPaymentId(string $terminalSerialNumber, $paymentId): void
     {
-        $this->serialNumber = $serialNumber;
+        $this->setId($terminalSerialNumber . '/payment/' . $paymentId);
     }
 
-    public function getSerialNumber()
+    public function getAmount(): ?int
     {
-        return $this->serialNumber;
+        return $this->amount;
     }
 
-    public function setPairingCode($pairingCode)
+    public function setAmount(int $amount): void
     {
-        $this->pairingCode = $pairingCode;
+        $this->amount = $amount;
     }
 
-    public function getPairingCode()
+    public function getCurrency(): ?string
     {
-        return $this->pairingCode;
+        return $this->currency;
     }
 
-    public function setCashierName($cashierName)
+    public function setCurrency(string $currency): void
     {
-        $this->cashierName = $cashierName;
+        $this->currency = $currency;
     }
 
-    public function getCashierName()
+    public function getPurpose(): ?string
     {
-        return $this->cashierName;
+        return $this->purpose;
     }
 
-    public function getResponseModel()
+    public function setPurpose(string $purpose): void
     {
-        return new ResponseEcr();
+        $this->purpose = $purpose;
+    }
+
+    public function getReferenceId(): ?string
+    {
+        return $this->referenceId;
+    }
+
+    public function setReferenceId(string $referenceId): void
+    {
+        $this->referenceId = $referenceId;
+    }
+
+    public function getResponseModel(): object
+    {
+        return new EcrResponse();
     }
 }
