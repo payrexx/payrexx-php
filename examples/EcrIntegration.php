@@ -34,6 +34,8 @@ try {
     // This connects the physical terminal to your specific Payrexx instance.
     echo "[1] Pairing Terminal...\n";
     $ecrPair = new Ecr();
+    $ecrPair->setPairingCode('123456');
+    $ecrPair->setName('Shop Terminal 1');
     $ecrPair->setId($terminalSerial);
 
     try {
@@ -82,13 +84,11 @@ try {
 
 
     if ($transactionId) {
-        // Small delay to allow system propagation
         sleep(1);
 
         // 4. Get Payment Details (Status Check)
         echo "[4] Checking Payment Status...\n";
         $ecrCheck = new Ecr();
-        // Use the helper we added to the Ecr model to handle nested IDs
         $ecrCheck->setPaymentId($terminalSerial, $transactionId);
 
         $checkResponse = $payrexx->getEcrPayment($ecrCheck);

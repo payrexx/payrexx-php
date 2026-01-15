@@ -96,11 +96,6 @@ class Communicator
         return $this->version;
     }
 
-    /**
-     * Perform a simple API request by method name and Request model.
-     *
-     * @throws PayrexxException An error occurred during the Payrexx Request
-     */
     public function performApiRequest(string $method, Base $model): Base|array
     {
         $params = $model->toArray();
@@ -112,16 +107,21 @@ class Communicator
         }
 
         $act = match ($method) {
+            // Group 1: Return the method name itself (Pass-through)
             'refund',
             'capture',
             'receipt',
             'preAuthorize',
             'details',
             'pair',
-            'unpair',
+            'unpair' => $method,  // <--- The arrow here stops the fall-through!
+
+            // Group 2: Return 'payment'
             'pay' => 'payment',
-            'cancelEcrPayment' => 'cancel',
-            'voidEcrPayment' => 'void',
+
+            // Group 3: Specific Aliases
+            'cancelEcrPayment'     => 'cancel',
+            'voidEcrPayment'       => 'void',
             'getEcrPaymentMethods' => 'payment-methods',
             default => '',
         };
@@ -157,8 +157,13 @@ class Communicator
         $data = $response['body']['data'];
         if (
             ($model instanceof PaymentMethod && $method === 'getOne') ||
-            ($model instanceof Bill && $method !== 'getAll')
+            ($model instanceof Bill && $method !== 'getAll') ||
+            ($method === 'getEcrPaymentMethods') // Ensure list handling
         ) {
+            if (isset($data['id'])) {
+                $data = [$data];
+            }
+        } elseif ($method !== 'getAll') {
             $data = [$data];
         }
 
