@@ -19,7 +19,7 @@ use Payrexx\Models\Base;
  */
 class Payrexx
 {
-    public const CLIENT_VERSION = '2.0.8';
+    public const CLIENT_VERSION = '2.0.9';
 
     protected Communicator $communicator;
 
