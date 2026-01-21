@@ -45,11 +45,21 @@ class Communicator
         // --- ECR Methods (Map these to valid HTTP verbs) ---
         'pair'                  => 'POST',
         'unpair'                => 'DELETE',
-        'pay'                   => 'POST',
+        'payment'               => 'POST',
         'cancelEcrPayment'      => 'POST',
         'voidEcrPayment'        => 'POST',
         'getEcrPayment'         => 'GET',
         'getEcrPaymentMethods'  => 'GET',
+    ];
+
+    protected static array $singleReturnMethods = [
+        'pair',
+        'unpair',
+        'getEcrPaymentMethods',
+        'payment',
+        'voidEcrPayment',
+        'getEcrPayment',
+        'cancelEcrPayment',
     ];
 
     protected string $instance;
@@ -101,7 +111,7 @@ class Communicator
      *
      * @throws PayrexxException An error occurred during the Payrexx Request
      */
-    public function performApiRequest(string $method, Base $model): Base|array
+    public function performApiRequest(string $method, Base $model): Base|array|null
     {
         $params = $model->toArray();
         $params['instance'] = $this->instance;
@@ -112,22 +122,17 @@ class Communicator
         }
 
         $act = match ($method) {
-            // Group 1: Return the method name itself (Pass-through)
-            'refund',
-            'capture',
-            'receipt',
-            'preAuthorize',
-            'details',
-            'pair',
-            'unpair' => $method,  // <--- The arrow here stops the fall-through!
-
-            // Group 2: Return 'payment'
-            'pay' => 'payment',
-
-            // Group 3: Specific Aliases
+            'refund' => $method,
+            'capture' => $method,
+            'receipt' => $method,
+            'preAuthorize' => $method,
+            'details' => $method,
+            'pair' => $method,
+            'unpair' => 'pair',
+            'payment' => $method,
             'cancelEcrPayment'     => 'cancel',
             'voidEcrPayment'       => 'void',
-            'getEcrPaymentMethods' => 'payment-methods',
+            'getEcrPaymentMethods' => 'paymentMethods',
             default => '',
         };
 
@@ -163,11 +168,9 @@ class Communicator
         if (
             ($model instanceof PaymentMethod && $method === 'getOne') ||
             ($model instanceof Bill && $method !== 'getAll') ||
-            ($method === 'getEcrPaymentMethods') // Ensure list handling
+            in_array($method, self::$singleReturnMethods, true)
         ) {
-            if (isset($data['id'])) {
-                $data = [$data];
-            }
+            $data = [$data];
         }
 
         foreach ($data as $object) {

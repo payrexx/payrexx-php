@@ -16,7 +16,8 @@ spl_autoload_register(function($class) {
 });
 
 use Payrexx\Payrexx;
-use Payrexx\Models\Request\Ecr;
+use Payrexx\Models\Request\EcrPairing;
+use Payrexx\Models\Request\EcrPayment;
 use Payrexx\PayrexxException;
 
 
@@ -31,83 +32,114 @@ try {
     // 1. Pair Terminal
     // This connects the physical terminal to your specific Payrexx instance.
     echo "[1] Pairing Terminal...\n";
-    $ecrPair = new Ecr();
-    $ecrPair->setPairingCode('123456');
-    $ecrPair->setName('Shop Terminal 1');
-    $ecrPair->setId($terminalSerial);
+    $ecrPair = new EcrPairing();
+    $ecrPair->setPairingCode('PAIRING_CODE_FROM_TERMINAL');
+    $ecrPair->setCashierName('CASHIER_NAME');
+    $ecrPair->setSerialNumber($terminalSerial);
+    echo "    Terminal Serial: " . $terminalSerial . "\n";
 
     try {
         $pairResponse = $payrexx->pair($ecrPair);
+
         echo "    Status: " . $pairResponse->getStatus() . "\n";
+        echo "    Cashier: " . $pairResponse->getCashierName() . "\n";
+
+        $config = $pairResponse->getConfiguration();
+        if ($config) {
+            echo "    Configuration:\n";
+            echo "      - Currency: " . ($config['currency'] ?? 'N/A') . "\n";
+            echo "      - Language: " . ($config['language'] ?? 'N/A') . "\n";
+            echo "      - POS Name: " . ($config['pointOfSaleName'] ?? 'N/A') . "\n";
+            echo "      - Timezone: " . ($config['timezone'] ?? 'N/A') . "\n";
+            echo "      - Has Tipping: " . ($config['hasTipping'] ?? 'N/A') . "\n";
+        }
     } catch (PayrexxException $e) {
-        // Ignored here because re-pairing an already paired terminal throws an error
         echo "    Info: " . $e->getMessage() . "\n";
     }
     echo "\n";
 
     // 2. Get Payment Methods
-    // Retrieve available brands (Visa, Mastercard, TWINT, etc.) from the terminal.
     echo "[2] Fetching Payment Methods...\n";
-    $ecrMethods = new Ecr();
-    $ecrMethods->setId($terminalSerial);
+    $ecrMethods = new EcrPairing();
+    $ecrMethods->setSerialNumber($terminalSerial);
 
     $methodsResponse = $payrexx->getEcrPaymentMethods($ecrMethods);
-
-    if (is_array($methodsResponse)) {
-        foreach ($methodsResponse as $method) {
-            echo "    - " . $method->getName() . " (" . $method->getBrand() . ")\n";
-        }
+    $methods = $methodsResponse->getData();
+    if (!empty($methods)) {
+        echo "<pre>";
+        var_dump($methods);
+        echo "</pre>\n";
     } else {
-        // Handle edge case where single object is returned
-        echo "    - " . $methodsResponse->getName() . "\n";
+        echo "    No methods found.\n";
     }
     echo "\n";
 
 
     // 3. Initiate Payment
     echo "[3] Initiating Payment (15.00 CHF)...\n";
-    $ecrPay = new Ecr();
-    $ecrPay->setId($terminalSerial);
-    $ecrPay->setAmount(1500); // Amount in cents (15.00)
-    $ecrPay->setCurrency('CHF');
+
+    // Constructor enforces: Serial, Amount (in cents), Currency
+    $ecrPay = new EcrPayment($terminalSerial, 1500, 'CHF');
     $ecrPay->setPurpose('Test Transaction via PHP SDK');
+    $ecrPay->setTipAmount(100);
+    $ecrPay->setPaymentMethod('TWINT');
 
-    $payResponse = $payrexx->pay($ecrPay);
+    // Optional: Add Line Items (Required for NAKA terminals)
+    $ecrPay->addShopItem('Test Item A', 1500, '2');
 
-    $transactionId = $payResponse->getTransactionId();
+    $payResponse = $payrexx->payment($ecrPay);
+
+    $paymentId = $payResponse->getPaymentId();
+
     echo "    Payment Initiated!\n";
-    echo "    Transaction ID: " . $transactionId . "\n";
+    echo "    Transaction ID: " . $paymentId . "\n";
     echo "    Status: " . $payResponse->getStatus() . "\n";
+    echo "    Slip: \n";
+    var_dump($payResponse->getSlip());
     echo "\n";
 
 
-    if ($transactionId) {
+    if ($paymentId) {
+        // Wait a moment for the transaction to be registered on the terminal
         sleep(1);
 
         // 4. Get Payment Details (Status Check)
         echo "[4] Checking Payment Status...\n";
-        $ecrCheck = new Ecr();
-        $ecrCheck->setPaymentId($terminalSerial, $transactionId);
+        $ecrCheck = new EcrPayment($terminalSerial);
+        // We set the Payment ID to target the specific transaction
+        $ecrCheck->setPaymentId($paymentId);
 
         $checkResponse = $payrexx->getEcrPayment($ecrCheck);
+
         echo "    Current Status: " . $checkResponse->getStatus() . "\n";
-        echo "    UUID: " . $checkResponse->getTransactionUuid() . "\n";
+        echo "    Slip: \n";
+        var_dump($checkResponse->getSlip());
         echo "\n";
 
 
-        // 5. Cancel Payment or Void
-        // --- OPTION A: CANCEL (For waiting/open transactions) ---
+        // 5. Cancel Payment
+        // Use this to cancel a transaction that is still "Waiting"
         echo "[5] Cancelling the Payment...\n";
-        $ecrCancel = new Ecr();
-        $ecrCancel->setPaymentId($terminalSerial, $transactionId);
+        $ecrCancel = new EcrPayment($terminalSerial);
+        $ecrCancel->setPaymentId($paymentId);
 
-        $cancelResponse = $payrexx->cancelEcrPayment($ecrCancel);
-        echo "    Cancel Status: " . $cancelResponse->getStatus() . "\n";
-        // --- OPTION B: VOID (For confirmed transactions not yet settled) ---
+        try {
+            $cancelResponse = $payrexx->cancelEcrPayment($ecrCancel);
+            echo "    Cancel Status: " . $cancelResponse->getStatus() . "\n";
+            echo "    Slip: \n";
+            var_dump($cancelResponse->getSlip());
+        } catch (PayrexxException $e) {
+            echo "    Cancel Failed: " . $e->getMessage() . "\n";
+        }
+        echo "\n";
+
+
+        // 5b. Void Payment (Commented out)
+        // Use this to refund/void a confirmed transaction
         /*
         echo "[5b] Voiding the Payment...\n";
-        $ecrVoid = new Ecr();
-        $ecrVoid->setPaymentId($terminalSerial, $transactionId);
+        $ecrVoid = new EcrPayment($terminalSerial);
+        $ecrVoid->setPaymentId($transactionId);
 
         try {
             $voidResponse = $payrexx->voidEcrPayment($ecrVoid);
@@ -115,15 +147,15 @@ try {
         } catch (PayrexxException $e) {
             echo "    Void failed: " . $e->getMessage() . "\n";
         }
-        */
         echo "\n";
+        */
     }
 
     // 6. Unpair Terminal
     // Releases the lock so the terminal can be used elsewhere.
     echo "[6] Unpairing Terminal...\n";
-    $ecrUnpair = new Ecr();
-    $ecrUnpair->setId($terminalSerial);
+    $ecrUnpair = new EcrPairing();
+    $ecrUnpair->setSerialNumber($terminalSerial);
 
     $unpairResponse = $payrexx->unpair($ecrUnpair);
     echo "    Status: " . $unpairResponse->getStatus() . "\n";
