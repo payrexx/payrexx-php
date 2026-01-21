@@ -55,7 +55,7 @@ class CurlCommunication extends AbstractCommunication
                 http_build_query($params, '', '&')
             );
         }
-        $separator = str_contains($apiUrl, '?') ? '&' : '?';
+        $separator = strpos($apiUrl, '?') === false ? '?' : '&';
         if (in_array($method, ['GET', 'DELETE']) && !empty($params)) {
             $curlOpts[CURLOPT_URL] = $apiUrl . $separator . $paramString;
         } else {
