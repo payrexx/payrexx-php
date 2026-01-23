@@ -84,8 +84,8 @@ try {
     $ecrPay->setTipAmount(100);
     $ecrPay->setPaymentMethod('TWINT');
 
-    // Optional: Add Line Items (Required for NAKA terminals)
-    $ecrPay->addShopItem('Test Item A', 1500, '2');
+    // Optional: Add Line Items
+    // $ecrPay->addShopItem('Test Item A', 1500, '2');
 
     $payResponse = $payrexx->payment($ecrPay);
 
@@ -152,7 +152,7 @@ try {
     }
 
     // 6. Unpair Terminal
-    // Releases the lock so the terminal can be used elsewhere.
+    // Releases the lock so the terminal can be used without a cash register or be paired again to another cash register.
     echo "[6] Unpairing Terminal...\n";
     $ecrUnpair = new EcrPairing();
     $ecrUnpair->setSerialNumber($terminalSerial);

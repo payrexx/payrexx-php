@@ -23,7 +23,7 @@ abstract class Base
     /**
      * Converts array to response model
      */
-    public function fromArray(array $data): self
+    public function fromArray(array $data): static
     {
         foreach ($data as $param => $value) {
             $method = 'set' . str_replace(' ', '', ucwords(str_replace('_', ' ', $param)));

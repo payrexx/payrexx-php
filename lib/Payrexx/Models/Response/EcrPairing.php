@@ -67,7 +67,7 @@ class EcrPairing extends Base
      * Override fromArray to handle both Lists (Payment Methods)
      * and Object Properties (Pairing Data).
      */
-    public function fromArray(array $data): self
+    public function fromArray(array $data): static
     {
         $isList = !empty($data) && array_keys($data) === range(0, count($data) - 1);
 
@@ -82,17 +82,15 @@ class EcrPairing extends Base
             $this->setStatus($data['status']);
         }
 
-        // Map 'cashierName'
         if (isset($data['cashierName'])) {
             $this->setCashierName($data['cashierName']);
         }
 
-        // Map 'configuration'
         if (isset($data['configuration']) && is_array($data['configuration'])) {
             $this->setConfiguration($data['configuration']);
         }
 
-        return $this;
+        return parent::fromArray($data);
     }
 
     public function getResponseModel(): object

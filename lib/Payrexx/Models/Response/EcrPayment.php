@@ -44,7 +44,7 @@ class EcrPayment extends Base
         $this->slip = $slip;
     }
 
-    public function fromArray(array $data): Base
+    public function fromArray(array $data): static
     {
         if (isset($data['payment_status'])) {
             $this->setStatus($data['payment_status']);
