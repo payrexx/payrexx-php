@@ -5,6 +5,7 @@
  *
  * @author    Payrexx Development <info@payrexx.com>
  * @copyright Payrexx AG
+ * @since     v2.0.10
  */
 
 spl_autoload_register(function($class) {

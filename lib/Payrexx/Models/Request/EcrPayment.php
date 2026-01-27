@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * The ecrPayment request model
+ *
+ * @author    Payrexx Development <info@payrexx.com>
+ * @copyright Payrexx AG
+ * @since     v2.0.10
+ */
 declare(strict_types=1);
 
 namespace Payrexx\Models\Request;

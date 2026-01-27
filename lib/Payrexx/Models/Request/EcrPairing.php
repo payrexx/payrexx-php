@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * The ecrPairing request model
+ *
+ * @author    Payrexx Development <info@payrexx.com>
+ * @copyright Payrexx AG
+ * @since     v2.0.10
+ */
 namespace Payrexx\Models\Request;
 
 use Payrexx\Models\Base;
