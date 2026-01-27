@@ -41,7 +41,27 @@ class Communicator
         'getOne'       => 'GET',
         'details'      => 'GET',
         'patchUpdate'  => 'PATCH',
+
+        // --- ECR Methods (Map these to valid HTTP verbs) ---
+        'pair'                  => 'POST',
+        'unpair'                => 'DELETE',
+        'payment'               => 'POST',
+        'cancelEcrPayment'      => 'POST',
+        'voidEcrPayment'        => 'POST',
+        'getEcrPayment'         => 'GET',
+        'getEcrPaymentMethods'  => 'GET',
     ];
+
+    protected static array $singleReturnMethods = [
+        'pair',
+        'unpair',
+        'getEcrPaymentMethods',
+        'payment',
+        'voidEcrPayment',
+        'getEcrPayment',
+        'cancelEcrPayment',
+    ];
+
     protected string $instance;
     protected string $apiSecret;
     protected string $apiBaseDomain;
@@ -91,7 +111,7 @@ class Communicator
      *
      * @throws PayrexxException An error occurred during the Payrexx Request
      */
-    public function performApiRequest(string $method, Base $model): Base|array
+    public function performApiRequest(string $method, Base $model): Base|array|null
     {
         $params = $model->toArray();
         $params['instance'] = $this->instance;
@@ -101,7 +121,21 @@ class Communicator
             $id = $params['uuid'];
         }
 
-        $act = in_array($method, ['refund', 'capture', 'receipt', 'preAuthorize', 'details']) ? $method : '';
+        $act = match ($method) {
+            'refund' => $method,
+            'capture' => $method,
+            'receipt' => $method,
+            'preAuthorize' => $method,
+            'details' => $method,
+            'pair' => $method,
+            'unpair' => 'pair',
+            'payment' => $method,
+            'cancelEcrPayment'     => 'cancel',
+            'voidEcrPayment'       => 'void',
+            'getEcrPaymentMethods' => 'paymentMethods',
+            default => '',
+        };
+
         $apiUrl = sprintf(self::API_URL_FORMAT, $this->apiBaseDomain, 'v' . $this->version, $params['model'], $id, $act);
 
         $httpMethod = $this->getHttpMethod($method) === 'PUT' && $params['model'] === 'Design'
@@ -121,6 +155,7 @@ class Communicator
             if (!isset($response['body']['message'])) {
                 throw new PayrexxException('Payrexx PHP: Configuration is wrong! Check instance name and API secret', $response['info']['http_code']);
             }
+
             $exception = new PayrexxException($response['body']['message'], $response['info']['http_code']);
             if (!empty($response['body']['reason'])) {
                 $exception->setReason($response['body']['reason']);
@@ -132,7 +167,8 @@ class Communicator
         $data = $response['body']['data'];
         if (
             ($model instanceof PaymentMethod && $method === 'getOne') ||
-            ($model instanceof Bill && $method !== 'getAll')
+            ($model instanceof Bill && $method !== 'getAll') ||
+            in_array($method, self::$singleReturnMethods, true)
         ) {
             $data = [$data];
         }
@@ -141,6 +177,7 @@ class Communicator
             $responseModel = $model->getResponseModel();
             $convertedResponse[] = $responseModel->fromArray($object);
         }
+
         if ($method !== 'getAll') {
             $convertedResponse = current($convertedResponse);
         }

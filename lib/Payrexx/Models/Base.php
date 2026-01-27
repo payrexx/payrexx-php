@@ -42,9 +42,15 @@ abstract class Base
     public function toArray(): array
     {
         $vars = get_object_vars($this);
-        $className = explode('\\', get_called_class());
 
-        return $vars + ['model' => end($className)];
+
+        return $vars + ['model' => $this->getPath()];
+    }
+
+    public function getPath(): string
+    {
+        $className = explode('\\', get_called_class());
+        return end($className);
     }
 
     /**
