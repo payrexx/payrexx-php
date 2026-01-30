@@ -21,11 +21,10 @@ use Payrexx\Models\Request\PaymentMethod;
  */
 class Communicator
 {
-    public const VERSIONS = [1.0, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 1.9, 1.10, 1.11, 1.12, 1.13, 1.14];
+    public  const VERSIONS = [1.0, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 1.9, 1.10, 1.11, 1.12, 1.13, 1.14];
     public const API_URL_FORMAT = 'https://api.%s/%s/%s/%s/%s';
     public const API_URL_BASE_DOMAIN = 'payrexx.com';
     public const DEFAULT_COMMUNICATION_HANDLER = '\Payrexx\CommunicationAdapter\CurlCommunication';
-    public const GUZZLE_COMMUNICATION_HANDLER = '\Payrexx\CommunicationAdapter\GuzzleCommunication';
 
     protected static array $methods = [
         'create'       => 'POST',
@@ -67,7 +66,7 @@ class Communicator
     protected string $apiBaseDomain;
     protected AbstractCommunication $communicationHandler;
     protected ?string $version;
-    public array $httpHeaders;
+    public array $httpHeaders = [];
 
     /**
      * Generates a communicator object with a communication handler like cURL.
@@ -113,7 +112,11 @@ class Communicator
      */
     public function performApiRequest(string $method, Base $model): Base|array|null
     {
-        $params = $model->toArray();
+        $params = $model->toArray($method);
+        $paramsWithoutFiles = $params;
+        unset($paramsWithoutFiles['headerImage'], $paramsWithoutFiles['backgroundImage'], $paramsWithoutFiles['headerBackgroundImage'], $paramsWithoutFiles['emailHeaderImage'], $paramsWithoutFiles['VPOSBackgroundImage']);
+        $params['ApiSignature'] =
+            base64_encode(hash_hmac('sha256', http_build_query($paramsWithoutFiles, '', '&'), $this->apiSecret, true));
         $params['instance'] = $this->instance;
 
         $id = $params['id'] ?? 0;
@@ -141,8 +144,7 @@ class Communicator
         $httpMethod = $this->getHttpMethod($method) === 'PUT' && $params['model'] === 'Design'
             ? 'POST'
             : $this->getHttpMethod($method);
-
-        $this->setDefaultHttpHeaders();
+        // $this->httpHeaders['x-api-key'] = $this->apiSecret;
         $response = $this->communicationHandler->requestApi(
             $apiUrl,
             $params,
@@ -205,14 +207,5 @@ class Communicator
     public function methodAvailable(string $method): bool
     {
         return array_key_exists($method, self::$methods);
-    }
-
-    /**
-     * Sets the default HTTP headers
-     */
-    private function setDefaultHttpHeaders(): void
-    {
-        $this->httpHeaders['user-agent'] = 'payrexx-php/' . Payrexx::CLIENT_VERSION;
-        $this->httpHeaders['x-api-key'] = $this->apiSecret;
     }
 }

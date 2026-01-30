@@ -12,7 +12,7 @@ namespace Payrexx\CommunicationAdapter;
 
 use CURLFile;
 use Exception;
-use CurlHandle;
+use Payrexx\Payrexx;
 
 // check for php version 8.0 or higher
 if (version_compare(PHP_VERSION, '8.0', '<')) {
@@ -42,10 +42,11 @@ class CurlCommunication extends AbstractCommunication
             CURLOPT_URL => $apiUrl,
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_CUSTOMREQUEST => $method,
+            CURLOPT_USERAGENT => 'payrexx-php/' . Payrexx::CLIENT_VERSION,
             CURLOPT_SSL_VERIFYPEER => true,
             CURLOPT_CAINFO => dirname(__DIR__) . '/certs/ca.pem',
         ];
-        if (defined('PHP_QUERY_RFC3986')) {
+        if (defined(PHP_QUERY_RFC3986)) {
             $paramString = http_build_query($params, '', '&', PHP_QUERY_RFC3986);
         } else {
             // legacy, because the $enc_type has been implemented with PHP 5.4
@@ -55,12 +56,15 @@ class CurlCommunication extends AbstractCommunication
                 http_build_query($params, '', '&')
             );
         }
-        $separator = strpos($apiUrl, '?') === false ? '?' : '&';
-        if (in_array($method, ['GET', 'DELETE']) && !empty($params)) {
-            $curlOpts[CURLOPT_URL] = $apiUrl . $separator . $paramString;
+        if ($method == 'GET') {
+            if (!empty($params)) {
+                $curlOpts[CURLOPT_URL] .= strpos($curlOpts[CURLOPT_URL], '?') === false ? '?' : '&';
+                $curlOpts[CURLOPT_URL] .= $paramString;
+            }
         } else {
-            $curlOpts[CURLOPT_POSTFIELDS] = json_encode($params);
-            $curlOpts[CURLOPT_URL] = $apiUrl . $separator . 'instance=' . ($params['instance'] ?? '');
+            $curlOpts[CURLOPT_POSTFIELDS] = $paramString;
+            $curlOpts[CURLOPT_URL] .= strpos($curlOpts[CURLOPT_URL], '?') === false ? '?' : '&';
+            $curlOpts[CURLOPT_URL] .= 'instance=' . $params['instance'];
         }
 
         if ($httpHeader) {
@@ -74,16 +78,21 @@ class CurlCommunication extends AbstractCommunication
         $hasFile = false;
         $hasCurlFile = class_exists('CURLFile', false);
         foreach ($params as $param) {
-            if (is_resource($param) || ($hasCurlFile && $param instanceof CURLFile)) {
+            if (is_resource($param)) {
+                $hasFile = true;
+                break;
+            } elseif ($hasCurlFile && $param instanceof CURLFile) {
                 $hasFile = true;
                 break;
             }
         }
         if ($hasFile) {
+            $curlOpts[CURLOPT_HTTPHEADER][] = 'Content-type: multipart/form-data';
             if (empty($params['id'])) {
                 unset($params['id']);
             }
             $postFields = [];
+            // Handle nested array
             foreach ($params as $key => $param) {
                 if (is_array($param)) {
                     foreach ($param as $index => $value) {
@@ -94,11 +103,6 @@ class CurlCommunication extends AbstractCommunication
                 }
             }
             $curlOpts[CURLOPT_POSTFIELDS] = $postFields;
-        }
-
-        if (in_array($method, ['POST', 'PUT', 'PATCH'])) {
-            $curlOpts[CURLOPT_HTTPHEADER][] =
-                'Content-Type: ' . ($hasFile ? 'multipart/form-data' : 'application/json');
         }
 
         $curl = curl_init();
@@ -115,7 +119,7 @@ class CurlCommunication extends AbstractCommunication
         }
         curl_close($curl);
 
-        if (($responseInfo['content_type'] ?? '') === 'application/json') {
+        if ($responseInfo['content_type'] === 'application/json') {
             $responseBody = json_decode($responseBody, true);
         }
 
@@ -125,17 +129,17 @@ class CurlCommunication extends AbstractCommunication
         ];
     }
 
-    protected function curlExec(CurlHandle $curl): string|bool
+    protected function curlExec($curl)
     {
         return curl_exec($curl);
     }
 
-    protected function curlInfo(CurlHandle $curl): mixed
+    protected function curlInfo($curl)
     {
         return curl_getinfo($curl);
     }
 
-    protected function curlError(CurlHandle $curl): int
+    protected function curlError($curl)
     {
         return curl_errno($curl);
     }
