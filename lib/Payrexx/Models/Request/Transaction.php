@@ -100,11 +100,13 @@ class Transaction extends Base
         $this->referenceId = $referenceId;
     }
 
-    public function getPayoutDescriptor(): string {
+    public function getPayoutDescriptor(): string
+    {
         return $this->payoutDescriptor;
     }
 
-    public function setPayoutDescriptor(string $payoutDescriptor): void {
+    public function setPayoutDescriptor(string $payoutDescriptor): void
+    {
         $this->payoutDescriptor = $payoutDescriptor;
     }
 
