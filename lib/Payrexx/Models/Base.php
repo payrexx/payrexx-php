@@ -42,8 +42,6 @@ abstract class Base
     public function toArray(): array
     {
         $vars = get_object_vars($this);
-
-
         return $vars + ['model' => $this->getPath()];
     }
 
