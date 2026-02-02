@@ -28,6 +28,7 @@ class Transaction extends Base
     protected float $vatRate;
     protected array $fields;
     protected string $referenceId;
+    protected string $payoutDescriptor;
     protected string $recipient;
     protected string $filterDatetimeUtcGreaterThan;
     protected string $filterDatetimeUtcLessThan;
@@ -97,6 +98,16 @@ class Transaction extends Base
     public function setReferenceId(string $referenceId): void
     {
         $this->referenceId = $referenceId;
+    }
+
+    public function getPayoutDescriptor(): string
+    {
+        return $this->payoutDescriptor;
+    }
+
+    public function setPayoutDescriptor(string $payoutDescriptor): void
+    {
+        $this->payoutDescriptor = $payoutDescriptor;
     }
 
     public function getRecipient(): string
