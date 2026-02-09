@@ -39,7 +39,7 @@ class CurlCommunication extends AbstractCommunication
             CURLOPT_URL => $apiUrl,
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_CUSTOMREQUEST => $method,
-            CURLOPT_USERAGENT => 'payrexx-php/1.8.0',
+            CURLOPT_USERAGENT => 'payrexx-php/1.8.12',
             CURLOPT_SSL_VERIFYPEER => true,
             CURLOPT_CAINFO => dirname(__DIR__) . '/certs/ca.pem',
         );
