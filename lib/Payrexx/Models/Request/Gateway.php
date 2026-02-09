@@ -268,6 +268,8 @@ class Gateway extends \Payrexx\Models\Base
      */
     protected $spotlightOrderDetailsUrl;
 
+    protected string $language = '';
+    protected bool $isPriceExclusiveVat = false;
     /**
      * @access  public
      * @return  int
@@ -893,5 +895,25 @@ class Gateway extends \Payrexx\Models\Base
     public function setSpotlightOrderDetailsUrl(string $spotlightOrderDetailsUrl): void
     {
         $this->spotlightOrderDetailsUrl = $spotlightOrderDetailsUrl;
+    }
+
+    public function setLanguage(string $language): void
+    {
+        $this->language = $language;
+    }
+
+    public function getLanguage(): string
+    {
+        return $this->language;
+    }
+
+    public function setIsPriceExclusiveVat(bool $isPriceExclusiveVat): void
+    {
+        $this->isPriceExclusiveVat = $isPriceExclusiveVat;
+    }
+
+    public function getIsPriceExclusiveVat(): bool
+    {
+        return $this->isPriceExclusiveVat;
     }
 }

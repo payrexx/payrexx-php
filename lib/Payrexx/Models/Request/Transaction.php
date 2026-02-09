@@ -36,8 +36,6 @@ class Transaction extends \Payrexx\Models\Base
     protected $orderByTime = 'ASC';
     protected $offset;
     protected $limit;
-    protected string $language = '';
-    protected bool $isPriceExclusiveVat = false;
 
     /**
      * @return int
@@ -251,26 +249,6 @@ class Transaction extends \Payrexx\Models\Base
     public function setLimit(int $limit): void
     {
         $this->limit = $limit;
-    }
-
-    public function setLanguage(string $language): void
-    {
-        $this->language = $language;
-    }
-
-    public function getLanguage(): string
-    {
-        return $this->language;
-    }
-
-    public function setIsPriceExclusiveVat(bool $isPriceExclusiveVat): void
-    {
-        $this->isPriceExclusiveVat = $isPriceExclusiveVat;
-    }
-
-    public function getIsPriceExclusiveVat(): bool
-    {
-        return $this->isPriceExclusiveVat;
     }
 
     /**
