@@ -132,6 +132,7 @@ class Communicator
         $httpMethod = $this->getHttpMethod($method) === 'PUT' && $params['model'] === 'Design'
             ? 'POST'
             : $this->getHttpMethod($method);
+        $this->httpHeaders['x-api-key'] = $this->apiSecret;
         $response = $this->communicationHandler->requestApi(
             $apiUrl,
             $params,
