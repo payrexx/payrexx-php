@@ -13,6 +13,7 @@ namespace Payrexx\CommunicationAdapter;
 use CURLFile;
 use Exception;
 use CurlHandle;
+use Payrexx\Payrexx;
 
 // check for php version 8.0 or higher
 if (version_compare(PHP_VERSION, '8.0', '<')) {
@@ -42,9 +43,15 @@ class CurlCommunication extends AbstractCommunication
             CURLOPT_URL => $apiUrl,
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_CUSTOMREQUEST => $method,
+            CURLOPT_USERAGENT => 'payrexx-php/' . Payrexx::CLIENT_VERSION,
             CURLOPT_SSL_VERIFYPEER => true,
             CURLOPT_CAINFO => dirname(__DIR__) . '/certs/ca.pem',
         ];
+
+        $instance = $params['instance'] ?? '';
+        if (!in_array($method, ['GET', 'DELETE'])) {
+            unset($params['instance']); // Remove from body
+        }
         if (defined('PHP_QUERY_RFC3986')) {
             $paramString = http_build_query($params, '', '&', PHP_QUERY_RFC3986);
         } else {
@@ -59,8 +66,8 @@ class CurlCommunication extends AbstractCommunication
         if (in_array($method, ['GET', 'DELETE']) && !empty($params)) {
             $curlOpts[CURLOPT_URL] = $apiUrl . $separator . $paramString;
         } else {
-            $curlOpts[CURLOPT_POSTFIELDS] = json_encode($params);
-            $curlOpts[CURLOPT_URL] = $apiUrl . $separator . 'instance=' . ($params['instance'] ?? '');
+            $curlOpts[CURLOPT_POSTFIELDS] = $paramString;
+            $curlOpts[CURLOPT_URL] = $apiUrl . $separator . 'instance=' . $instance;
         }
 
         if ($httpHeader) {
@@ -98,7 +105,7 @@ class CurlCommunication extends AbstractCommunication
 
         if (in_array($method, ['POST', 'PUT', 'PATCH'])) {
             $curlOpts[CURLOPT_HTTPHEADER][] =
-                'Content-Type: ' . ($hasFile ? 'multipart/form-data' : 'application/json');
+                'Content-Type: ' . ($hasFile ? 'multipart/form-data' : 'application/x-www-form-urlencoded');
         }
 
         $curl = curl_init();

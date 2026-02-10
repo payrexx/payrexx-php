@@ -212,7 +212,6 @@ class Communicator
      */
     private function setDefaultHttpHeaders(): void
     {
-        $this->httpHeaders['user-agent'] = 'payrexx-php/' . Payrexx::CLIENT_VERSION;
         $this->httpHeaders['x-api-key'] = $this->apiSecret;
     }
 }
