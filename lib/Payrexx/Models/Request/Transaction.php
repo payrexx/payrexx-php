@@ -29,6 +29,8 @@ class Transaction extends \Payrexx\Models\Base
     protected $fields;
     /** @var string $referenceId */
     protected $referenceId;
+    /** @var string $payoutDescriptor */
+    protected $payoutDescriptor;
     /** @var string $recipient */
     protected $recipient;
     protected $filterDatetimeUtcGreaterThan;
@@ -139,6 +141,22 @@ class Transaction extends \Payrexx\Models\Base
     public function setReferenceId($referenceId)
     {
         $this->referenceId = $referenceId;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPayoutDescriptor()
+    {
+        return $this->payoutDescriptor;
+    }
+
+    /**
+     * @param string $payoutDescriptor
+     */
+    public function setPayoutDescriptor($payoutDescriptor)
+    {
+        $this->payoutDescriptor = $payoutDescriptor;
     }
 
     /**
