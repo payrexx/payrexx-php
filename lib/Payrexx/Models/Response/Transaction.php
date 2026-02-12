@@ -17,179 +17,270 @@ namespace Payrexx\Models\Response;
  */
 class Transaction extends \Payrexx\Models\Request\Transaction
 {
-    private string $time;
-    private string $status;
-    private string $lang;
-    private string $psp;
-    private ?int $pspId;
-    private string $mode;
-    private array $payment;
-    private array $invoice;
-    private ?array $contact;
-    private ?string $pageUuid;
-    private ?int $payrexxFee;
-    private int $fee;
-    private ?bool $refundable;
-    private ?bool $partiallyRefundable;
 
-    public const CONFIRMED = 'confirmed';
-    public const INITIATED = 'initiated';
-    public const WAITING = 'waiting';
-    public const AUTHORIZED = 'authorized';
-    public const RESERVED = 'reserved';
-    public const CANCELLED = 'cancelled';
-    public const REFUNDED = 'refunded';
-    public const DISPUTED = 'disputed';
-    public const DECLINED = 'declined';
-    public const ERROR = 'error';
-    public const EXPIRED = 'expired';
-    public const PARTIALLY_REFUNDED = 'partially-refunded';
-    public const REFUND_PENDING = 'refund_pending';
-    public const INSECURE = 'insecure';
-    public const UNCAPTURED = 'uncaptured';
+    private $time;
+    private $status;
+    private $lang;
+    private $psp;
+    private $pspId;
+    private $mode;
+    private $payment;
+    private $invoice;
+    private $contact;
+    private $pageUuid;
+    private $payrexxFee;
+    private $fee;
+    private $refundable;
+    private $partiallyRefundable;
 
-    public function setTime(string $time): void
+    const CONFIRMED = 'confirmed';
+    const INITIATED = 'initiated';
+    const WAITING = 'waiting';
+    const AUTHORIZED = 'authorized';
+    const RESERVED = 'reserved';
+    const CANCELLED = 'cancelled';
+    const REFUNDED = 'refunded';
+    const DISPUTED = 'disputed';
+    const DECLINED = 'declined';
+    const ERROR = 'error';
+    const EXPIRED = 'expired';
+    const PARTIALLY_REFUNDED = 'partially-refunded';
+    const REFUND_PENDING = 'refund_pending';
+    const INSECURE = 'insecure';
+    const UNCAPTURED = 'uncaptured';
+
+    /**
+     * @access  public
+     * @param   string  $time
+     */
+    public function setTime($time)
     {
         $this->time = $time;
     }
 
-    public function getTime(): string
+    /**
+     * @access  public
+     * @return  string
+     */
+    public function getTime()
     {
         return $this->time;
     }
 
-    public function setStatus(string $status): void
+    /**
+     * @access  public
+     * @param   string  $status
+     */
+    public function setStatus($status)
     {
         $this->status = $status;
     }
 
-    public function getStatus(): string
+    /**
+     * @access  public
+     * @return  string
+     */
+    public function getStatus()
     {
         return $this->status;
     }
 
-    public function setLang(string $lang): void
+    /**
+     * @access  public
+     * @param   string  $lang
+     */
+    public function setLang($lang)
     {
         $this->lang = $lang;
     }
 
-    public function getLang(): string
+    /**
+     * @access  public
+     * @return  string
+     */
+    public function getLang()
     {
         return $this->lang;
     }
 
-    public function setPsp(string $psp): void
+    /**
+     * @access  public
+     * @param   string  $psp
+     */
+    public function setPsp($psp)
     {
         $this->psp = $psp;
     }
 
-    public function getPsp(): string
+    /**
+     * @access  public
+     * @return  string
+     */
+    public function getPsp()
     {
         return $this->psp;
     }
 
-    public function getPspId(): ?int
+    /**
+     * @return int
+     */
+    public function getPspId()
     {
         return $this->pspId;
     }
 
-    public function setPspId(?int $pspId): void
+    /**
+     * @param int $pspId
+     */
+    public function setPspId($pspId)
     {
         $this->pspId = $pspId;
     }
 
-    public function getMode(): string
+    /**
+     * @return mixed
+     */
+    public function getMode()
     {
         return $this->mode;
     }
 
-    public function setMode(string $mode): void
+    /**
+     * @param int $mode
+     */
+    public function setMode($mode)
     {
         $this->mode = $mode;
     }
 
-    public function setPayment(array $payment): void
+    /**
+     * @access  public
+     * @param   array  $payment
+     */
+    public function setPayment($payment)
     {
         $this->payment = $payment;
     }
 
-    public function getPayment(): array
+    /**
+     * @access  public
+     * @return  array
+     */
+    public function getPayment()
     {
         return $this->payment;
     }
 
-    public function getInvoice(): array
+    /**
+     * @return array
+     */
+    public function getInvoice()
     {
         return $this->invoice;
     }
 
-    public function setInvoice(array $invoice): void
+    /**
+     * @param array $invoice
+     */
+    public function setInvoice($invoice)
     {
         $this->invoice = $invoice;
     }
 
-    public function getContact(): ?array
+    /**
+     * @return array
+     */
+    public function getContact()
     {
         return $this->contact;
     }
 
-    public function setContact(?array $contact): void
+    /**
+     * @param array $contact
+     */
+    public function setContact($contact)
     {
         $this->contact = $contact;
     }
 
-    public function getPageUuid(): ?string
+    /**
+     * @return string
+     */
+    public function getPageUuid()
     {
         return $this->pageUuid;
     }
 
-    public function setPageUuid(?string $pageUuid): void
+    /**
+     * @param string $pageUuid
+     */
+    public function setPageUuid($pageUuid)
     {
         $this->pageUuid = $pageUuid;
     }
 
-    public function getPayrexxFee(): ?int
+    /**
+     * @return integer
+     */
+    public function getPayrexxFee()
     {
         return $this->payrexxFee;
     }
 
-    public function setPayrexxFee(?int $payrexxFee): void
+    /**
+     * @param int $payrexxFee
+     */
+    public function setPayrexxFee(int $payrexxFee)
     {
         $this->payrexxFee = $payrexxFee;
     }
 
-    public function getFee(): int
+    /**
+     * @return integer
+     */
+    public function getFee()
     {
         return $this->fee;
     }
 
-    public function setFee(int $fee): void
+    /**
+     * @param int $fee
+     */
+    public function setFee(int $fee)
     {
         $this->fee = $fee;
     }
 
     /**
      * Supported since version 1.2
+     * @return bool|null
      */
-    public function getRefundable(): ?bool
+    public function getRefundable()
     {
         return $this->refundable;
     }
 
-    public function setRefundable(?bool $refundable): void
+    /**
+     * @param mixed $refundable
+     */
+    public function setRefundable($refundable)
     {
         $this->refundable = $refundable;
     }
 
     /**
      * Supported since version 1.2
+     * @return bool|null
      */
-    public function getPartiallyRefundable(): ?bool
+    public function getPartiallyRefundable()
     {
         return $this->partiallyRefundable;
     }
 
-    public function setPartiallyRefundable(?bool $partiallyRefundable): void
+    /**
+     * @param mixed $partiallyRefundable
+     */
+    public function setPartiallyRefundable($partiallyRefundable)
     {
         $this->partiallyRefundable = $partiallyRefundable;
     }

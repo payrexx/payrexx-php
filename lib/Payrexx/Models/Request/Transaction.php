@@ -10,79 +10,114 @@
 
 namespace Payrexx\Models\Request;
 
-use Payrexx\Models\Base;
-use DateTime;
-use DateTimeZone;
-use Payrexx\Models\Response\Transaction as ResponseTransaction;
-
 /**
  * Transaction class
  *
  * @package Payrexx\Models\Request
  */
-class Transaction extends Base
+class Transaction extends \Payrexx\Models\Base
 {
-    protected int $amount = 0;
-    protected string $currency = '';
-    protected string $purpose = '';
-    protected ?float $vatRate = null;
-    protected array $fields = [];
-    protected string $referenceId = '';
-    protected string $payoutDescriptor = '';
-    protected string $recipient = '';
-    protected string $filterDatetimeUtcGreaterThan = '';
-    protected string $filterDatetimeUtcLessThan = '';
-    protected bool $filterMyTransactionsOnly = false;
-    protected string $orderByTime = 'ASC';
-    protected int $offset = 0;
-    protected int $limit = 10;
+    /** @var int $amount */
+    protected $amount;
+    /** @var string $currency */
+    protected $currency;
+    /** @var string $purpose */
+    protected $purpose;
+    /** @var float $vatRate */
+    protected $vatRate;
+    /** @var array $fields */
+    protected $fields;
+    /** @var string $referenceId */
+    protected $referenceId;
+    /** @var string $recipient */
+    protected $recipient;
+    protected $filterDatetimeUtcGreaterThan;
+    protected $filterDatetimeUtcLessThan;
+    protected $filterMyTransactionsOnly = false;
+    /** @var string $orderByTime */
+    protected $orderByTime = 'ASC';
+    protected $offset;
+    protected $limit;
 
-    public function getAmount(): int
+    /**
+     * @return int
+     */
+    public function getAmount()
     {
         return $this->amount;
     }
 
-    public function setAmount(int $amount): void
+    /**
+     * @param int $amount
+     */
+    public function setAmount($amount)
     {
         $this->amount = $amount;
     }
 
+    /**
+     * @return string
+     */
     public function getCurrency(): string
     {
         return $this->currency;
     }
 
+    /**
+     * @param string $currency
+     */
     public function setCurrency(string $currency): void
     {
         $this->currency = $currency;
     }
 
-    public function getPurpose(): string
+    /**
+     * @return string
+     */
+    public function getPurpose()
     {
         return $this->purpose;
     }
 
-    public function setPurpose(string $purpose): void
+    /**
+     * @param string $purpose
+     */
+    public function setPurpose($purpose)
     {
         $this->purpose = $purpose;
     }
 
+    /**
+     * @return float|null
+     */
     public function getVatRate(): ?float
     {
         return $this->vatRate;
     }
 
+    /**
+     * @param float $vatRate
+     */
     public function setVatRate(float $vatRate): void
     {
         $this->vatRate = $vatRate;
     }
 
+    /**
+     * @return array
+     */
     public function getFields(): array
     {
         return $this->fields ?? [];
     }
 
-    public function addField(string $type, ?string $value, array $name = []): void
+    /**
+     * @param string $type
+     * @param string $value
+     * @param array $name
+     * @return void
+     */
+    public function addField(string $type, string $value, array $name = []): void
     {
         $this->fields[$type] = [
             'value' => $value,
@@ -90,98 +125,139 @@ class Transaction extends Base
         ];
     }
 
-    public function getReferenceId(): string
+    /**
+     * @return string
+     */
+    public function getReferenceId()
     {
         return $this->referenceId;
     }
 
-    public function setReferenceId(string $referenceId): void
+    /**
+     * @param string $referenceId
+     */
+    public function setReferenceId($referenceId)
     {
         $this->referenceId = $referenceId;
     }
 
-    public function getPayoutDescriptor(): string
-    {
-        return $this->payoutDescriptor;
-    }
-
-    public function setPayoutDescriptor(string $payoutDescriptor): void
-    {
-        $this->payoutDescriptor = $payoutDescriptor;
-    }
-
-    public function getRecipient(): string
+    /**
+     * @return string
+     */
+    public function getRecipient()
     {
         return $this->recipient;
     }
 
-    public function setRecipient(string $recipient): void
+    /**
+     * @param string $recipient
+     */
+    public function setRecipient($recipient)
     {
         $this->recipient = $recipient;
     }
 
-    public function getFilterDatetimeUtcGreaterThan(): string
+    /**
+     * @return \DateTime
+     */
+    public function getFilterDatetimeUtcGreaterThan()
     {
         return $this->filterDatetimeUtcGreaterThan;
     }
 
-    public function setFilterDatetimeUtcGreaterThan(DateTime $filterDatetimeUtcGreaterThan): void
+    /**
+     * @param \DateTime $filterDatetimeUtcGreaterThan
+     */
+    public function setFilterDatetimeUtcGreaterThan(\DateTime $filterDatetimeUtcGreaterThan): void
     {
-        $this->filterDatetimeUtcGreaterThan = $filterDatetimeUtcGreaterThan->setTimezone(new DateTimeZone('UTC'))->format('Y-m-d H:i:s');
+        $this->filterDatetimeUtcGreaterThan = $filterDatetimeUtcGreaterThan->setTimezone(new \DateTimeZone('UTC'))->format('Y-m-d H:i:s');
     }
 
-    public function getFilterDatetimeUtcLessThan(): string
+    /**
+     * @return \DateTime
+     */
+    public function getFilterDatetimeUtcLessThan()
     {
         return $this->filterDatetimeUtcLessThan;
     }
 
-    public function setFilterDatetimeUtcLessThan(DateTime $filterDatetimeUtcLessThan): void
+    /**
+     * @param \DateTime $filterDatetimeUtcLessThan
+     */
+    public function setFilterDatetimeUtcLessThan(\DateTime $filterDatetimeUtcLessThan): void
     {
-        $this->filterDatetimeUtcLessThan = $filterDatetimeUtcLessThan->setTimezone(new DateTimeZone('UTC'))->format('Y-m-d H:i:s');
+        $this->filterDatetimeUtcLessThan = $filterDatetimeUtcLessThan->setTimezone(new \DateTimeZone('UTC'))->format('Y-m-d H:i:s');
     }
 
+    /**
+     * @return bool
+     */
     public function getFilterMyTransactionsOnly(): bool
     {
         return $this->filterMyTransactionsOnly;
     }
 
+    /**
+     * @param bool $filterMyTransactionsOnly
+     */
     public function setFilterMyTransactionsOnly(bool $filterMyTransactionsOnly): void
     {
         $this->filterMyTransactionsOnly = $filterMyTransactionsOnly;
     }
 
+    /**
+     * @return string|null
+     */
     public function getOrderByTime(): ?string
     {
         return $this->orderByTime;
     }
 
+    /**
+     * @param string $orderByTime
+     */
     public function setOrderByTime(string $orderByTime): void
     {
         $this->orderByTime = $orderByTime;
     }
 
-    public function getOffset(): int
+    /**
+     * @return int
+     */
+    public function getOffset()
     {
         return $this->offset;
     }
 
+    /**
+     * @param int $offset
+     */
     public function setOffset(int $offset): void
     {
         $this->offset = $offset;
     }
 
-    public function getLimit(): int
+    /**
+     * @return int
+     */
+    public function getLimit()
     {
         return $this->limit;
     }
 
+    /**
+     * @param int $limit
+     */
     public function setLimit(int $limit): void
     {
         $this->limit = $limit;
     }
 
-    public function getResponseModel(): ResponseTransaction
+    /**
+     * {@inheritdoc}
+     */
+    public function getResponseModel(): object
     {
-        return new ResponseTransaction();
+        return new \Payrexx\Models\Response\Transaction();
     }
 }
