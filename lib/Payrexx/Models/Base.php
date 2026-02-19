@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * The Base model class for request and response models.
  *
@@ -17,8 +19,8 @@ namespace Payrexx\Models;
  */
 abstract class Base
 {
-    protected string $uuid;
-    protected int|string $id;
+    protected ?string $uuid = null;
+    protected int|string|null $id = null;
 
     /**
      * Converts array to response model
@@ -27,10 +29,10 @@ abstract class Base
     {
         foreach ($data as $param => $value) {
             $method = 'set' . str_replace(' ', '', ucwords(str_replace('_', ' ', $param)));
-            if (!method_exists($this, $method)) {
-                continue;
+
+            if (method_exists($this, $method)) {
+                $this->{$method}($value);
             }
-            $this->$method($value);
         }
 
         return $this;
@@ -56,9 +58,9 @@ abstract class Base
     /**
      * Returns the corresponding response model object
      */
-    public abstract function getResponseModel(): object;
+    abstract public function getResponseModel(): object;
 
-    public function getId(): int|string
+    public function getId(): int|string|null
     {
         return $this->id;
     }
@@ -68,7 +70,7 @@ abstract class Base
         $this->id = $id;
     }
 
-    public function getUuid(): string
+    public function getUuid(): ?string
     {
         return $this->uuid;
     }

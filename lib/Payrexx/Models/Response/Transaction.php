@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * Transaction response model
  *
@@ -10,27 +12,29 @@
 
 namespace Payrexx\Models\Response;
 
+use Payrexx\Models\Request\Transaction as RequestTransaction;
+
 /**
  * Transaction class
  *
  * @package Payrexx\Models\Response
  */
-class Transaction extends \Payrexx\Models\Request\Transaction
+class Transaction extends RequestTransaction
 {
-    private string $time;
-    private string $status;
-    private string $lang;
-    private string $psp;
-    private ?int $pspId;
-    private string $mode;
-    private array $payment;
-    private array $invoice;
-    private ?array $contact;
-    private ?string $pageUuid;
-    private ?int $payrexxFee;
-    private int $fee;
-    private ?bool $refundable;
-    private ?bool $partiallyRefundable;
+    private ?string $time = null;
+    private ?string $status = null;
+    private ?string $lang = null;
+    private ?string $psp = null;
+    private ?int $pspId = null;
+    private ?string $mode = null;
+    private array $payment = [];
+    private array $invoice = [];
+    private ?array $contact = null;
+    private ?string $pageUuid = null;
+    private ?int $payrexxFee = null;
+    private ?int $fee = null;
+    private ?bool $refundable = null;
+    private ?bool $partiallyRefundable = null;
 
     public const CONFIRMED = 'confirmed';
     public const INITIATED = 'initiated';
@@ -48,14 +52,19 @@ class Transaction extends \Payrexx\Models\Request\Transaction
     public const INSECURE = 'insecure';
     public const UNCAPTURED = 'uncaptured';
 
+    public function getTime(): ?string
+    {
+        return $this->time;
+    }
+
     public function setTime(string $time): void
     {
         $this->time = $time;
     }
 
-    public function getTime(): string
+    public function getStatus(): ?string
     {
-        return $this->time;
+        return $this->status;
     }
 
     public function setStatus(string $status): void
@@ -63,9 +72,9 @@ class Transaction extends \Payrexx\Models\Request\Transaction
         $this->status = $status;
     }
 
-    public function getStatus(): string
+    public function getLang(): ?string
     {
-        return $this->status;
+        return $this->lang;
     }
 
     public function setLang(string $lang): void
@@ -73,19 +82,14 @@ class Transaction extends \Payrexx\Models\Request\Transaction
         $this->lang = $lang;
     }
 
-    public function getLang(): string
+    public function getPsp(): ?string
     {
-        return $this->lang;
+        return $this->psp;
     }
 
     public function setPsp(string $psp): void
     {
         $this->psp = $psp;
-    }
-
-    public function getPsp(): string
-    {
-        return $this->psp;
     }
 
     public function getPspId(): ?int
@@ -98,7 +102,7 @@ class Transaction extends \Payrexx\Models\Request\Transaction
         $this->pspId = $pspId;
     }
 
-    public function getMode(): string
+    public function getMode(): ?string
     {
         return $this->mode;
     }
@@ -108,14 +112,14 @@ class Transaction extends \Payrexx\Models\Request\Transaction
         $this->mode = $mode;
     }
 
-    public function setPayment(array $payment): void
-    {
-        $this->payment = $payment;
-    }
-
     public function getPayment(): array
     {
         return $this->payment;
+    }
+
+    public function setPayment(array $payment): void
+    {
+        $this->payment = $payment;
     }
 
     public function getInvoice(): array
@@ -158,7 +162,7 @@ class Transaction extends \Payrexx\Models\Request\Transaction
         $this->payrexxFee = $payrexxFee;
     }
 
-    public function getFee(): int
+    public function getFee(): ?int
     {
         return $this->fee;
     }

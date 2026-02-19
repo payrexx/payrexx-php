@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * Transaction request model
  *
@@ -10,9 +12,9 @@
 
 namespace Payrexx\Models\Request;
 
-use Payrexx\Models\Base;
 use DateTime;
 use DateTimeZone;
+use Payrexx\Models\Base;
 use Payrexx\Models\Response\Transaction as ResponseTransaction;
 
 /**
@@ -22,22 +24,22 @@ use Payrexx\Models\Response\Transaction as ResponseTransaction;
  */
 class Transaction extends Base
 {
-    protected int $amount;
-    protected string $currency;
-    protected string $purpose;
-    protected float $vatRate;
-    protected array $fields;
-    protected string $referenceId;
-    protected string $payoutDescriptor;
-    protected string $recipient;
-    protected string $filterDatetimeUtcGreaterThan;
-    protected string $filterDatetimeUtcLessThan;
+    protected ?int $amount = null;
+    protected ?string $currency = null;
+    protected ?string $purpose = null;
+    protected ?float $vatRate = null;
+    protected array $fields = [];
+    protected ?string $referenceId = null;
+    protected ?string $payoutDescriptor = null;
+    protected ?string $recipient = null;
+    protected ?string $filterDatetimeUtcGreaterThan = null;
+    protected ?string $filterDatetimeUtcLessThan = null;
     protected bool $filterMyTransactionsOnly = false;
     protected string $orderByTime = 'ASC';
-    protected int $offset;
-    protected int $limit;
+    protected ?int $offset = null;
+    protected ?int $limit = null;
 
-    public function getAmount(): int
+    public function getAmount(): ?int
     {
         return $this->amount;
     }
@@ -47,17 +49,17 @@ class Transaction extends Base
         $this->amount = $amount;
     }
 
-    public function getCurrency(): string
+    public function getCurrency(): ?string
     {
         return $this->currency;
     }
 
     public function setCurrency(string $currency): void
     {
-        $this->currency = $currency;
+        $this->currency = strtoupper($currency);
     }
 
-    public function getPurpose(): string
+    public function getPurpose(): ?string
     {
         return $this->purpose;
     }
@@ -79,18 +81,18 @@ class Transaction extends Base
 
     public function getFields(): array
     {
-        return $this->fields ?? [];
+        return $this->fields;
     }
 
     public function addField(string $type, ?string $value, array $name = []): void
     {
         $this->fields[$type] = [
             'value' => $value,
-            'name' => $name,
+            'name'  => $name,
         ];
     }
 
-    public function getReferenceId(): string
+    public function getReferenceId(): ?string
     {
         return $this->referenceId;
     }
@@ -100,7 +102,7 @@ class Transaction extends Base
         $this->referenceId = $referenceId;
     }
 
-    public function getPayoutDescriptor(): string
+    public function getPayoutDescriptor(): ?string
     {
         return $this->payoutDescriptor;
     }
@@ -110,7 +112,7 @@ class Transaction extends Base
         $this->payoutDescriptor = $payoutDescriptor;
     }
 
-    public function getRecipient(): string
+    public function getRecipient(): ?string
     {
         return $this->recipient;
     }
@@ -120,24 +122,30 @@ class Transaction extends Base
         $this->recipient = $recipient;
     }
 
-    public function getFilterDatetimeUtcGreaterThan(): string
+    public function getFilterDatetimeUtcGreaterThan(): ?string
     {
         return $this->filterDatetimeUtcGreaterThan;
     }
 
-    public function setFilterDatetimeUtcGreaterThan(DateTime $filterDatetimeUtcGreaterThan): void
+    public function setFilterDatetimeUtcGreaterThan(DateTime $dateTime): void
     {
-        $this->filterDatetimeUtcGreaterThan = $filterDatetimeUtcGreaterThan->setTimezone(new DateTimeZone('UTC'))->format('Y-m-d H:i:s');
+        $this->filterDatetimeUtcGreaterThan = 
+            $dateTime
+                ->setTimezone(new DateTimeZone('UTC'))
+                ->format('Y-m-d H:i:s');
     }
 
-    public function getFilterDatetimeUtcLessThan(): string
+    public function getFilterDatetimeUtcLessThan(): ?string
     {
         return $this->filterDatetimeUtcLessThan;
     }
 
-    public function setFilterDatetimeUtcLessThan(DateTime $filterDatetimeUtcLessThan): void
+    public function setFilterDatetimeUtcLessThan(DateTime $dateTime): void
     {
-        $this->filterDatetimeUtcLessThan = $filterDatetimeUtcLessThan->setTimezone(new DateTimeZone('UTC'))->format('Y-m-d H:i:s');
+        $this->filterDatetimeUtcLessThan = 
+            $dateTime
+                ->setTimezone(new DateTimeZone('UTC'))
+                ->format('Y-m-d H:i:s');
     }
 
     public function getFilterMyTransactionsOnly(): bool
@@ -145,39 +153,45 @@ class Transaction extends Base
         return $this->filterMyTransactionsOnly;
     }
 
-    public function setFilterMyTransactionsOnly(bool $filterMyTransactionsOnly): void
+    public function setFilterMyTransactionsOnly(bool $value): void
     {
-        $this->filterMyTransactionsOnly = $filterMyTransactionsOnly;
+        $this->filterMyTransactionsOnly = $value;
     }
 
-    public function getOrderByTime(): ?string
+    public function getOrderByTime(): string
     {
         return $this->orderByTime;
     }
 
     public function setOrderByTime(string $orderByTime): void
     {
+        $orderByTime = strtoupper($orderByTime);
+
+        if (!in_array($orderByTime, ['ASC', 'DESC'], true)) {
+            throw new \InvalidArgumentException('Order must be ASC or DESC');
+        }
+
         $this->orderByTime = $orderByTime;
     }
 
-    public function getOffset(): int
+    public function getOffset(): ?int
     {
         return $this->offset;
     }
 
     public function setOffset(int $offset): void
     {
-        $this->offset = $offset;
+        $this->offset = max(0, $offset);
     }
 
-    public function getLimit(): int
+    public function getLimit(): ?int
     {
         return $this->limit;
     }
 
     public function setLimit(int $limit): void
     {
-        $this->limit = $limit;
+        $this->limit = max(1, $limit);
     }
 
     public function getResponseModel(): ResponseTransaction
