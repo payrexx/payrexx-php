@@ -17,20 +17,21 @@ namespace Payrexx\Models\Response;
  */
 class Transaction extends \Payrexx\Models\Request\Transaction
 {
-    private string $time;
-    private string $status;
-    private string $lang;
-    private string $psp;
-    private ?int $pspId;
-    private string $mode;
-    private array $payment;
-    private array $invoice;
-    private ?array $contact;
-    private ?string $pageUuid;
-    private ?int $payrexxFee;
-    private int $fee;
-    private ?bool $refundable;
-    private ?bool $partiallyRefundable;
+
+    private $time;
+    private $status;
+    private $lang;
+    private $psp;
+    private $pspId;
+    private $mode;
+    private $payment;
+    private $invoice;
+    private $contact;
+    private $pageUuid;
+    private $payrexxFee;
+    private $fee;
+    private $refundable;
+    private $partiallyRefundable;
 
     public const CONFIRMED = 'confirmed';
     public const INITIATED = 'initiated';
@@ -48,148 +49,228 @@ class Transaction extends \Payrexx\Models\Request\Transaction
     public const INSECURE = 'insecure';
     public const UNCAPTURED = 'uncaptured';
 
-    public function setTime(string $time): void
+    /**
+     * @param string $time
+     */
+    public function setTime($time)
     {
         $this->time = $time;
     }
 
-    public function getTime(): string
+    /**
+     * @return string
+     */
+    public function getTime()
     {
         return $this->time;
     }
 
-    public function setStatus(string $status): void
+    /**
+     * @param string $status
+     */
+    public function setStatus($status)
     {
         $this->status = $status;
     }
 
-    public function getStatus(): string
+    /**
+     * @return string
+     */
+    public function getStatus()
     {
         return $this->status;
     }
 
-    public function setLang(string $lang): void
+    /**
+     * @param string $lang
+     */
+    public function setLang($lang)
     {
         $this->lang = $lang;
     }
 
-    public function getLang(): string
+    /**
+     * @return string
+     */
+    public function getLang()
     {
         return $this->lang;
     }
 
-    public function setPsp(string $psp): void
+    /**
+     * @param string $psp
+     */
+    public function setPsp($psp)
     {
         $this->psp = $psp;
     }
 
-    public function getPsp(): string
+    /**
+     * @return string
+     */
+    public function getPsp()
     {
         return $this->psp;
     }
 
-    public function getPspId(): ?int
+    /**
+     * @return int
+     */
+    public function getPspId()
     {
         return $this->pspId;
     }
 
-    public function setPspId(?int $pspId): void
+    /**
+     * @param int $pspId
+     */
+    public function setPspId($pspId)
     {
         $this->pspId = $pspId;
     }
 
-    public function getMode(): string
+    /**
+     * @return int
+     */
+    public function getMode()
     {
         return $this->mode;
     }
 
-    public function setMode(string $mode): void
+    /**
+     * @param int $mode
+     */
+    public function setMode($mode)
     {
         $this->mode = $mode;
     }
 
-    public function setPayment(array $payment): void
+    /**
+     * @param array $payment
+     */
+    public function setPayment($payment)
     {
         $this->payment = $payment;
     }
 
-    public function getPayment(): array
+    /**
+     * @return array
+     */
+    public function getPayment()
     {
         return $this->payment;
     }
 
-    public function getInvoice(): array
+    /**
+     * @return array
+     */
+    public function getInvoice()
     {
         return $this->invoice;
     }
 
-    public function setInvoice(array $invoice): void
+    /**
+     * @param array $invoice
+     */
+    public function setInvoice($invoice)
     {
         $this->invoice = $invoice;
     }
 
-    public function getContact(): ?array
+    /**
+     * @return array
+     */
+    public function getContact()
     {
         return $this->contact;
     }
 
-    public function setContact(?array $contact): void
+    /**
+     * @param array $contact
+     */
+    public function setContact($contact)
     {
         $this->contact = $contact;
     }
 
-    public function getPageUuid(): ?string
+    /**
+     * @return string
+     */
+    public function getPageUuid()
     {
         return $this->pageUuid;
     }
 
-    public function setPageUuid(?string $pageUuid): void
+    /**
+     * @param string $pageUuid
+     */
+    public function setPageUuid($pageUuid)
     {
         $this->pageUuid = $pageUuid;
     }
 
-    public function getPayrexxFee(): ?int
+    /**
+     * @return int
+     */
+    public function getPayrexxFee()
     {
         return $this->payrexxFee;
     }
 
-    public function setPayrexxFee(?int $payrexxFee): void
+    /**
+     * @param int $payrexxFee
+     */
+    public function setPayrexxFee(int $payrexxFee)
     {
         $this->payrexxFee = $payrexxFee;
     }
 
-    public function getFee(): int
+    /**
+     * @return int
+     */
+    public function getFee()
     {
         return $this->fee;
     }
 
-    public function setFee(int $fee): void
+    /**
+     * @param int $fee
+     */
+    public function setFee(int $fee)
     {
         $this->fee = $fee;
     }
 
     /**
      * Supported since version 1.2
+     * @return bool|null
      */
-    public function getRefundable(): ?bool
+    public function getRefundable()
     {
         return $this->refundable;
     }
 
-    public function setRefundable(?bool $refundable): void
+    /**
+     * @param bool|null $refundable
+     */
+    public function setRefundable($refundable)
     {
         $this->refundable = $refundable;
     }
 
     /**
      * Supported since version 1.2
+     * @return bool|null
      */
-    public function getPartiallyRefundable(): ?bool
+    public function getPartiallyRefundable()
     {
         return $this->partiallyRefundable;
     }
 
-    public function setPartiallyRefundable(?bool $partiallyRefundable): void
+    /**
+     * @param bool|null $partiallyRefundable
+     */
+    public function setPartiallyRefundable($partiallyRefundable)
     {
         $this->partiallyRefundable = $partiallyRefundable;
     }
