@@ -33,25 +33,24 @@ class Transaction extends \Payrexx\Models\Request\Transaction
     private $refundable;
     private $partiallyRefundable;
 
-    const CONFIRMED = 'confirmed';
-    const INITIATED = 'initiated';
-    const WAITING = 'waiting';
-    const AUTHORIZED = 'authorized';
-    const RESERVED = 'reserved';
-    const CANCELLED = 'cancelled';
-    const REFUNDED = 'refunded';
-    const DISPUTED = 'disputed';
-    const DECLINED = 'declined';
-    const ERROR = 'error';
-    const EXPIRED = 'expired';
-    const PARTIALLY_REFUNDED = 'partially-refunded';
-    const REFUND_PENDING = 'refund_pending';
-    const INSECURE = 'insecure';
-    const UNCAPTURED = 'uncaptured';
+    public const CONFIRMED = 'confirmed';
+    public const INITIATED = 'initiated';
+    public const WAITING = 'waiting';
+    public const AUTHORIZED = 'authorized';
+    public const RESERVED = 'reserved';
+    public const CANCELLED = 'cancelled';
+    public const REFUNDED = 'refunded';
+    public const DISPUTED = 'disputed';
+    public const DECLINED = 'declined';
+    public const ERROR = 'error';
+    public const EXPIRED = 'expired';
+    public const PARTIALLY_REFUNDED = 'partially-refunded';
+    public const REFUND_PENDING = 'refund_pending';
+    public const INSECURE = 'insecure';
+    public const UNCAPTURED = 'uncaptured';
 
     /**
-     * @access  public
-     * @param   string  $time
+     * @param string $time
      */
     public function setTime($time)
     {
@@ -59,8 +58,7 @@ class Transaction extends \Payrexx\Models\Request\Transaction
     }
 
     /**
-     * @access  public
-     * @return  string
+     * @return string
      */
     public function getTime()
     {
@@ -68,8 +66,7 @@ class Transaction extends \Payrexx\Models\Request\Transaction
     }
 
     /**
-     * @access  public
-     * @param   string  $status
+     * @param string $status
      */
     public function setStatus($status)
     {
@@ -77,8 +74,7 @@ class Transaction extends \Payrexx\Models\Request\Transaction
     }
 
     /**
-     * @access  public
-     * @return  string
+     * @return string
      */
     public function getStatus()
     {
@@ -86,8 +82,7 @@ class Transaction extends \Payrexx\Models\Request\Transaction
     }
 
     /**
-     * @access  public
-     * @param   string  $lang
+     * @param string $lang
      */
     public function setLang($lang)
     {
@@ -95,8 +90,7 @@ class Transaction extends \Payrexx\Models\Request\Transaction
     }
 
     /**
-     * @access  public
-     * @return  string
+     * @return string
      */
     public function getLang()
     {
@@ -104,8 +98,7 @@ class Transaction extends \Payrexx\Models\Request\Transaction
     }
 
     /**
-     * @access  public
-     * @param   string  $psp
+     * @param string $psp
      */
     public function setPsp($psp)
     {
@@ -113,8 +106,7 @@ class Transaction extends \Payrexx\Models\Request\Transaction
     }
 
     /**
-     * @access  public
-     * @return  string
+     * @return string
      */
     public function getPsp()
     {
@@ -138,7 +130,7 @@ class Transaction extends \Payrexx\Models\Request\Transaction
     }
 
     /**
-     * @return mixed
+     * @return int
      */
     public function getMode()
     {
@@ -154,8 +146,7 @@ class Transaction extends \Payrexx\Models\Request\Transaction
     }
 
     /**
-     * @access  public
-     * @param   array  $payment
+     * @param array $payment
      */
     public function setPayment($payment)
     {
@@ -163,8 +154,7 @@ class Transaction extends \Payrexx\Models\Request\Transaction
     }
 
     /**
-     * @access  public
-     * @return  array
+     * @return array
      */
     public function getPayment()
     {
@@ -220,7 +210,7 @@ class Transaction extends \Payrexx\Models\Request\Transaction
     }
 
     /**
-     * @return integer
+     * @return int
      */
     public function getPayrexxFee()
     {
@@ -236,7 +226,7 @@ class Transaction extends \Payrexx\Models\Request\Transaction
     }
 
     /**
-     * @return integer
+     * @return int
      */
     public function getFee()
     {
@@ -261,7 +251,7 @@ class Transaction extends \Payrexx\Models\Request\Transaction
     }
 
     /**
-     * @param mixed $refundable
+     * @param bool|null $refundable
      */
     public function setRefundable($refundable)
     {
@@ -278,7 +268,7 @@ class Transaction extends \Payrexx\Models\Request\Transaction
     }
 
     /**
-     * @param mixed $partiallyRefundable
+     * @param bool|null $partiallyRefundable
      */
     public function setPartiallyRefundable($partiallyRefundable)
     {

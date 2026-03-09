@@ -900,6 +900,9 @@ class Gateway extends Base
         return $this->isPriceExclusiveVat;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getResponseModel(): ResponseGateway
     {
         return new ResponseGateway();
