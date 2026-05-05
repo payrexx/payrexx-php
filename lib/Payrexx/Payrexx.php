@@ -45,7 +45,7 @@ class Payrexx
     }
 
     /**
-     * This method passes header to the request.
+     * This method passes the header to the request.
      * The format of the elements needs to be like this: 'Content-type: multipart/form-data'
      */
     public function setHttpHeaders(array $header): void
@@ -54,7 +54,7 @@ class Payrexx
     }
 
     /**
-     * This method returns the version of the API communicator which is the API version used for this
+     * This method returns the version of the API communicator, which is the API version used for this
      * application.
      */
     public function getVersion(): ?string
@@ -63,7 +63,7 @@ class Payrexx
     }
 
     /**
-     * This magic method is used to call any method available in communication object.
+     * This magic method is used to call any method available in a communication object.
      *
      * @throws PayrexxException The model argument is missing or the method is not implemented
      */
