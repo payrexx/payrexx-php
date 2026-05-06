@@ -116,7 +116,7 @@ class CurlCommunication extends AbstractCommunication
 
         if ($responseBody === false) {
             $responseBody = [
-                'status' => '"error"',
+                'status' => 'error',
                 'message' => $this->curlError($curl)
             ];
         }
