@@ -66,7 +66,7 @@ class CurlCommunication extends AbstractCommunication
         if (in_array($method, ['GET', 'DELETE']) && !empty($params)) {
             $curlOpts[CURLOPT_URL] = $apiUrl . $separator . $paramString;
         } else {
-            $curlOpts[CURLOPT_POSTFIELDS] = $paramString;
+            $curlOpts[CURLOPT_POSTFIELDS] = json_encode($params);
             $curlOpts[CURLOPT_URL] = $apiUrl . $separator . 'instance=' . $instance;
         }
 
@@ -105,7 +105,7 @@ class CurlCommunication extends AbstractCommunication
 
         if (in_array($method, ['POST', 'PUT', 'PATCH'])) {
             $curlOpts[CURLOPT_HTTPHEADER][] =
-                'Content-Type: ' . ($hasFile ? 'multipart/form-data' : 'application/x-www-form-urlencoded');
+                'Content-Type: ' . ($hasFile ? 'multipart/form-data' : 'application/json');
         }
 
         $curl = curl_init();
