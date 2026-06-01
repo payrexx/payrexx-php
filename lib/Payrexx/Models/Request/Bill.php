@@ -34,8 +34,8 @@ class Bill extends Base
     protected array $cashDiscounts;
     protected int $shippingCost;
     protected int $applicationFee;
-    protected string $note;
-    protected string $terms;
+    protected ?string $note;
+    protected ?string $terms;
     protected array $attachments;
     protected array $bankInformation;
     protected ?string $payoutDescriptor;
@@ -160,22 +160,22 @@ class Bill extends Base
         return $this->applicationFee;
     }
 
-    public function setNote(string $note): void
+    public function setNote(?string $note): void
     {
         $this->note = $note;
     }
 
-    public function getNote(): string
+    public function getNote(): ?string
     {
         return $this->note;
     }
 
-    public function setTerms(string $terms): void
+    public function setTerms(?string $terms): void
     {
         $this->terms = $terms;
     }
 
-    public function getTerms(): string
+    public function getTerms(): ?string
     {
         return $this->terms;
     }
