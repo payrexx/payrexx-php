@@ -33,7 +33,10 @@ class QrCode extends Base
         $this->webshopUrl = $webshopUrl;
     }
 
-    public function getResponseModel(): ResponseQrCode
+    /**
+     * @return ResponseQrCode
+     */
+    public function getResponseModel(): object
     {
         return new ResponseQrCode();
     }
