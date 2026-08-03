@@ -316,7 +316,10 @@ class Bill extends Base
         $this->limit = $limit;
     }
 
-    public function getResponseModel(): ResponseBill
+    /**
+     * @return ResponseBill
+     */
+    public function getResponseModel(): object
     {
         return new ResponseBill();
     }

@@ -56,7 +56,10 @@ class PaymentMethod extends Base
         $this->filterPsp = $filterPsp;
     }
 
-    public function getResponseModel(): ResponsePaymentMethod
+    /**
+     * @return ResponsePaymentMethod
+     */
+    public function getResponseModel(): object
     {
         return new ResponsePaymentMethod();
     }

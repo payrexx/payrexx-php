@@ -38,7 +38,10 @@ class AuthToken extends Base
         $this->userId = $userId;
     }
 
-    public function getResponseModel(): ResponseAuthToken
+    /**
+     * @return ResponseAuthToken
+     */
+    public function getResponseModel(): object
     {
         return new ResponseAuthToken();
     }

@@ -271,7 +271,10 @@ class Page extends Base
         ];
     }
 
-    public function getResponseModel(): ResponsePage
+    /**
+     * @return ResponsePage
+     */
+    public function getResponseModel(): object
     {
         return new ResponsePage();
     }

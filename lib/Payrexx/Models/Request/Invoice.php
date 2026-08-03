@@ -386,7 +386,10 @@ class Invoice extends Base
         $this->expirationDate = $expirationDate;
     }
 
-    public function getResponseModel(): ResponseInvoice
+    /**
+     * @return ResponseInvoice
+     */
+    public function getResponseModel(): object
     {
         return new ResponseInvoice();
     }

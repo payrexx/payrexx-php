@@ -68,7 +68,10 @@ class Payout extends Base
         $this->statementDescriptor = $statementDescriptor;
     }
 
-    public function getResponseModel(): ResponsePayout
+    /**
+     * @return ResponsePayout
+     */
+    public function getResponseModel(): object
     {
         return new ResponsePayout();
     }

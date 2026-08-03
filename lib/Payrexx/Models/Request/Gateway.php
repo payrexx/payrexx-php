@@ -902,8 +902,10 @@ class Gateway extends Base
 
     /**
      * {@inheritdoc}
+     *
+     * @return ResponseGateway
      */
-    public function getResponseModel(): ResponseGateway
+    public function getResponseModel(): object
     {
         return new ResponseGateway();
     }
