@@ -46,6 +46,10 @@ class CurlCommunication extends AbstractCommunication
             CURLOPT_USERAGENT => 'payrexx-php/' . Payrexx::CLIENT_VERSION,
             CURLOPT_SSL_VERIFYPEER => true,
             CURLOPT_CAINFO => dirname(__DIR__) . '/certs/ca.pem',
+            // Bound the request so a slow API fails as a normal cURL error instead of
+            // hanging until PHP's max_execution_time kills the process mid-request.
+            CURLOPT_CONNECTTIMEOUT => 5,
+            CURLOPT_TIMEOUT => 20,
         ];
 
         $instance = $params['instance'] ?? '';
