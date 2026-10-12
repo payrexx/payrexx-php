@@ -156,7 +156,9 @@ class Communicator
                 throw new PayrexxException('Payrexx PHP: Configuration is wrong! Check instance name and API secret', $response['info']['http_code']);
             }
 
-            $exception = new PayrexxException($response['body']['message'], $response['info']['http_code']);
+            // No HTTP code means the request itself failed (e.g. cURL error), carry the transport error code instead.
+            $code = $response['info']['http_code'] ?: ($response['body']['code'] ?? 0);
+            $exception = new PayrexxException($response['body']['message'], $code);
             if (!empty($response['body']['reason'])) {
                 $exception->setReason($response['body']['reason']);
             }

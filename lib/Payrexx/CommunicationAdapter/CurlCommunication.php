@@ -121,7 +121,8 @@ class CurlCommunication extends AbstractCommunication
         if ($responseBody === false) {
             $responseBody = [
                 'status' => 'error',
-                'message' => $this->curlError($curl)
+                'message' => $this->curlErrorMessage($curl),
+                'code' => $this->curlError($curl),
             ];
         }
         curl_close($curl);
@@ -149,5 +150,10 @@ class CurlCommunication extends AbstractCommunication
     protected function curlError(CurlHandle $curl): int
     {
         return curl_errno($curl);
+    }
+
+    protected function curlErrorMessage(CurlHandle $curl): string
+    {
+        return curl_error($curl);
     }
 }
