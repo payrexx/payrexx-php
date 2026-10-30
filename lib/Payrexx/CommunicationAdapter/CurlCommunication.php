@@ -125,7 +125,6 @@ class CurlCommunication extends AbstractCommunication
                 'code' => $this->curlError($curl),
             ];
         }
-        curl_close($curl);
 
         if (($responseInfo['content_type'] ?? '') === 'application/json') {
             $responseBody = json_decode($responseBody, true);
