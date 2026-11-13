@@ -131,6 +131,21 @@ Notes:
 
 ---
 
+## Timeouts (cURL handler)
+The default cURL communication handler allows 15 seconds for the connect phase (DNS lookup, TCP and TLS handshake) and 20 seconds for the whole request. To use different values, extend the handler and pass your class as communication handler:
+
+```PHP
+class MyCurlCommunication extends \Payrexx\CommunicationAdapter\CurlCommunication
+{
+    protected int $connectTimeout = 10; // seconds, includes the DNS lookup
+    protected int $timeout = 25;        // seconds, whole request
+}
+
+$payrexx = new \Payrexx\Payrexx($instance, $apiSecret, MyCurlCommunication::class);
+```
+
+---
+
 ## Documentation and Support
 For detailed information about the API endpoints and data models, please refer to the official Payrexx REST API documentation:
 https://developers.payrexx.com/v1.0/reference

@@ -33,6 +33,23 @@ if (!extension_loaded('curl')) {
  */
 class CurlCommunication extends AbstractCommunication
 {
+    /**
+     * Maximum seconds for the connect phase, which includes the DNS lookup.
+     *
+     * Kept well above the default resolver timeout (glibc/musl: 5 s per query) so a single
+     * lost DNS reply makes the request slower instead of failing it with "Resolving timed out".
+     * Override in a subclass (passed as communication handler) to tune it.
+     */
+    protected int $connectTimeout = 15;
+
+    /**
+     * Maximum seconds for the whole request, connect phase included.
+     *
+     * Bounds the request so a slow API fails as a normal cURL error instead of
+     * hanging until PHP's max_execution_time kills the process mid-request.
+     */
+    protected int $timeout = 20;
+
     public function requestApi(
         string $apiUrl,
         array $params = [],
@@ -46,10 +63,8 @@ class CurlCommunication extends AbstractCommunication
             CURLOPT_USERAGENT => 'payrexx-php/' . Payrexx::CLIENT_VERSION,
             CURLOPT_SSL_VERIFYPEER => true,
             CURLOPT_CAINFO => dirname(__DIR__) . '/certs/ca.pem',
-            // Bound the request so a slow API fails as a normal cURL error instead of
-            // hanging until PHP's max_execution_time kills the process mid-request.
-            CURLOPT_CONNECTTIMEOUT => 5,
-            CURLOPT_TIMEOUT => 20,
+            CURLOPT_CONNECTTIMEOUT => $this->connectTimeout,
+            CURLOPT_TIMEOUT => $this->timeout,
         ];
 
         $instance = $params['instance'] ?? '';
@@ -113,7 +128,7 @@ class CurlCommunication extends AbstractCommunication
         }
 
         $curl = curl_init();
-        curl_setopt_array($curl, $curlOpts);
+        $this->curlSetOptArray($curl, $curlOpts);
 
         $responseBody = $this->curlExec($curl);
         $responseInfo = $this->curlInfo($curl);
@@ -135,6 +150,11 @@ class CurlCommunication extends AbstractCommunication
             'info' => $responseInfo,
             'body' => $responseBody
         ];
+    }
+
+    protected function curlSetOptArray(CurlHandle $curl, array $options): bool
+    {
+        return curl_setopt_array($curl, $options);
     }
 
     protected function curlExec(CurlHandle $curl): string|bool
